@@ -31,6 +31,7 @@
 from gi.repository import Adw
 from gi.repository import Gtk
 
+from .draw import wave
 from .cava import Cava
 from threading import Thread
 
@@ -70,21 +71,8 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.header.pack_start(self.btn)
 
     def draw_func(self, area, cr, width, height, data, n):
-        ls = len(self.cava_sample)
-        if ls == 0:
-            return
-        cr.set_source_rgb(0, 0, 0)
-        cr.move_to(0, (1.0 - self.cava_sample[0]) * height)
-        for i in range(ls - 1):
-            cr.rel_curve_to(width / (ls - 1) / 2.0, 0, \
-                width / (ls - 1) / 2.0, \
-                (self.cava_sample[i] - self.cava_sample[i+1]) * height, \
-                width / (ls - 1), \
-                (self.cava_sample[i] - self.cava_sample[i+1]) * height)
-        cr.line_to(width, height)
-        cr.line_to(0, height)
-        cr.close_path()
-        cr.fill()
+        if len(self.cava_sample) > 0:
+            wave(self.cava_sample, cr, width, height)
 
     def on_close_request(self, w):
         self.cava.stop()

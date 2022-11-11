@@ -31,23 +31,8 @@
 import os
 import subprocess
 import struct
-import tempfile
 import signal
 
-BARS = 16
-
-config = """
-[general]
-bars = 16
-framerate = 60
-[output]
-method = raw
-raw_target = /dev/stdout
-bit_format = 16bit
-[smoothing]
-monstercat = 1
-waves = 0
-"""
 
 class Cava:
     def __init__(self, cavalier_window):
@@ -57,22 +42,39 @@ class Cava:
         self.cavalier = cavalier_window
         self.running = False
 
+        # Cava config options
+        self.bars = 16
+        self.channels = 'mono'
+        self.monstercat = 1
+        self.waves = 0
+        self.noise_reduction = 0.77
+
+        if os.getenv('XDG_CONFIG_HOME'):
+            self.config_dir = os.getenv('XDG_CONFIG_HOME') + '/cavalier'
+        else:
+            self.config_dir = os.getenv('HOME') + '/.config/cavalier'
+        if not os.path.isdir(self.config_dir):
+            os.makedirs(self.config_dir)
+        self.config_file_path = self.config_dir + '/config'
+        self.write_config()
+
     def run(self):
         self.running = True
-        with tempfile.NamedTemporaryFile() as config_file:
-            config_file.write(config.encode())
-            config_file.flush()
-            self.process = subprocess.Popen(["cava", "-p", config_file.name], stdout=subprocess.PIPE)
-            chunk = self.bytesize * BARS
-            fmt = self.bytetype * BARS
-            source = self.process.stdout
-            while True:
-                data = source.read(chunk)
-                if len(data) < chunk or not self.running:
-                    break
-                sample = [i / self.bytenorm for i in struct.unpack(fmt, data)]
-                self.cavalier.cava_sample = sample
-                self.cavalier.drawing_area.queue_draw()
+        self.process = subprocess.Popen(["cava", "-p", self.config_file_path], \
+            stdout=subprocess.PIPE)
+        source = self.process.stdout
+        self.reading_preparation()
+        while True:
+            data = source.read(self.chunk)
+            if len(data) < self.chunk or not self.running:
+                break
+            sample = [i / self.bytenorm for i in struct.unpack(self.fmt, data)]
+            self.cavalier.cava_sample = sample
+            self.cavalier.drawing_area.queue_draw()
+
+    def reading_preparation(self):
+        self.chunk = self.bytesize * self.bars
+        self.fmt = self.bytetype * self.bars
 
     def stop(self):
         if self.running:
@@ -81,5 +83,32 @@ class Cava:
 
     def reload(self):
         if self.running:
+            self.reading_preparation()
             self.process.send_signal(signal.SIGUSR1)
+
+    def write_config(self):
+        try:
+            f = open(self.config_file_path, 'w')
+            conf = '\n'.join([
+                '[general]',
+                f'bars = {self.bars}',
+                'framerate = 60',
+                '[input]',
+                'method = pulse',
+                '[output]',
+                f'channels = {self.channels}',
+                'mono_option = average',
+                'method = raw',
+                'raw_target = /dev/stdout',
+                'bit_format = 16bit',
+                '[smoothing]',
+                f'monstercat = {self.monstercat}',
+                f'waves = {self.waves}',
+                f'noise_reduction = {self.noise_reduction}'
+            ])
+            f.write(conf)
+            f.close()
+        except Exception as e:
+            print("Can't write config file for cava...'")
+            print(e)
 

@@ -28,9 +28,6 @@
 #
 # SPDX-License-Identifier: MIT
 
-import os
-os.environ['GDK_BACKEND'] = 'x11'
-
 import sys
 import gi
 
