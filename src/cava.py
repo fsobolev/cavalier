@@ -32,6 +32,7 @@ import os
 import subprocess
 import struct
 import tempfile
+import signal
 
 BARS = 16
 
@@ -54,20 +55,31 @@ class Cava:
         self.bytesize = 2
         self.bytenorm = 65535
         self.cavalier = cavalier_window
+        self.running = False
 
     def run(self):
+        self.running = True
         with tempfile.NamedTemporaryFile() as config_file:
             config_file.write(config.encode())
             config_file.flush()
-            process = subprocess.Popen(["cava", "-p", config_file.name], stdout=subprocess.PIPE)
+            self.process = subprocess.Popen(["cava", "-p", config_file.name], stdout=subprocess.PIPE)
             chunk = self.bytesize * BARS
             fmt = self.bytetype * BARS
-            source = process.stdout
+            source = self.process.stdout
             while True:
                 data = source.read(chunk)
-                if len(data) < chunk:
+                if len(data) < chunk or not self.running:
                     break
                 sample = [i / self.bytenorm for i in struct.unpack(fmt, data)]
                 self.cavalier.cava_sample = sample
                 self.cavalier.drawing_area.queue_draw()
+
+    def stop(self):
+        if self.running:
+            self.running = False
+            self.process.kill()
+
+    def reload(self):
+        if self.running:
+            self.process.send_signal(signal.SIGUSR1)
 

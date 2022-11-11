@@ -43,6 +43,8 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.cava_sample = []
 
         self.build_ui()
+        self.connect('close-request', self.on_close_request)
+
         self.cava = Cava(self)
         self.cava_thread = Thread(target=self.cava.run)
         self.cava_thread.start()
@@ -67,7 +69,7 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.btn.set_valign(Gtk.Align.START)
         self.header.pack_start(self.btn)
 
-    def draw_func(self, area, cr, width, height, data, _):
+    def draw_func(self, area, cr, width, height, data, n):
         ls = len(self.cava_sample)
         if ls == 0:
             return
@@ -83,3 +85,6 @@ class CavalierWindow(Adw.ApplicationWindow):
         cr.line_to(0, height)
         cr.close_path()
         cr.fill()
+
+    def on_close_request(self, w):
+        self.cava.stop()
