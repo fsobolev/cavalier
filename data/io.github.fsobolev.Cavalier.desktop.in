@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=cavalier
+Exec=cavalier
+Icon=io.github.fsobolev.Cavalier
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true

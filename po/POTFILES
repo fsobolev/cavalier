@@ -1,0 +1,5 @@
+data/io.github.fsobolev.Cavalier.desktop.in
+data/io.github.fsobolev.Cavalier.appdata.xml.in
+data/io.github.fsobolev.Cavalier.gschema.xml
+src/main.py
+src/window.py
