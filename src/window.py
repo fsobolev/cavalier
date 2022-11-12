@@ -32,7 +32,7 @@ from gi.repository import Adw
 from gi.repository import Gtk
 from gi.repository import GObject
 
-from .draw import wave
+from .draw import wave, levels
 from .cava import Cava
 from threading import Thread
 
@@ -75,7 +75,7 @@ class CavalierWindow(Adw.ApplicationWindow):
 
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:
-            wave(self.cava_sample, cr, width, height)
+            levels(self.cava_sample, cr, width, height)
 
     def redraw(self):
         self.drawing_area.queue_draw()

@@ -34,10 +34,23 @@ def wave(sample, cr, width, height):
     cr.move_to(0, (1.0 - sample[0]) * height)
     for i in range(ls - 1):
         height_diff = (sample[i] - sample[i+1])
-        cr.rel_curve_to(width / (ls - 1) * 0.5, height_diff * height * 0.0, \
-            width / (ls - 1) * 0.5, height_diff * height, \
-            width / (ls - 1), height_diff * height)
+        cr.rel_curve_to(width / (ls - 1) * 0.5, 0.0, \
+           width / (ls - 1) * 0.5, height_diff * height, \
+           width / (ls - 1), height_diff * height)
     cr.line_to(width, height)
     cr.line_to(0, height)
     cr.close_path()
+    cr.fill()
+
+def levels(sample, cr, width, height, offset=10):
+    ls = len(sample)
+    cr.set_source_rgb(0,0,0)
+    step = width / ls
+    offset_px = step * offset / 100
+    for i in range(ls):
+        q = int(round(sample[i], 1) * 10)
+        for r in range(q):
+            cr.rectangle(step * i + offset_px, \
+                height - (height / 10 * (r + 1)) + offset_px, \
+                step - offset_px * 2, height / 10 - offset_px * 2)
     cr.fill()
