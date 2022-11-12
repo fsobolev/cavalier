@@ -28,9 +28,18 @@
 #
 # SPDX-License-Identifier: MIT
 
+import os
+from gi.repository import Gdk, GdkPixbuf
+
+def set_source(cr):
+    cr.set_source_rgba(0, 0, 0, 0.5)
+    # pb = GdkPixbuf.Pixbuf.new_from_file(os.getenv('XDG_CONFIG_HOME') + '/cavalier/pattern.png')
+    # pb = pb.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
+    # Gdk.cairo_set_source_pixbuf(cr, pb, 0, 0)
+
 def wave(sample, cr, width, height):
+    set_source(cr)
     ls = len(sample)
-    cr.set_source_rgb(0, 0, 0)
     cr.move_to(0, (1.0 - sample[0]) * height)
     for i in range(ls - 1):
         height_diff = (sample[i] - sample[i+1])
@@ -43,8 +52,8 @@ def wave(sample, cr, width, height):
     cr.fill()
 
 def levels(sample, cr, width, height, offset=10):
+    set_source(cr)
     ls = len(sample)
-    cr.set_source_rgb(0,0,0)
     step = width / ls
     offset_px = step * offset / 100
     for i in range(ls):

@@ -69,9 +69,13 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.header.set_title_widget(Gtk.Label.new(''))
         self.overlay.add_overlay(self.header)
 
-        self.btn = Gtk.Button.new_from_icon_name('help-about-symbolic')
-        self.btn.set_valign(Gtk.Align.START)
-        self.header.pack_start(self.btn)
+        self.menu_button = Gtk.MenuButton.new()
+        self.menu_button.set_valign(Gtk.Align.START)
+        self.menu_button.set_icon_name('open-menu-symbolic')
+        self.header.pack_start(self.menu_button)
+
+        self.popover = Gtk.Popover.new()
+        self.menu_button.set_popover(self.popover)
 
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:
