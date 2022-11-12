@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="cavalier">
 	<schema id="io.github.fsobolev.Cavalier" path="/io/github/fsobolev/Cavalier/">
+	  <key name="size" type="(ii)">
+	    <summary>Window size</summary>
+	    <default>(300,200)</default>
+	  </key>
+	  <key name="mode" type="s">
+	    <summary>Drawing mode</summary>
+	    <description>Defines how the visualizer will look.</description>
+	    <choices>
+	      <choice value="wave"/>
+	      <choice value="levels"/>
+	      <choice value="bars"/>
+	    </choices>
+	    <default>"wave"</default>
+	  </key>
+	  <key name="margin" type="i">
+	    <summary>Drawing area margin</summary>
+	    <description>Size of gaps around drawing area (in pixels)</description>
+	    <range min="0" max="40"/>
+	    <default>0</default>
+	  </key>
+	  <key name="bars" type="i">
+	    <summary>Number of bars</summary>
+	    <description>Number of bars in CAVA config</description>
+	    <range min="6" max="50"/>
+	    <default>12</default>
+	  </key>
+	  <key name="channels" type="s">
+	    <summary>Channels</summary>
+	    <description>Mono or stereo</description>
+	    <choices>
+	      <choice value="mono"/>
+	      <choice value="stereo"/>
+	    </choices>
+	    <default>"stereo"</default>
+	  </key>
+	  <key name="monstercat" type="b">
+	    <summary>Monstercat smoothing</summary>
+	    <default>true</default>
+	  </key>
+	  <key name="monstercat-waves" type="b">
+	    <summary>Monstercat waves</summary>
+	    <default>false</default>
+	  </key>
+	  <key name="noise-reduction" type="d">
+	    <summary>Noise reduction</summary>
+	    <description>This factor adjusts the integral and gravity filters to keep the signal smooth. 1 will be very slow and smooth, 0 will be fast but noisy.</description>
+	    <default>0.77</default>
+	  </key>
 	</schema>
 </schemalist>

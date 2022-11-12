@@ -31,6 +31,7 @@
 from gi.repository import Adw
 from gi.repository import Gtk
 from gi.repository import GObject
+from gi.repository import Gio
 
 from .draw import wave, levels
 from .cava import Cava
@@ -74,8 +75,11 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.menu_button.set_icon_name('open-menu-symbolic')
         self.header.pack_start(self.menu_button)
 
-        self.popover = Gtk.Popover.new()
-        self.menu_button.set_popover(self.popover)
+        self.menu = Gio.Menu.new()
+        self.menu.append(_('Preferences'), 'app.preferences')
+        self.menu.append(_('About'), 'app.about')
+        self.menu.append(_('Quit'), 'app.quit')
+        self.menu_button.set_menu_model(self.menu)
 
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:
@@ -85,5 +89,14 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.drawing_area.queue_draw()
         return True
 
+    def open_preferences(self, w):
+        pass
+
+    def open_about(self, w):
+        pass
+
     def on_close_request(self, w):
         self.cava.stop()
+
+    def quit(self, w):
+        self.close()

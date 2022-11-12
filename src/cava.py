@@ -33,6 +33,7 @@ import subprocess
 import struct
 import signal
 
+from gi.repository import Gio
 
 class Cava:
     def __init__(self, cavalier_window):
@@ -42,12 +43,7 @@ class Cava:
         self.cavalier = cavalier_window
         self.running = False
 
-        # Cava config options
-        self.bars = 16
-        self.channels = 'stereo'
-        self.monstercat = 1
-        self.waves = 0
-        self.noise_reduction = 0.77
+        self.load_settings()
 
         if os.getenv('XDG_CONFIG_HOME'):
             self.config_dir = os.getenv('XDG_CONFIG_HOME') + '/cavalier'
@@ -80,7 +76,25 @@ class Cava:
             self.running = False
             self.process.kill()
 
+    def load_settings(self):
+        settings = Gio.Settings.new('io.github.fsobolev.Cavalier')
+
+        # Cava config options
+        self.bars = settings.get_int('bars')
+        self.channels = settings.get_string('channels')
+        if settings.get_boolean('monstercat'):
+            self.monstercat = 1
+        else:
+            self.monstercat = 0
+        if settings.get_boolean('monstercat-waves'):
+            self.waves = 1
+        else:
+            self.waves = 0
+        self.noise_reduction = settings.get_double('noise-reduction')
+
     def reload(self):
+        self.load_settings()
+        self.write_config()
         if self.running:
             self.reading_preparation()
             self.process.send_signal(signal.SIGUSR1)

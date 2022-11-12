@@ -44,9 +44,10 @@ class CavalierApplication(Adw.Application):
     def __init__(self):
         super().__init__(application_id='io.github.fsobolev.Cavalier',
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
-        self.create_action('quit', self.quit, ['<primary>q'])
-        self.create_action('about', self.on_about_action)
-        self.create_action('preferences', self.on_preferences_action)
+        self.create_action('quit', self.on_quit_action, ['<primary>q'])
+        self.create_action('about', self.on_about_action, ['<primary>question'])
+        self.create_action('preferences', self.on_preferences_action,
+            ['<primary>p'])
 
     def do_activate(self):
         """Called when the application is activated.
@@ -54,10 +55,10 @@ class CavalierApplication(Adw.Application):
         We raise the application's main window, creating it if
         necessary.
         """
-        win = self.props.active_window
-        if not win:
-            win = CavalierWindow(application=self)
-        win.present()
+        self.win = self.props.active_window
+        if not self.win:
+            self.win = CavalierWindow(application=self)
+        self.win.present()
 
     def on_about_action(self, widget, _):
         """Callback for the app.about action."""
@@ -73,6 +74,10 @@ class CavalierApplication(Adw.Application):
     def on_preferences_action(self, widget, _):
         """Callback for the app.preferences action."""
         print('app.preferences action activated')
+
+    def on_quit_action(self, widget, _):
+        self.win.close()
+        self.quit()
 
     def create_action(self, name, callback, shortcuts=None):
         """Add an application action.
