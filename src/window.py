@@ -30,6 +30,7 @@
 
 from gi.repository import Adw
 from gi.repository import Gtk
+from gi.repository import GObject
 
 from .draw import wave
 from .cava import Cava
@@ -49,6 +50,8 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.cava = Cava(self)
         self.cava_thread = Thread(target=self.cava.run)
         self.cava_thread.start()
+
+        GObject.timeout_add(1000.0 / 60.0, self.redraw)
 
     def build_ui(self):
         self.overlay = Gtk.Overlay.new()
@@ -73,6 +76,10 @@ class CavalierWindow(Adw.ApplicationWindow):
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:
             wave(self.cava_sample, cr, width, height)
+
+    def redraw(self):
+        self.drawing_area.queue_draw()
+        return True
 
     def on_close_request(self, w):
         self.cava.stop()

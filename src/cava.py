@@ -44,7 +44,7 @@ class Cava:
 
         # Cava config options
         self.bars = 16
-        self.channels = 'mono'
+        self.channels = 'stereo'
         self.monstercat = 1
         self.waves = 0
         self.noise_reduction = 0.77
@@ -70,7 +70,6 @@ class Cava:
                 break
             sample = [i / self.bytenorm for i in struct.unpack(self.fmt, data)]
             self.cavalier.cava_sample = sample
-            self.cavalier.drawing_area.queue_draw()
 
     def reading_preparation(self):
         self.chunk = self.bytesize * self.bars
