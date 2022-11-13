@@ -34,11 +34,8 @@ from gi.repository import GObject
 from gi.repository import Gio
 from gi.repository import GLib
 
-from .draw import wave, levels
-from .cava import Cava
-from threading import Thread
+from .drawing_area import CavalierDrawingArea
 
-settings = Gio.Settings.new('io.github.fsobolev.Cavalier')
 
 class CavalierWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'CavalierWindow'
@@ -46,28 +43,21 @@ class CavalierWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        self.settings = Gio.Settings.new('io.github.fsobolev.Cavalier')
+
         self.cava_sample = []
 
         self.build_ui()
         self.connect('close-request', self.on_close_request)
 
-        self.cava = Cava(self)
-        self.cava_thread = Thread(target=self.cava.run)
-        self.cava_thread.start()
-
-        GObject.timeout_add(1000.0 / 60.0, self.redraw)
-
     def build_ui(self):
-        (width, height) = settings.get_value('size')
+        (width, height) = self.settings.get_value('size')
         self.set_default_size(width, height)
 
         self.overlay = Gtk.Overlay.new()
         self.set_content(self.overlay)
 
-        self.drawing_area = Gtk.DrawingArea.new()
-        self.drawing_area.set_vexpand(True)
-        self.drawing_area.set_hexpand(True)
-        self.drawing_area.set_draw_func(self.draw_func, None, None)
+        self.drawing_area = CavalierDrawingArea()
         self.overlay.set_child(self.drawing_area)
 
         self.header = Adw.HeaderBar.new()
@@ -87,25 +77,10 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.menu.append(_('Quit'), 'app.quit')
         self.menu_button.set_menu_model(self.menu)
 
-    def draw_func(self, area, cr, width, height, data, n):
-        if len(self.cava_sample) > 0:
-            levels(self.cava_sample, cr, width, height)
-
-    def redraw(self):
-        self.drawing_area.queue_draw()
-        return True
-
-    def open_preferences(self, w):
-        pass
-
-    def open_about(self, w):
-        pass
-
     def on_close_request(self, w):
         (width, height) = self.get_default_size()
-        settings.set_value('size', GLib.Variant.new_tuple( \
+        self.settings.set_value('size', GLib.Variant.new_tuple( \
             GLib.Variant.new_int32(width), GLib.Variant.new_int32(height)))
-        self.cava.stop()
 
     def quit(self, w):
         self.close()

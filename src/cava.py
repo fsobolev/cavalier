@@ -36,14 +36,16 @@ import signal
 from gi.repository import Gio
 
 class Cava:
-    def __init__(self, cavalier_window):
+    def __init__(self):
         self.bytetype = "H"
         self.bytesize = 2
         self.bytenorm = 65535
-        self.cavalier = cavalier_window
         self.running = False
 
+        self.settings = Gio.Settings.new('io.github.fsobolev.Cavalier')
         self.load_settings()
+
+        self.sample = []
 
         if os.getenv('XDG_CONFIG_HOME'):
             self.config_dir = os.getenv('XDG_CONFIG_HOME') + '/cavalier'
@@ -64,8 +66,8 @@ class Cava:
             data = source.read(self.chunk)
             if len(data) < self.chunk or not self.running:
                 break
-            sample = [i / self.bytenorm for i in struct.unpack(self.fmt, data)]
-            self.cavalier.cava_sample = sample
+            self.sample = \
+                [i / self.bytenorm for i in struct.unpack(self.fmt, data)]
 
     def reading_preparation(self):
         self.chunk = self.bytesize * self.bars
@@ -77,20 +79,18 @@ class Cava:
             self.process.kill()
 
     def load_settings(self):
-        settings = Gio.Settings.new('io.github.fsobolev.Cavalier')
-
         # Cava config options
-        self.bars = settings.get_int('bars')
-        self.channels = settings.get_string('channels')
-        if settings.get_boolean('monstercat'):
+        self.bars = self.settings.get_int('bars')
+        self.channels = self.settings.get_string('channels')
+        if self.settings.get_boolean('monstercat'):
             self.monstercat = 1
         else:
             self.monstercat = 0
-        if settings.get_boolean('monstercat-waves'):
+        if self.settings.get_boolean('monstercat-waves'):
             self.waves = 1
         else:
             self.waves = 0
-        self.noise_reduction = settings.get_double('noise-reduction')
+        self.noise_reduction = self.settings.get_double('noise-reduction')
 
     def reload(self):
         self.load_settings()

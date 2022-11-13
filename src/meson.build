@@ -30,7 +30,8 @@ cavalier_sources = [
   'main.py',
   'window.py',
   'cava.py',
-  'draw.py'
+  'drawing_area.py',
+  'draw_functions.py'
 ]
 
 install_data(cavalier_sources, install_dir: moduledir)
