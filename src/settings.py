@@ -1,4 +1,4 @@
-# draw.py
+# settings.py
 #
 # Copyright 2022 Fyodor Sobolev
 #
@@ -28,38 +28,23 @@
 #
 # SPDX-License-Identifier: MIT
 
-import os
-from gi.repository import Gdk, GdkPixbuf
+from gi.repository import Gio, GLib
 
-def set_source(cr):
-    cr.set_source_rgba(0, 0, 0, 0.5)
-    # pb = GdkPixbuf.Pixbuf.new_from_file(os.getenv('XDG_CONFIG_HOME') + '/cavalier/pattern.png')
-    # pb = pb.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
-    # Gdk.cairo_set_source_pixbuf(cr, pb, 0, 0)
+gsettings = Gio.Settings.new('io.github.fsobolev.Cavalier')
 
-def wave(sample, cr, width, height):
-    set_source(cr)
-    ls = len(sample)
-    cr.move_to(0, (1.0 - sample[0]) * height)
-    for i in range(ls - 1):
-        height_diff = (sample[i] - sample[i+1])
-        cr.rel_curve_to(width / (ls - 1) * 0.5, 0.0, \
-           width / (ls - 1) * 0.5, height_diff * height, \
-           width / (ls - 1), height_diff * height)
-    cr.line_to(width, height)
-    cr.line_to(0, height)
-    cr.close_path()
-    cr.fill()
+def get(key):
+    return gsettings.get_value(key).unpack()
 
-def levels(sample, cr, width, height, offset):
-    set_source(cr)
-    ls = len(sample)
-    step = width / ls
-    offset_px = step * offset / 100
-    for i in range(ls):
-        q = int(round(sample[i], 1) * 10)
-        for r in range(q):
-            cr.rectangle(step * i + offset_px, \
-                height - (height / 10 * (r + 1)) + offset_px, \
-                step - offset_px * 2, height / 10 - offset_px * 2)
-    cr.fill()
+def set(key, value):
+    if type(value) == int:
+        gsettings.set_int32(key, value)
+    elif type(value) == float:
+        gsettings.set_double(key, value)
+    elif type(value) == str:
+        gsettings.set_string(key, value)
+    elif type(value) == bool:
+        gsettings.set_boolean(key, value)
+    elif type(value) == tuple:
+        gsettings.set_value(key, GLib.Variant.new_tuple(*value))
+    else:
+        print("Error: Can't identify type of the value " + value)

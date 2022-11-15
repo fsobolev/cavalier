@@ -21,6 +21,12 @@
 	    <range min="0" max="40"/>
 	    <default>0</default>
 	  </key>
+	  <key name="items-offset" type="i">
+	    <summary>Offset between items</summary>
+	    <description>The size of spaces between squares in the levels mode and between bars in the bars mode (in percent).</description>
+	    <range min="0" max="40"/>
+	    <default>10</default>
+	  </key>
 	  <key name="bars" type="i">
 	    <summary>Number of bars</summary>
 	    <description>Number of bars in CAVA config</description>

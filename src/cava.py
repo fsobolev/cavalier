@@ -33,7 +33,7 @@ import subprocess
 import struct
 import signal
 
-from gi.repository import Gio
+import cavalier.settings as settings
 
 class Cava:
     def __init__(self):
@@ -42,7 +42,6 @@ class Cava:
         self.bytenorm = 65535
         self.running = False
 
-        self.settings = Gio.Settings.new('io.github.fsobolev.Cavalier')
         self.load_settings()
 
         self.sample = []
@@ -80,17 +79,17 @@ class Cava:
 
     def load_settings(self):
         # Cava config options
-        self.bars = self.settings.get_int('bars')
-        self.channels = self.settings.get_string('channels')
-        if self.settings.get_boolean('monstercat'):
+        self.bars = settings.get('bars')
+        self.channels = settings.get('channels')
+        if settings.get('monstercat'):
             self.monstercat = 1
         else:
             self.monstercat = 0
-        if self.settings.get_boolean('monstercat-waves'):
+        if settings.get('monstercat-waves'):
             self.waves = 1
         else:
             self.waves = 0
-        self.noise_reduction = self.settings.get_double('noise-reduction')
+        self.noise_reduction = settings.get('noise-reduction')
 
     def reload(self):
         self.load_settings()

@@ -32,6 +32,7 @@ from gi.repository import Gtk, GObject, GdkPixbuf
 from threading import Thread
 from .cava import Cava
 from .draw_functions import wave, levels
+import cavalier.settings as settings
 
 
 class CavalierDrawingArea(Gtk.DrawingArea):
@@ -54,14 +55,25 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         GObject.timeout_add(1000.0 / 60.0, self.redraw)
 
     def load_settings(self):
-        pass
+        self.settings = settings
+        self.draw_mode = settings.get('mode')
+        self.set_margin_top(settings.get('margin'))
+        self.set_margin_bottom(settings.get('margin'))
+        self.set_margin_start(settings.get('margin'))
+        self.set_margin_end(settings.get('margin'))
+        self.offset = settings.get('items-offset')
 
     def create_gradient(colors):
         pass
 
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:
-            levels(self.cava_sample, cr, width, height)
+            if self.draw_mode == 'wave':
+                wave(self.cava_sample, cr, width, height)
+            elif self.draw_mode == 'levels':
+                levels(self.cava_sample, cr, width, height, self.offset)
+            else:
+                print(f'Error: Unknown drawing mode "{self.draw_mode}"')
 
     def redraw(self):
         self.queue_draw()

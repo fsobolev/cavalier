@@ -30,10 +30,10 @@
 
 from gi.repository import Adw
 from gi.repository import Gtk
-from gi.repository import GObject
 from gi.repository import Gio
 from gi.repository import GLib
 
+import cavalier.settings as settings
 from .drawing_area import CavalierDrawingArea
 
 
@@ -43,15 +43,14 @@ class CavalierWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.settings = Gio.Settings.new('io.github.fsobolev.Cavalier')
-
+        self.settings = settings
         self.cava_sample = []
 
         self.build_ui()
         self.connect('close-request', self.on_close_request)
 
     def build_ui(self):
-        (width, height) = self.settings.get_value('size')
+        (width, height) = self.settings.get('size')
         self.set_default_size(width, height)
 
         self.overlay = Gtk.Overlay.new()
@@ -79,8 +78,8 @@ class CavalierWindow(Adw.ApplicationWindow):
 
     def on_close_request(self, w):
         (width, height) = self.get_default_size()
-        self.settings.set_value('size', GLib.Variant.new_tuple( \
-            GLib.Variant.new_int32(width), GLib.Variant.new_int32(height)))
+        self.settings.set('size', (GLib.Variant.new_int32(width), \
+            GLib.Variant.new_int32(height)))
 
     def quit(self, w):
         self.close()
