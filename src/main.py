@@ -73,7 +73,13 @@ class CavalierApplication(Adw.Application):
         about.present()
 
     def on_preferences_action(self, widget, _):
-        self.pref_win = CavalierPreferencesWindow(application=self)
+        self.pref_win = None
+        for w in self.get_windows():
+            if type(w) == CavalierPreferencesWindow:
+                self.pref_win = w
+                break
+        if not self.pref_win:
+            self.pref_win = CavalierPreferencesWindow(application=self)
         self.pref_win.present()
 
     def on_quit_action(self, widget, _):
