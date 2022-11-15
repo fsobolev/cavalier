@@ -36,6 +36,7 @@ gi.require_version('Adw', '1')
 
 from gi.repository import Gtk, Gio, Adw
 from .window import CavalierWindow
+from .preferences_window import CavalierPreferencesWindow
 
 
 class CavalierApplication(Adw.Application):
@@ -72,8 +73,8 @@ class CavalierApplication(Adw.Application):
         about.present()
 
     def on_preferences_action(self, widget, _):
-        """Callback for the app.preferences action."""
-        print('app.preferences action activated')
+        self.pref_win = CavalierPreferencesWindow(application=self)
+        self.pref_win.present()
 
     def on_quit_action(self, widget, _):
         self.win.close()

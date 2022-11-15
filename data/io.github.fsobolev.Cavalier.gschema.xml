@@ -7,7 +7,7 @@
 	  </key>
 	  <key name="mode" type="s">
 	    <summary>Drawing mode</summary>
-	    <description>Defines how the visualizer will look.</description>
+	    <description>Defines what the visualizer will look like.</description>
 	    <choices>
 	      <choice value="wave"/>
 	      <choice value="levels"/>

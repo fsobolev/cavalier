@@ -37,9 +37,9 @@ import cavalier.settings as settings
 
 class Cava:
     def __init__(self):
-        self.bytetype = "H"
-        self.bytesize = 2
-        self.bytenorm = 65535
+        self.BYTETYPE = "H"
+        self.BYTESIZE = 2
+        self.BYTENORM = 65535
         self.running = False
 
         self.load_settings()
@@ -66,11 +66,11 @@ class Cava:
             if len(data) < self.chunk or not self.running:
                 break
             self.sample = \
-                [i / self.bytenorm for i in struct.unpack(self.fmt, data)]
+                [i / self.BYTENORM for i in struct.unpack(self.fmt, data)]
 
     def reading_preparation(self):
-        self.chunk = self.bytesize * self.bars
-        self.fmt = self.bytetype * self.bars
+        self.chunk = self.BYTESIZE * self.bars
+        self.fmt = self.BYTETYPE * self.bars
 
     def stop(self):
         if self.running:

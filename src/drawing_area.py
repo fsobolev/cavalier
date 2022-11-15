@@ -45,7 +45,10 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.set_hexpand(True)
         self.set_draw_func(self.draw_func, None, None)
 
-        self.load_settings()
+        self.settings = settings
+        #self.settings.callback_obj = self
+        self.settings.callback_fn = self.apply_settings
+        self.apply_settings(False)
         self.connect('unrealize', self.on_unrealize)
 
         self.cava = Cava()
@@ -54,14 +57,15 @@ class CavalierDrawingArea(Gtk.DrawingArea):
 
         GObject.timeout_add(1000.0 / 60.0, self.redraw)
 
-    def load_settings(self):
-        self.settings = settings
+    def apply_settings(self, reload_cava):
         self.draw_mode = settings.get('mode')
         self.set_margin_top(settings.get('margin'))
         self.set_margin_bottom(settings.get('margin'))
         self.set_margin_start(settings.get('margin'))
         self.set_margin_end(settings.get('margin'))
         self.offset = settings.get('items-offset')
+        if reload_cava:
+            self.cava.reload()
 
     def create_gradient(colors):
         pass

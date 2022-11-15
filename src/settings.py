@@ -31,6 +31,7 @@
 from gi.repository import Gio, GLib
 
 gsettings = Gio.Settings.new('io.github.fsobolev.Cavalier')
+callback_fn = None
 
 def get(key):
     return gsettings.get_value(key).unpack()
@@ -48,3 +49,12 @@ def set(key, value):
         gsettings.set_value(key, GLib.Variant.new_tuple(*value))
     else:
         print("Error: Can't identify type of the value " + value)
+
+def on_settings_changed(s, key):
+    if key in ('bars', 'channels', 'monstercat', 'monstercat-waves', \
+            'noise-reduction'):
+        callback_fn(True)
+    else:
+        callback_fn(False)
+
+gsettings.connect('changed', on_settings_changed)
