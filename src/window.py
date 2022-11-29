@@ -54,6 +54,7 @@ class CavalierWindow(Adw.ApplicationWindow):
         (width, height) = self.settings.get('size')
         self.set_default_size(width, height)
         self.toggle_sharp_corners()
+        self.set_style()
 
         self.overlay = Gtk.Overlay.new()
         self.set_content(self.overlay)
@@ -79,6 +80,12 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.menu.append(_('Quit'), 'app.quit')
         self.menu_button.set_menu_model(self.menu)
 
+    def set_style(self):
+        if self.settings.get('widgets-style') == 'light':
+            Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.FORCE_LIGHT)
+        else:
+            Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.FORCE_DARK)
+
     def toggle_sharp_corners(self):
         if self.settings.get('sharp-corners'):
             self.remove_css_class('csd')
@@ -87,6 +94,7 @@ class CavalierWindow(Adw.ApplicationWindow):
 
     def on_settings_changed(self):
         self.toggle_sharp_corners()
+        self.set_style()
 
     def on_close_request(self, obj):
         (width, height) = self.get_default_size()

@@ -55,9 +55,9 @@
 	    <description>This factor adjusts the integral and gravity filters to keep the signal smooth. 1 will be very slow and smooth, 0 will be fast but noisy.</description>
 	    <default>0.77</default>
 	  </key>
-	  <key name="widgets-theme" type="s">
-	    <summary>Widgets theme</summary>
-	    <description>Theme used by Adwaita widgets</description>
+	  <key name="widgets-style" type="s">
+	    <summary>Widgets style</summary>
+	    <description>Style used by Adwaita widgets.</description>
 	    <choices>
 	      <choice value="light"/>
 	      <choice value="dark"/>

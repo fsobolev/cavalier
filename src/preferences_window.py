@@ -28,7 +28,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from gi.repository import Adw, Gtk, Gio
+from gi.repository import Adw, Gtk, Gio, GObject
 from cavalier.settings import CavalierSettings
 
 
@@ -148,7 +148,39 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.colors_page.set_icon_name('applications-graphics-symbolic')
         self.add(self.colors_page)
 
-    def on_save(self, w, key, value):
+        self.style_group = Adw.PreferencesGroup.new()
+        self.colors_page.add(self.style_group)
+
+        self.style_row = Adw.ActionRow.new()
+        self.style_row.set_title(_('Widgets style'))
+        self.style_row.set_subtitle(_('Style used by Adwaita widgets.'))
+        self.style_buttons_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.style_buttons_box.add_css_class('linked')
+        self.style_buttons_box.set_valign(Gtk.Align.CENTER)
+        self.style_row.add_suffix(self.style_buttons_box)
+        self.btn_light = Gtk.ToggleButton.new_with_label(_('Light'))
+        self.btn_light.connect('toggled', self.apply_style)
+        self.style_buttons_box.append(self.btn_light)
+        self.btn_dark = Gtk.ToggleButton.new_with_label(_('Dark'))
+        self.btn_dark.connect('toggled', self.apply_style)
+        self.style_buttons_box.append(self.btn_dark)
+        if self.settings.get('widgets-style') == 'light':
+            self.btn_light.set_active(True)
+        else:
+            self.btn_dark.set_active(True)
+        self.btn_dark.bind_property('active', self.btn_light, 'active', \
+            (GObject.BindingFlags.BIDIRECTIONAL | \
+             GObject.BindingFlags.SYNC_CREATE | \
+             GObject.BindingFlags.INVERT_BOOLEAN))
+        self.style_group.add(self.style_row)
+
+    def apply_style(self, obj):
+        if self.btn_light.get_active():
+            self.settings.set('widgets-style', 'light')
+        else:
+            self.settings.set('widgets-style', 'dark')
+
+    def on_save(self, obj, key, value):
         if callable(value):
             value = value()
         if type(value) is float and type(self.settings.get(key)) is int:
