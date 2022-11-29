@@ -29,6 +29,7 @@
 # SPDX-License-Identifier: MIT
 
 from gi.repository import Gio, GLib
+from inspect import signature
 
 class CavalierSettings(Gio.Settings):
     __gtype_name__ = 'CavalierSettings'
@@ -39,8 +40,10 @@ class CavalierSettings(Gio.Settings):
     def new(callback_fn=None):
         gsettings = Gio.Settings.new('io.github.fsobolev.Cavalier')
         gsettings.__class__ = CavalierSettings
-        gsettings.connect('changed', gsettings.on_settings_changed)
-        gsettings.callback_fn = callback_fn
+        if callback_fn:
+            gsettings.connect('changed', gsettings.on_settings_changed)
+            gsettings.callback_fn = callback_fn
+            gsettings.callback_fn_sig_len = len(signature(callback_fn).parameters)
         return gsettings
 
     def get(self, key):
@@ -61,8 +64,8 @@ class CavalierSettings(Gio.Settings):
             print("Error: Can't identify type of the value " + value)
 
     def on_settings_changed(self, obj, key):
-        if not self.callback_fn:
-            return
-        else:
+        if self.callback_fn_sig_len > 0:
             self.callback_fn(key)
+        else:
+            self.callback_fn()
     

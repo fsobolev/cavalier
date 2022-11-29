@@ -91,5 +91,5 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.cava_sample = self.cava.sample
         return True
 
-    def on_unrealize(self, w):
+    def on_unrealize(self, obj):
         self.cava.stop()

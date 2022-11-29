@@ -85,13 +85,13 @@ class CavalierWindow(Adw.ApplicationWindow):
         else:
             self.add_css_class('csd')
 
-    def on_settings_changed(self, key):
+    def on_settings_changed(self):
         self.toggle_sharp_corners()
 
-    def on_close_request(self, w):
+    def on_close_request(self, obj):
         (width, height) = self.get_default_size()
         self.settings.set('size', (GLib.Variant.new_int32(width), \
             GLib.Variant.new_int32(height)))
 
-    def quit(self, w):
+    def quit(self, obj):
         self.close()
