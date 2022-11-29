@@ -56,7 +56,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_mode = Adw.ActionRow.new()
         self.pref_mode.set_title(_('Drawing mode'))
         self.pref_mode.set_subtitle( \
-            _('Defines what the visualizer will look like.'))
+            _('Defines what the visualizer looks like.'))
         self.cavalier_group.add(self.pref_mode)
 
         self.pref_margin = Adw.ActionRow.new()

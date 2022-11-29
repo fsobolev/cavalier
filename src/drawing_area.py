@@ -64,6 +64,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.set_margin_start(self.settings.get('margin'))
         self.set_margin_end(self.settings.get('margin'))
         self.offset = self.settings.get('items-offset')
+        self.colors = self.settings.get('fg-colors')
         if reload_cava:
             self.cava.reload()
 
@@ -74,15 +75,12 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         else:
             self.apply_settings(False)
 
-    def create_gradient(colors):
-        pass
-
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:
             if self.draw_mode == 'wave':
-                wave(self.cava_sample, cr, width, height)
+                wave(self.cava_sample, cr, width, height, self.colors)
             elif self.draw_mode == 'levels':
-                levels(self.cava_sample, cr, width, height, self.offset)
+                levels(self.cava_sample, cr, width, height, self.colors, self.offset)
             else:
                 print(f'Error: Unknown drawing mode "{self.draw_mode}"')
 

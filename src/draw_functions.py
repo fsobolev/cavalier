@@ -30,15 +30,22 @@
 
 import os
 from gi.repository import Gdk, GdkPixbuf
+import cairo
 
-def set_source(cr):
-    cr.set_source_rgba(0, 0, 0, 0.5)
-    # pb = GdkPixbuf.Pixbuf.new_from_file(os.getenv('XDG_CONFIG_HOME') + '/cavalier/pattern.png')
-    # pb = pb.scale_simple(width, height, GdkPixbuf.InterpType.BILINEAR)
-    # Gdk.cairo_set_source_pixbuf(cr, pb, 0, 0)
+def set_source(cr, height, colors):
+    if len(colors) > 1:
+        pat = cairo.LinearGradient(0.0, 0.0, 0.0, height)
+        for i in range(len(colors)):
+            (red, green, blue, alpha) = colors[i]
+            pat.add_color_stop_rgba(1 / (len(colors) - 1) * i, \
+                red / 255, green / 255, blue / 255, alpha)
+        cr.set_source(pat)
+    else:
+        (red, green, blue, alpha) = colors[0]
+        cr.set_source_rgba(red / 255, green / 255, blue / 255, alpha)
 
-def wave(sample, cr, width, height):
-    set_source(cr)
+def wave(sample, cr, width, height, colors):
+    set_source(cr, height, colors)
     ls = len(sample)
     cr.move_to(0, (1.0 - sample[0]) * height)
     for i in range(ls - 1):
@@ -51,8 +58,8 @@ def wave(sample, cr, width, height):
     cr.close_path()
     cr.fill()
 
-def levels(sample, cr, width, height, offset):
-    set_source(cr)
+def levels(sample, cr, width, height, colors, offset):
+    set_source(cr, height, colors)
     ls = len(sample)
     step = width / ls
     offset_px = step * offset / 100

@@ -7,7 +7,7 @@
 	  </key>
 	  <key name="mode" type="s">
 	    <summary>Drawing mode</summary>
-	    <description>Defines what the visualizer will look like.</description>
+	    <description>Defines what the visualizer looks like.</description>
 	    <choices>
 	      <choice value="wave"/>
 	      <choice value="levels"/>
@@ -54,6 +54,11 @@
 	    <summary>Noise reduction</summary>
 	    <description>This factor adjusts the integral and gravity filters to keep the signal smooth. 1 will be very slow and smooth, 0 will be fast but noisy.</description>
 	    <default>0.77</default>
+	  </key>
+	  <key name="fg-colors" type="a(iiid)">
+	    <summary>Foreground colors</summary>
+	    <description>The array of foregound colors (RBGA).</description>
+	    <default>[(53,132,228,1.0)]</default>
 	  </key>
 	</schema>
 </schemalist>
