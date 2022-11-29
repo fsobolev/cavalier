@@ -30,31 +30,39 @@
 
 from gi.repository import Gio, GLib
 
-gsettings = Gio.Settings.new('io.github.fsobolev.Cavalier')
-callback_fn = None
+class CavalierSettings(Gio.Settings):
+    __gtype_name__ = 'CavalierSettings'
 
-def get(key):
-    return gsettings.get_value(key).unpack()
+    def __init__(self):
+        super().__init__(self)
 
-def set(key, value):
-    if type(value) == int:
-        gsettings.set_int32(key, value)
-    elif type(value) == float:
-        gsettings.set_double(key, value)
-    elif type(value) == str:
-        gsettings.set_string(key, value)
-    elif type(value) == bool:
-        gsettings.set_boolean(key, value)
-    elif type(value) == tuple:
-        gsettings.set_value(key, GLib.Variant.new_tuple(*value))
-    else:
-        print("Error: Can't identify type of the value " + value)
+    def new(callback_fn=None):
+        gsettings = Gio.Settings.new('io.github.fsobolev.Cavalier')
+        gsettings.__class__ = CavalierSettings
+        gsettings.connect('changed', gsettings.on_settings_changed)
+        gsettings.callback_fn = callback_fn
+        return gsettings
 
-def on_settings_changed(s, key):
-    if key in ('bars', 'channels', 'monstercat', 'monstercat-waves', \
-            'noise-reduction'):
-        callback_fn(True)
-    else:
-        callback_fn(False)
+    def get(self, key):
+        return self.get_value(key).unpack()
 
-gsettings.connect('changed', on_settings_changed)
+    def set(self, key, value):
+        if type(value) == int:
+            self.set_int32(key, value)
+        elif type(value) == float:
+            self.set_double(key, value)
+        elif type(value) == str:
+            self.set_string(key, value)
+        elif type(value) == bool:
+            self.set_boolean(key, value)
+        elif type(value) == tuple:
+            self.set_value(key, GLib.Variant.new_tuple(*value))
+        else:
+            print("Error: Can't identify type of the value " + value)
+
+    def on_settings_changed(self, obj, key):
+        if not self.callback_fn:
+            return
+        else:
+            self.callback_fn(key)
+    

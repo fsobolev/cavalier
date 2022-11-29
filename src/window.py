@@ -33,8 +33,8 @@ from gi.repository import Gtk
 from gi.repository import Gio
 from gi.repository import GLib
 
-import cavalier.settings as settings
-from .drawing_area import CavalierDrawingArea
+from cavalier.settings import CavalierSettings
+from cavalier.drawing_area import CavalierDrawingArea
 
 
 class CavalierWindow(Adw.ApplicationWindow):
@@ -43,7 +43,7 @@ class CavalierWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.settings = settings
+        self.settings = CavalierSettings.new()
         self.cava_sample = []
 
         self.build_ui()
@@ -56,7 +56,8 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.overlay = Gtk.Overlay.new()
         self.set_content(self.overlay)
 
-        self.drawing_area = CavalierDrawingArea()
+        self.drawing_area = CavalierDrawingArea.new()
+        self.drawing_area.run()
         self.overlay.set_child(self.drawing_area)
 
         self.header = Adw.HeaderBar.new()

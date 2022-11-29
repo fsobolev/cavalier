@@ -30,42 +30,49 @@
 
 from gi.repository import Gtk, GObject, GdkPixbuf
 from threading import Thread
-from .cava import Cava
-from .draw_functions import wave, levels
-import cavalier.settings as settings
-
+from cavalier.cava import Cava
+from cavalier.draw_functions import wave, levels
+from cavalier.settings import CavalierSettings
 
 class CavalierDrawingArea(Gtk.DrawingArea):
     __gtype_name__ = 'CavalierDrawingArea'
 
-    def __init__(self, **kwargs):
+    def __init__(self, settings, **kwargs):
         super().__init__(**kwargs)
 
-        self.set_vexpand(True)
-        self.set_hexpand(True)
-        self.set_draw_func(self.draw_func, None, None)
+    def new():
+        cda = Gtk.DrawingArea.new()
+        cda.__class__ = CavalierDrawingArea
+        cda.set_vexpand(True)
+        cda.set_hexpand(True)
+        cda.set_draw_func(cda.draw_func, None, None)
+        cda.settings = CavalierSettings.new(cda.settings_changed_callback)
+        return cda
 
-        self.settings = settings
-        #self.settings.callback_obj = self
-        self.settings.callback_fn = self.apply_settings
+    def run(self):
         self.apply_settings(False)
         self.connect('unrealize', self.on_unrealize)
-
         self.cava = Cava()
         self.cava_thread = Thread(target=self.cava.run)
         self.cava_thread.start()
-
         GObject.timeout_add(1000.0 / 60.0, self.redraw)
 
-    def apply_settings(self, reload_cava):
-        self.draw_mode = settings.get('mode')
-        self.set_margin_top(settings.get('margin'))
-        self.set_margin_bottom(settings.get('margin'))
-        self.set_margin_start(settings.get('margin'))
-        self.set_margin_end(settings.get('margin'))
-        self.offset = settings.get('items-offset')
+    def apply_settings(self, reload_cava=False):
+        self.draw_mode = self.settings.get('mode')
+        self.set_margin_top(self.settings.get('margin'))
+        self.set_margin_bottom(self.settings.get('margin'))
+        self.set_margin_start(self.settings.get('margin'))
+        self.set_margin_end(self.settings.get('margin'))
+        self.offset = self.settings.get('items-offset')
         if reload_cava:
             self.cava.reload()
+
+    def settings_changed_callback(self, key):
+        if key in ('bars', 'channels', 'monstercat', 'monstercat-waves', \
+                'noise-reduction'):
+            self.apply_settings(True)
+        else:
+            self.apply_settings(False)
 
     def create_gradient(colors):
         pass

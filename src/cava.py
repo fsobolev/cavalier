@@ -32,8 +32,7 @@ import os
 import subprocess
 import struct
 import signal
-
-import cavalier.settings as settings
+from cavalier.settings import CavalierSettings
 
 class Cava:
     def __init__(self):
@@ -42,6 +41,7 @@ class Cava:
         self.BYTENORM = 65535
         self.running = False
 
+        self.settings = CavalierSettings.new()
         self.load_settings()
 
         self.sample = []
@@ -79,17 +79,17 @@ class Cava:
 
     def load_settings(self):
         # Cava config options
-        self.bars = settings.get('bars')
-        self.channels = settings.get('channels')
-        if settings.get('monstercat'):
+        self.bars = self.settings.get('bars')
+        self.channels = self.settings.get('channels')
+        if self.settings.get('monstercat'):
             self.monstercat = 1
         else:
             self.monstercat = 0
-        if settings.get('monstercat-waves'):
+        if self.settings.get('monstercat-waves'):
             self.waves = 1
         else:
             self.waves = 0
-        self.noise_reduction = settings.get('noise-reduction')
+        self.noise_reduction = self.settings.get('noise-reduction')
 
     def reload(self):
         self.load_settings()
