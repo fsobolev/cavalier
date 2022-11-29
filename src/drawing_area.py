@@ -31,7 +31,7 @@
 from gi.repository import Gtk, GObject, GdkPixbuf
 from threading import Thread
 from cavalier.cava import Cava
-from cavalier.draw_functions import wave, levels
+from cavalier.draw_functions import wave, levels, bars
 from cavalier.settings import CavalierSettings
 
 class CavalierDrawingArea(Gtk.DrawingArea):
@@ -46,7 +46,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         cda.set_vexpand(True)
         cda.set_hexpand(True)
         cda.set_draw_func(cda.draw_func, None, None)
-        cda.settings = CavalierSettings.new(cda.settings_changed_callback)
+        cda.settings = CavalierSettings.new(cda.on_settings_changed)
         return cda
 
     def run(self):
@@ -68,7 +68,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         if reload_cava:
             self.cava.reload()
 
-    def settings_changed_callback(self, key):
+    def on_settings_changed(self, key):
         if key in ('bars', 'channels', 'monstercat', 'monstercat-waves', \
                 'noise-reduction'):
             self.apply_settings(True)
@@ -81,6 +81,8 @@ class CavalierDrawingArea(Gtk.DrawingArea):
                 wave(self.cava_sample, cr, width, height, self.colors)
             elif self.draw_mode == 'levels':
                 levels(self.cava_sample, cr, width, height, self.colors, self.offset)
+            elif self.draw_mode == 'bars':
+                bars(self.cava_sample, cr, width, height, self.colors, self.offset)
             else:
                 print(f'Error: Unknown drawing mode "{self.draw_mode}"')
 

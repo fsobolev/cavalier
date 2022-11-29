@@ -43,15 +43,17 @@ class CavalierWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.settings = CavalierSettings.new()
+        self.settings = CavalierSettings.new(self.on_settings_changed)
         self.cava_sample = []
 
         self.build_ui()
         self.connect('close-request', self.on_close_request)
 
     def build_ui(self):
+        self.set_size_request(150, 150)
         (width, height) = self.settings.get('size')
         self.set_default_size(width, height)
+        self.toggle_sharp_corners()
 
         self.overlay = Gtk.Overlay.new()
         self.set_content(self.overlay)
@@ -76,6 +78,15 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.menu.append(_('About'), 'app.about')
         self.menu.append(_('Quit'), 'app.quit')
         self.menu_button.set_menu_model(self.menu)
+
+    def toggle_sharp_corners(self):
+        if self.settings.get('sharp-corners'):
+            self.remove_css_class('csd')
+        else:
+            self.add_css_class('csd')
+
+    def on_settings_changed(self, key):
+        self.toggle_sharp_corners()
 
     def on_close_request(self, w):
         (width, height) = self.get_default_size()

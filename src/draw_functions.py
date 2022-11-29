@@ -70,3 +70,6 @@ def levels(sample, cr, width, height, colors, offset):
                 height - (height / 10 * (r + 1)) + offset_px, \
                 step - offset_px * 2, height / 10 - offset_px * 2)
     cr.fill()
+
+def bars(sample, cr, width, height, colors, offset):
+    pass

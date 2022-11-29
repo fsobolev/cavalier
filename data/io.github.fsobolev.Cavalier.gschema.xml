@@ -24,7 +24,7 @@
 	  <key name="items-offset" type="i">
 	    <summary>Offset between items</summary>
 	    <description>The size of spaces between squares in the levels mode and between bars in the bars mode (in percent).</description>
-	    <range min="0" max="40"/>
+	    <range min="0" max="20"/>
 	    <default>10</default>
 	  </key>
 	  <key name="bars" type="i">
@@ -55,10 +55,29 @@
 	    <description>This factor adjusts the integral and gravity filters to keep the signal smooth. 1 will be very slow and smooth, 0 will be fast but noisy.</description>
 	    <default>0.77</default>
 	  </key>
+	  <key name="widgets-theme" type="s">
+	    <summary>Widgets theme</summary>
+	    <description>Theme used by Adwaita widgets</description>
+	    <choices>
+	      <choice value="light"/>
+	      <choice value="dark"/>
+	    </choices>
+	    <default>"dark"</default>
+	  </key>
+	  <key name="sharp-corners" type="b">
+	    <summary>Sharp corners</summary>
+	    <description>Whether the main window corners should be sharp.</description>
+	    <default>false</default>
+	  </key>
 	  <key name="fg-colors" type="a(iiid)">
 	    <summary>Foreground colors</summary>
 	    <description>The array of foregound colors (RBGA).</description>
 	    <default>[(53,132,228,1.0)]</default>
+	  </key>
+	  <key name="bg-colors" type="a(iiid)">
+	    <summary>Background colors</summary>
+	    <description>The array of background colors (RBGA).</description>
+	    <default>[(36,36,36,1.0)]</default>
 	  </key>
 	</schema>
 </schemalist>

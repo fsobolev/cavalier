@@ -48,7 +48,7 @@ class CavalierSettings(Gio.Settings):
 
     def set(self, key, value):
         if type(value) == int:
-            self.set_int32(key, value)
+            self.set_int(key, value)
         elif type(value) == float:
             self.set_double(key, value)
         elif type(value) == str:
