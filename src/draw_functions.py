@@ -72,4 +72,11 @@ def levels(sample, cr, width, height, colors, offset):
     cr.fill()
 
 def bars(sample, cr, width, height, colors, offset):
-    pass
+    set_source(cr, height, colors)
+    ls = len(sample)
+    step = width / ls
+    offset_px = step * offset / 100
+    for i in range(ls):
+        cr.rectangle(step * i + offset_px, height - height * sample[i], \
+            step - offset_px * 2, height)
+    cr.fill()
