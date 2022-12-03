@@ -41,7 +41,7 @@ class Cava:
         self.BYTENORM = 65535
         self.running = False
 
-        self.settings = CavalierSettings.new()
+        self.settings = CavalierSettings.new(self.on_settings_changed)
         self.load_settings()
 
         self.sample = []
@@ -97,6 +97,11 @@ class Cava:
         if self.running:
             self.reading_preparation()
             self.process.send_signal(signal.SIGUSR1)
+
+    def on_settings_changed(self, key):
+        if key in ('bars', 'channels', 'monstercat', 'monstercat-waves', \
+                'noise-reduction'):
+            self.reload()
 
     def write_config(self):
         try:
