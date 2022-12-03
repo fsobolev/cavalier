@@ -88,9 +88,9 @@ class CavalierWindow(Adw.ApplicationWindow):
 
     def toggle_sharp_corners(self):
         if self.settings.get('sharp-corners'):
-            self.remove_css_class('csd')
+            self.add_css_class('sharp-corners')
         else:
-            self.add_css_class('csd')
+            self.remove_css_class('sharp-corners')
 
     def on_settings_changed(self):
         self.toggle_sharp_corners()
