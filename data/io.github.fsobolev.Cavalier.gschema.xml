@@ -71,13 +71,13 @@
 	  </key>
 	  <key name="fg-colors" type="a(iiid)">
 	    <summary>Foreground colors</summary>
-	    <description>The array of foregound colors (RBGA).</description>
+	    <description>The array of foregound colors (RGBA).</description>
 	    <default>[(53,132,228,1.0)]</default>
 	  </key>
 	  <key name="bg-colors" type="a(iiid)">
 	    <summary>Background colors</summary>
-	    <description>The array of background colors (RBGA).</description>
-	    <default>[(36,36,36,1.0)]</default>
+	    <description>The array of background colors (RGBA).</description>
+	    <default>[]</default>
 	  </key>
 	</schema>
 </schemalist>

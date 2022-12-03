@@ -53,8 +53,12 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.set_size_request(150, 150)
         (width, height) = self.settings.get('size')
         self.set_default_size(width, height)
+
+        self.set_name('cavalier-window')
         self.toggle_sharp_corners()
         self.set_style()
+        self.css_provider = Gtk.CssProvider.new()
+        self.apply_colors()
 
         self.overlay = Gtk.Overlay.new()
         self.set_content(self.overlay)
@@ -92,9 +96,33 @@ class CavalierWindow(Adw.ApplicationWindow):
         else:
             self.remove_css_class('sharp-corners')
 
+    def apply_colors(self):
+        colors = self.settings.get('bg-colors')
+        print(colors)
+        if len(colors) == 0:
+            self.get_style_context().remove_provider(self.css_provider)
+        elif len(colors) == 1:
+            self.css_data = b'''#cavalier-window {
+                background-color: rgba(%d, %d, %d, %f)
+            }''' % colors[0]
+            self.css_provider.load_from_data(self.css_data)
+            self.get_style_context().add_provider(self.css_provider, \
+                Gtk.STYLE_PROVIDER_PRIORITY_USER)
+        elif len(colors) > 1:
+            self.css_data = b'''#cavalier-window {
+                background: linear-gradient(to bottom, '''
+            for c in colors:
+                self.css_data += b'rgba(%d, %d, %d, %f), ' % c
+            self.css_data = self.css_data[:-2]
+            self.css_data += b');}'
+            self.css_provider.load_from_data(self.css_data)
+            self.get_style_context().add_provider(self.css_provider, \
+                Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
     def on_settings_changed(self):
         self.toggle_sharp_corners()
         self.set_style()
+        self.apply_colors()
 
     def on_close_request(self, obj):
         (width, height) = self.get_default_size()
