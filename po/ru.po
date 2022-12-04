@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-04 09:57+0300\n"
-"PO-Revision-Date: 2022-12-04 10:02+0300\n"
+"POT-Creation-Date: 2022-12-04 23:23+0300\n"
+"PO-Revision-Date: 2022-12-04 23:26+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: data/io.github.fsobolev.Cavalier.desktop.in:3
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:6
 msgid "Cavalier"
 msgstr "Cavalier"
 
@@ -23,38 +24,38 @@ msgstr "Cavalier"
 msgid "Audio Visualizer"
 msgstr "Аудио визуализатор"
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:6
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:7
 msgid "Audio visualizer based on CAVA."
 msgstr "Аудио визуализатор, основанный на CAVA"
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:8
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:9
 msgid ""
 "Cavalier is an audio visualizer based on CAVA with customizable LibAdwaita "
 "interface."
 msgstr ""
-"Cavalier - аудио визуализатор, использующий CAVA, с настраиваемым интерфейсом "
-"на основе LibAdwaita."
+"Cavalier - аудио визуализатор, использующий CAVA, с настраиваемым "
+"интерфейсом на основе LibAdwaita."
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:10
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:11
 msgid ""
 "3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - Bars!"
 msgstr ""
 "3 режима отрисовки: странные Волны, Уровни в стиле ретро, и классический вид "
 "CAVA - Шкалы!"
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:11
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:12
 msgid ""
 "Set single color or up to 10 colors gradient for background and foreground."
 msgstr ""
 "Установите цвет или градиент из максимум 10 цветов в качестве фона или "
 "основного цвета."
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:12
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:13
 msgid "Configure smoothing, noise reduction and a few other CAVA settings."
 msgstr ""
 "Настраивайте сглаживание, шумоподавление и парочку других параметров CAVA."
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:18
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:19
 msgid "Fyodor Sobolev"
 msgstr "Фёдор Соболев"
 
@@ -99,25 +100,25 @@ msgstr "Количество шкал"
 msgid "Number of bars in CAVA config"
 msgstr "Количество шкал в конфигурации CAVA"
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:37
-#: src/preferences_window.py:163
+#: data/io.github.fsobolev.Cavalier.gschema.xml:48
+#: src/preferences_window.py:195
 msgid "Channels"
 msgstr "Каналы"
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:38
+#: data/io.github.fsobolev.Cavalier.gschema.xml:49
 msgid "Mono or stereo"
 msgstr "Моно или стерео"
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:46
-#: src/preferences_window.py:185
+#: data/io.github.fsobolev.Cavalier.gschema.xml:57
+#: src/preferences_window.py:217
 msgid "Smoothing"
 msgstr "Сглаживание"
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:54
+#: data/io.github.fsobolev.Cavalier.gschema.xml:65
 msgid "Noise reduction"
 msgstr "Шумоподавление"
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:55
+#: data/io.github.fsobolev.Cavalier.gschema.xml:66
 msgid ""
 "This factor adjusts the integral and gravity filters to keep the signal "
 "smooth. 1 will be very slow and smooth, 0 will be fast but noisy."
@@ -125,39 +126,39 @@ msgstr ""
 "Этот параметр регулирует интегральные и гравитационные фильтры, делающие "
 "сигнал гладким. 1 - медленно и гладко, 0 - быстро, но шумно."
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:60
-#: src/preferences_window.py:230
+#: data/io.github.fsobolev.Cavalier.gschema.xml:71
+#: src/preferences_window.py:262
 msgid "Widgets style"
 msgstr "Стиль виджетов"
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:61
-#: src/preferences_window.py:231
+#: data/io.github.fsobolev.Cavalier.gschema.xml:72
+#: src/preferences_window.py:263
 msgid "Style used by Adwaita widgets."
 msgstr "Стиль, используемый виджетами Adwaita."
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:69
+#: data/io.github.fsobolev.Cavalier.gschema.xml:80
 #: src/preferences_window.py:122
 msgid "Sharp corners"
 msgstr "Острые углы"
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:70
+#: data/io.github.fsobolev.Cavalier.gschema.xml:81
 #: src/preferences_window.py:124
 msgid "Whether the main window corners should be sharp."
 msgstr "Должны ли углы главного окна быть острыми."
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:74
+#: data/io.github.fsobolev.Cavalier.gschema.xml:85
 msgid "Foreground colors"
 msgstr "Цвета переднего плана"
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:75
+#: data/io.github.fsobolev.Cavalier.gschema.xml:86
 msgid "The array of foregound colors (RGBA)."
 msgstr "Массив цветов переднего плана (RGBA)."
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:79
+#: data/io.github.fsobolev.Cavalier.gschema.xml:90
 msgid "Background colors"
 msgstr "Цвета фона"
 
-#: data/io.github.fsobolev.Cavalier.gschema.xml:80
+#: data/io.github.fsobolev.Cavalier.gschema.xml:91
 msgid "The array of background colors (RGBA)."
 msgstr "Массив фоновых цветов (RGBA)."
 
@@ -177,51 +178,51 @@ msgstr "Уровни"
 msgid "Bars"
 msgstr "Шкалы"
 
-#: src/preferences_window.py:169
+#: src/preferences_window.py:201
 msgid "Mono"
 msgstr "Моно"
 
-#: src/preferences_window.py:171
+#: src/preferences_window.py:203
 msgid "Stereo"
 msgstr "Стерео"
 
-#: src/preferences_window.py:191
+#: src/preferences_window.py:223
 msgid "Off"
 msgstr "Выключено"
 
-#: src/preferences_window.py:193
+#: src/preferences_window.py:225
 msgid "Monstercat"
 msgstr "Monstercat"
 
-#: src/preferences_window.py:207
+#: src/preferences_window.py:239
 msgid "Noise Reduction"
 msgstr "Шумоподавление"
 
-#: src/preferences_window.py:208
+#: src/preferences_window.py:240
 msgid "0 - noisy, 1 - smooth"
 msgstr "0 - шумно, 1 - гладко"
 
-#: src/preferences_window.py:222 src/preferences_window.py:256
+#: src/preferences_window.py:254 src/preferences_window.py:288
 msgid "Colors"
 msgstr "Цвета"
 
-#: src/preferences_window.py:236
+#: src/preferences_window.py:268
 msgid "Light"
 msgstr "Светлый"
 
-#: src/preferences_window.py:238
+#: src/preferences_window.py:270
 msgid "Dark"
 msgstr "Тёмный"
 
-#: src/preferences_window.py:263
+#: src/preferences_window.py:295
 msgid "<b>Foreground</b>"
 msgstr "<b>Передний план</b>"
 
-#: src/preferences_window.py:268
+#: src/preferences_window.py:300
 msgid "<b>Background</b>"
 msgstr "<b>Фон</b>"
 
-#: src/preferences_window.py:304 src/preferences_window.py:339
+#: src/preferences_window.py:336 src/preferences_window.py:371
 msgid "Add"
 msgstr "Добавить"
 
@@ -236,3 +237,27 @@ msgstr "О приложении"
 #: src/window.py:88
 msgid "Quit"
 msgstr "Выход"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:37
+#: src/preferences_window.py:163
+msgid "Automatic sensitivity"
+msgstr "Автоматическая чувствительность"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:38
+#: src/preferences_window.py:165
+msgid "Attempt to decrease sensitivity if the bars peak."
+msgstr "Пытаться снижать чувствительность, если показатели достигают максимума."
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:42
+#: src/preferences_window.py:180
+msgid "Sensitivity"
+msgstr "Чувствительность"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:43
+#: src/preferences_window.py:182
+msgid ""
+"Manual sensitivity. If automatic sensitivity is enabled, this will only be "
+"the initial value."
+msgstr ""
+"Ручная настройка чувствительности. Если автоматическая чувствительность "
+"включена, этот параметр задаёт только начальное значение."
