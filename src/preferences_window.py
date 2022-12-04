@@ -211,7 +211,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             Gdk.RGBA.parse(color, 'rgba(%d, %d, %d, %f)' % fg_color)
             color_btn = Gtk.ColorButton.new_with_rgba(color)
             color_btn.set_use_alpha(True)
-            color_btn.set_size_request(124, -1)
+            color_btn.set_size_request(98, -1)
             color_btn.connect('color-set', self.color_changed, 0, counter)
             box.append(color_btn)
             rm_btn = Gtk.Button.new_from_icon_name('edit-delete-symbolic')
@@ -222,10 +222,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             box.append(rm_btn)
             self.colors_grid.attach(box, 0, counter + 1, 1, 1)
             counter += 1
-        if counter < 9:
+        if counter < 10:
             self.fg_add_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 4)
             self.fg_add_box.set_halign(Gtk.Align.CENTER)
             self.fg_add_box.set_valign(Gtk.Align.CENTER)
+            self.fg_add_box.set_margin_bottom(6)
             self.fg_add_box.append(Gtk.Label.new(_('Add')))
             color = Gdk.RGBA()
             Gdk.RGBA.parse(color, '#000f')
@@ -247,7 +248,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             Gdk.RGBA.parse(color, 'rgba(%d, %d, %d, %f)' % bg_color)
             color_btn = Gtk.ColorButton.new_with_rgba(color)
             color_btn.set_use_alpha(True)
-            color_btn.set_size_request(124, -1)
+            color_btn.set_size_request(98, -1)
             color_btn.connect('color-set', self.color_changed, 1, counter)
             box.append(color_btn)
             rm_btn = Gtk.Button.new_from_icon_name('edit-delete-symbolic')
@@ -256,10 +257,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             box.append(rm_btn)
             self.colors_grid.attach(box, 1, counter + 1, 1, 1)
             counter += 1
-        if counter < 9:
+        if counter < 10:
             self.bg_add_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 4)
             self.bg_add_box.set_halign(Gtk.Align.CENTER)
             self.bg_add_box.set_valign(Gtk.Align.CENTER)
+            self.bg_add_box.set_margin_bottom(6)
             self.bg_add_box.append(Gtk.Label.new(_('Add')))
             color = Gdk.RGBA()
             Gdk.RGBA.parse(color, '#000f')
