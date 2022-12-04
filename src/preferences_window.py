@@ -183,9 +183,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.cava_group.add(self.sensitivity_row)
         self.sensitivity_scale = Gtk.Scale.new_with_range( \
             Gtk.Orientation.HORIZONTAL, 10.0, 250.0, 10.0)
-        self.sensitivity_scale.set_size_request(180, -1)
-        self.sensitivity_scale.set_draw_value(True)
-        self.sensitivity_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.sensitivity_scale.set_size_request(150, -1)
+        self.sensitivity_scale.set_draw_value(False)
         self.sensitivity_scale.set_value(self.settings.get('sensitivity'))
         self.sensitivity_scale.connect('value-changed', self.on_save, \
             'sensitivity', self.sensitivity_scale.get_value)
@@ -241,9 +240,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.cava_group.add(self.nr_row)
         self.nr_scale = Gtk.Scale.new_with_range( \
             Gtk.Orientation.HORIZONTAL, 0.0, 1.0, 0.01)
-        self.nr_scale.set_size_request(180, -1)
+        self.nr_scale.add_mark(0.77, Gtk.PositionType.BOTTOM, None)
+        self.nr_scale.set_size_request(190, -1)
         self.nr_scale.set_draw_value(True)
         self.nr_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.nr_scale.get_first_child().set_margin_bottom(12)
         self.nr_scale.set_value(self.settings.get('noise-reduction'))
         self.nr_scale.connect('value-changed', self.on_save, \
             'noise-reduction', self.nr_scale.get_value)
