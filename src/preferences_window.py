@@ -159,6 +159,38 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.bars_scale.connect('value-changed', self.on_bars_changed)
         self.bars_row.add_suffix(self.bars_scale)
 
+        self.autosens_row = Adw.ActionRow.new()
+        self.autosens_row.set_title(_('Automatic sensitivity'))
+        self.autosens_row.set_subtitle( \
+            _('Attempt to decrease sensitivity if the bars peak.'))
+        self.autosens_switch = Gtk.Switch.new()
+        self.autosens_switch.set_valign(Gtk.Align.CENTER)
+        self.autosens_switch.set_active(self.settings.get('autosens'))
+        # `state-set` signal returns additional parameter that we don't need,
+        # that's why lambda is used. Also GtkSwitch's state is changed after
+        # signal, so we have to pass the opposite of it
+        self.autosens_switch.connect('state-set', \
+            lambda *args : self.on_save(self.autosens_switch, \
+                'autosens', not self.autosens_switch.get_state()))
+        self.autosens_row.add_suffix(self.autosens_switch)
+        self.autosens_row.set_activatable_widget(self.autosens_switch)
+        self.cava_group.add(self.autosens_row)
+
+        self.sensitivity_row = Adw.ActionRow.new()
+        self.sensitivity_row.set_title(_('Sensitivity'))
+        self.sensitivity_row.set_subtitle( \
+            _('Manual sensitivity. If automatic sensitivity is enabled, this will only be the initial value.'))
+        self.cava_group.add(self.sensitivity_row)
+        self.sensitivity_scale = Gtk.Scale.new_with_range( \
+            Gtk.Orientation.HORIZONTAL, 10.0, 250.0, 10.0)
+        self.sensitivity_scale.set_size_request(180, -1)
+        self.sensitivity_scale.set_draw_value(True)
+        self.sensitivity_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.sensitivity_scale.set_value(self.settings.get('sensitivity'))
+        self.sensitivity_scale.connect('value-changed', self.on_save, \
+            'sensitivity', self.sensitivity_scale.get_value)
+        self.sensitivity_row.add_suffix(self.sensitivity_scale)
+
         self.channels_row = Adw.ActionRow.new()
         self.channels_row.set_title(_('Channels'))
         self.cava_group.add(self.channels_row)

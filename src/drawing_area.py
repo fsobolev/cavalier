@@ -73,7 +73,8 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         if len(self.colors) == 0:
             self.settings.set('fg-colors', [(53, 132, 228, 1.0)])
 
-        if key in ('bars', 'channels', 'smoothing', 'noise-reduction'):
+        if key in ('bars', 'autosens', 'sensitivity', 'channels', \
+                'smoothing', 'noise-reduction'):
             if not self.cava.restarting:
                 self.cava.stop()
                 self.cava.restarting = True

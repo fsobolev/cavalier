@@ -33,6 +33,17 @@
 	    <range min="6" max="50"/>
 	    <default>12</default>
 	  </key>
+	  <key name="autosens" type="b">
+	    <summary>Automatic sensitivity</summary>
+	    <description>Attempt to decrease sensitivity if the bars peak.</description>
+	    <default>true</default>
+	  </key>
+	  <key name="sensitivity" type="d">
+	    <summary>Sensitivity</summary>
+	    <description>Manual sensitivity. If automatic sensitivity is enabled, this will only be the initial value.</description>
+	    <range min="10.0" max="250.0"/>
+	    <default>10.0</default>
+	  </key>
 	  <key name="channels" type="s">
 	    <summary>Channels</summary>
 	    <description>Mono or stereo</description>

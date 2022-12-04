@@ -75,9 +75,10 @@ class Cava:
     def load_settings(self):
         # Cava config options
         self.bars = self.settings.get('bars')
+        self.autosens = int(self.settings.get('autosens'))
+        self.sensitivity = self.settings.get('sensitivity')
         self.channels = self.settings.get('channels')
-        smoothing = self.settings.get('smoothing')
-        if smoothing == 'off':
+        if self.settings.get('smoothing') == 'off':
             self.monstercat = 0
         else:
             self.monstercat = 1
@@ -89,6 +90,8 @@ class Cava:
             conf = '\n'.join([
                 '[general]',
                 f'bars = {self.bars}',
+                f'autosens = {self.autosens}',
+                f'sensitivity = {self.sensitivity ** 2}',
                 'framerate = 60',
                 '[input]',
                 'method = pulse',
