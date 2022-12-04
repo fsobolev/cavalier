@@ -3,6 +3,7 @@
 	<id>io.github.fsobolev.Cavalier.desktop</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>MIT</project_license>
+  <name>Cavalier</name>
 	<summary>Audio visualizer based on CAVA.</summary>
   <description>
 	  <p>Cavalier is an audio visualizer based on CAVA with customizable LibAdwaita interface.</p>
