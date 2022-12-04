@@ -81,26 +81,26 @@ class Cava:
         # Cava config options
         self.bars = self.settings.get('bars')
         self.channels = self.settings.get('channels')
-        if self.settings.get('monstercat'):
-            self.monstercat = 1
-        else:
+        smoothing = self.settings.get('smoothing')
+        if smoothing == 'off':
             self.monstercat = 0
-        if self.settings.get('monstercat-waves'):
-            self.waves = 1
         else:
-            self.waves = 0
+            self.monstercat = 1
         self.noise_reduction = self.settings.get('noise-reduction')
 
     def reload(self):
-        self.load_settings()
-        self.write_config()
-        if self.running:
-            self.reading_preparation()
-            self.process.send_signal(signal.SIGUSR1)
+        pass
+        # self.load_settings()
+        # self.write_config()
+        # if self.running:
+        #     self.reading_preparation()
+        #     self.process.send_signal(signal.SIGUSR1)
+
+    def kill(self):
+        self.process.send_signal(signal.SIGKILL)
 
     def on_settings_changed(self, key):
-        if key in ('bars', 'channels', 'monstercat', 'monstercat-waves', \
-                'noise-reduction'):
+        if key in ('bars', 'channels', 'smoothing', 'noise-reduction'):
             self.reload()
 
     def write_config(self):
@@ -120,7 +120,6 @@ class Cava:
                 'bit_format = 16bit',
                 '[smoothing]',
                 f'monstercat = {self.monstercat}',
-                f'waves = {self.waves}',
                 f'noise_reduction = {self.noise_reduction}'
             ])
             f.write(conf)

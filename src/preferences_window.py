@@ -60,7 +60,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.wave_check_btn = Gtk.CheckButton.new()
         self.wave_row.add_prefix(self.wave_check_btn)
         self.wave_row.set_activatable_widget(self.wave_check_btn)
-        self.wave_check_btn.connect('toggled', self.on_save, 'mode', 'wave')
         self.cavalier_mode_group.add(self.wave_row)
 
         self.levels_row = Adw.ActionRow.new()
@@ -69,7 +68,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.levels_check_btn.set_group(self.wave_check_btn)
         self.levels_row.add_prefix(self.levels_check_btn)
         self.levels_row.set_activatable_widget(self.levels_check_btn)
-        self.levels_check_btn.connect('toggled', self.on_save, 'mode', 'levels')
         self.cavalier_mode_group.add(self.levels_row)
 
         self.bars_row = Adw.ActionRow.new()
@@ -78,12 +76,14 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.bars_check_btn.set_group(self.wave_check_btn)
         self.bars_row.add_prefix(self.bars_check_btn)
         self.bars_row.set_activatable_widget(self.bars_check_btn)
-        self.bars_check_btn.connect('toggled', self.on_save, 'mode', 'bars')
         self.cavalier_mode_group.add(self.bars_row)
 
         (self.wave_row, self.levels_row, self.bars_row)[ \
             ('wave', 'levels', 'bars').index(self.settings.get('mode')) \
             ].activate()
+        self.wave_check_btn.connect('toggled', self.on_save, 'mode', 'wave')
+        self.levels_check_btn.connect('toggled', self.on_save, 'mode', 'levels')
+        self.bars_check_btn.connect('toggled', self.on_save, 'mode', 'bars')
 
         self.cavalier_group = Adw.PreferencesGroup.new()
         self.cavalier_page.add(self.cavalier_group)
@@ -97,7 +97,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_margin_scale.set_size_request(180, -1)
         self.pref_margin_scale.set_draw_value(True)
         self.pref_margin_scale.set_value_pos(Gtk.PositionType.LEFT)
-        self.pref_margin_scale.set_value(self.settings.get("margin"))
+        self.pref_margin_scale.set_value(self.settings.get('margin'))
         self.pref_margin_scale.connect('value-changed', self.on_save, \
             'margin', self.pref_margin_scale.get_value)
         self.pref_margin.add_suffix(self.pref_margin_scale)
@@ -112,7 +112,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_offset_scale.set_size_request(180, -1)
         self.pref_offset_scale.set_draw_value(True)
         self.pref_offset_scale.set_value_pos(Gtk.PositionType.LEFT)
-        self.pref_offset_scale.set_value(self.settings.get("items-offset"))
+        self.pref_offset_scale.set_value(self.settings.get('items-offset'))
         self.pref_offset_scale.connect('value-changed', self.on_save, \
             'items-offset', self.pref_offset_scale.get_value)
         self.pref_offset.add_suffix(self.pref_offset_scale)
@@ -143,6 +143,80 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.cava_page.set_icon_name('utilities-terminal-symbolic')
         self.add(self.cava_page)
 
+        self.cava_group = Adw.PreferencesGroup.new()
+        self.cava_page.add(self.cava_group)
+
+        self.bars_row = Adw.ActionRow.new()
+        self.bars_row.set_title(_('Bars'))
+        self.cava_group.add(self.bars_row)
+        self.bars_scale = Gtk.Scale.new_with_range( \
+            Gtk.Orientation.HORIZONTAL, 6.0, 50.0, 2.0)
+        self.bars_scale.set_size_request(180, -1)
+        self.bars_scale.set_draw_value(True)
+        self.bars_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.bars_scale.set_value(self.settings.get('bars'))
+        self.bars_scale.set_increments(2.0, 2.0)
+        self.bars_scale.connect('value-changed', self.on_bars_changed)
+        self.bars_row.add_suffix(self.bars_scale)
+
+        self.channels_row = Adw.ActionRow.new()
+        self.channels_row.set_title(_('Channels'))
+        self.cava_group.add(self.channels_row)
+        self.channels_buttons_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.channels_buttons_box.add_css_class('linked')
+        self.channels_buttons_box.set_valign(Gtk.Align.CENTER)
+        self.channels_row.add_suffix(self.channels_buttons_box)
+        self.btn_mono = Gtk.ToggleButton.new_with_label(_('Mono'))
+        self.channels_buttons_box.append(self.btn_mono)
+        self.btn_stereo = Gtk.ToggleButton.new_with_label(_('Stereo'))
+        self.channels_buttons_box.append(self.btn_stereo)
+        if self.settings.get('channels') == 'mono':
+            self.btn_mono.set_active(True)
+        else:
+            self.btn_stereo.set_active(True)
+        self.btn_mono.bind_property('active', self.btn_stereo, 'active', \
+            (GObject.BindingFlags.BIDIRECTIONAL | \
+             GObject.BindingFlags.SYNC_CREATE | \
+             GObject.BindingFlags.INVERT_BOOLEAN))
+        self.btn_mono.connect('toggled', self.on_channels_changed)
+        self.btn_stereo.connect('toggled', self.on_channels_changed)
+
+        self.smoothing_row = Adw.ActionRow.new()
+        self.smoothing_row.set_title(_('Smoothing'))
+        self.cava_group.add(self.smoothing_row)
+        self.smoothing_buttons_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.smoothing_buttons_box.add_css_class('linked')
+        self.smoothing_buttons_box.set_valign(Gtk.Align.CENTER)
+        self.smoothing_row.add_suffix(self.smoothing_buttons_box)
+        self.btn_smooth_off = Gtk.ToggleButton.new_with_label(_('Off'))
+        self.smoothing_buttons_box.append(self.btn_smooth_off)
+        self.btn_smooth_mc = Gtk.ToggleButton.new_with_label(_('Monstercat'))
+        self.smoothing_buttons_box.append(self.btn_smooth_mc)
+        if self.settings.get('smoothing') == 'off':
+            self.btn_smooth_off.set_active(True)
+        else:
+            self.btn_smooth_mc.set_active(True)
+        self.btn_smooth_off.bind_property('active', self.btn_smooth_mc, 'active', \
+            (GObject.BindingFlags.BIDIRECTIONAL | \
+             GObject.BindingFlags.SYNC_CREATE | \
+             GObject.BindingFlags.INVERT_BOOLEAN))
+        self.btn_smooth_off.connect('toggled', self.on_smoothing_changed)
+        self.btn_smooth_mc.connect('toggled', self.on_smoothing_changed)
+
+        self.nr_row = Adw.ActionRow.new()
+        self.nr_row.set_title(_('Noise Reduction'))
+        self.nr_row.set_subtitle(_('0 - noisy, 1 - smooth'))
+        self.cava_group.add(self.nr_row)
+        self.nr_scale = Gtk.Scale.new_with_range( \
+            Gtk.Orientation.HORIZONTAL, 0.0, 1.0, 0.01)
+        self.nr_scale.set_size_request(180, -1)
+        self.nr_scale.set_draw_value(True)
+        self.nr_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.nr_scale.set_value(self.settings.get('noise-reduction'))
+        self.nr_scale.connect('value-changed', self.on_save, \
+            'noise-reduction', self.nr_scale.get_value)
+        self.nr_row.add_suffix(self.nr_scale)
+
     def create_colors_page(self):
         self.colors_page = Adw.PreferencesPage.new()
         self.colors_page.set_title(_('Colors'))
@@ -160,10 +234,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.style_buttons_box.set_valign(Gtk.Align.CENTER)
         self.style_row.add_suffix(self.style_buttons_box)
         self.btn_light = Gtk.ToggleButton.new_with_label(_('Light'))
-        self.btn_light.connect('toggled', self.apply_style)
         self.style_buttons_box.append(self.btn_light)
         self.btn_dark = Gtk.ToggleButton.new_with_label(_('Dark'))
-        self.btn_dark.connect('toggled', self.apply_style)
         self.style_buttons_box.append(self.btn_dark)
         if self.settings.get('widgets-style') == 'light':
             self.btn_light.set_active(True)
@@ -173,6 +245,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             (GObject.BindingFlags.BIDIRECTIONAL | \
              GObject.BindingFlags.SYNC_CREATE | \
              GObject.BindingFlags.INVERT_BOOLEAN))
+        self.btn_light.connect('toggled', self.apply_style)
+        self.btn_dark.connect('toggled', self.apply_style)
         self.style_group.add(self.style_row)
 
         self.fg_colors = self.settings.get('fg-colors')
@@ -321,6 +395,25 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.settings.set('widgets-style', 'light')
         else:
             self.settings.set('widgets-style', 'dark')
+
+    def on_bars_changed(self, obj):
+        value = self.bars_scale.get_value()
+        if value % 2 != 0:
+            value -= 1
+            self.bars_scale.set_value(value)
+        self.on_save(obj, 'bars', value)
+
+    def on_channels_changed(self, obj):
+        if self.btn_mono.get_active():
+            self.settings.set('channels', 'mono')
+        else:
+            self.settings.set('channels', 'stereo')
+
+    def on_smoothing_changed(self, obj):
+        if self.btn_smooth_off.get_active():
+            self.settings.set('smoothing', 'off')
+        else:
+            self.settings.set('smoothing', 'monstercat')
 
     def on_save(self, obj, key, value):
         if callable(value):

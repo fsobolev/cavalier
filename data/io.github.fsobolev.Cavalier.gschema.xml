@@ -42,17 +42,18 @@
 	    </choices>
 	    <default>"stereo"</default>
 	  </key>
-	  <key name="monstercat" type="b">
-	    <summary>Monstercat smoothing</summary>
-	    <default>true</default>
-	  </key>
-	  <key name="monstercat-waves" type="b">
-	    <summary>Monstercat waves</summary>
-	    <default>false</default>
+	  <key name="smoothing" type="s">
+	    <summary>Smoothing</summary>
+	    <choices>
+	      <choice value="off"/>
+	      <choice value="monstercat"/>
+	    </choices>
+	    <default>"monstercat"</default>
 	  </key>
 	  <key name="noise-reduction" type="d">
 	    <summary>Noise reduction</summary>
 	    <description>This factor adjusts the integral and gravity filters to keep the signal smooth. 1 will be very slow and smooth, 0 will be fast but noisy.</description>
+	    <range min="0.0" max="1.0"/>
 	    <default>0.77</default>
 	  </key>
 	  <key name="widgets-style" type="s">
