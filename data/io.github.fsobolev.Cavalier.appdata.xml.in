@@ -17,6 +17,20 @@
   <url type="bugtracker">https://github.com/fsobolev/cavalier/issues</url>
   <developer_name>Fyodor Sobolev</developer_name>
   <translation type="gettext">cavalier</translation>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/fsobolev/cavalier/master/data/screenshots/main.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/fsobolev/cavalier/master/data/screenshots/default.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/fsobolev/cavalier/master/data/screenshots/levels.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/fsobolev/cavalier/master/data/screenshots/bars.png</image>
+    </screenshot>
+  </screenshots>
   <content_rating type="oars-1.1" />
   <supports>
     <control>pointing</control>
