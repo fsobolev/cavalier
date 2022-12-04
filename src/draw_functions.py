@@ -29,7 +29,6 @@
 # SPDX-License-Identifier: MIT
 
 import os
-from gi.repository import Gdk, GdkPixbuf
 import cairo
 
 def set_source(cr, height, colors):

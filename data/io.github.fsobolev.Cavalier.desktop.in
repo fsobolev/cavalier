@@ -1,5 +1,6 @@
 [Desktop Entry]
-Name=cavalier
+Name=Cavalier
+Comment=Audio Visualizer
 Exec=cavalier
 Icon=io.github.fsobolev.Cavalier
 Terminal=false

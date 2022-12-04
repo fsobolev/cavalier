@@ -1,0 +1,238 @@
+# Russian translation for Cavalier
+# Copyright (C) 2022 Fyodor Sobolev
+# This file is distributed under the same license as the PACKAGE package.
+# Fyodor Sobolev, 2022
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cavalier\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-04 09:57+0300\n"
+"PO-Revision-Date: 2022-12-04 10:02+0300\n"
+"Last-Translator: Fyodor Sobolev\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/io.github.fsobolev.Cavalier.desktop.in:3
+msgid "Cavalier"
+msgstr "Cavalier"
+
+#: data/io.github.fsobolev.Cavalier.desktop.in:4
+msgid "Audio Visualizer"
+msgstr "Аудио визуализатор"
+
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:6
+msgid "Audio visualizer based on CAVA."
+msgstr "Аудио визуализатор, основанный на CAVA"
+
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:8
+msgid ""
+"Cavalier is an audio visualizer based on CAVA with customizable LibAdwaita "
+"interface."
+msgstr ""
+"Cavalier - аудио визуализатор, использующий CAVA, с настраиваемым интерфейсом "
+"на основе LibAdwaita."
+
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:10
+msgid ""
+"3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - Bars!"
+msgstr ""
+"3 режима отрисовки: странные Волны, Уровни в стиле ретро, и классический вид "
+"CAVA - Шкалы!"
+
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:11
+msgid ""
+"Set single color or up to 10 colors gradient for background and foreground."
+msgstr ""
+"Установите цвет или градиент из максимум 10 цветов в качестве фона или "
+"основного цвета."
+
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:12
+msgid "Configure smoothing, noise reduction and a few other CAVA settings."
+msgstr ""
+"Настраивайте сглаживание, шумоподавление и парочку других параметров CAVA."
+
+#: data/io.github.fsobolev.Cavalier.appdata.xml.in:18
+msgid "Fyodor Sobolev"
+msgstr "Фёдор Соболев"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:5
+msgid "Window size"
+msgstr "Размер окна"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:9
+msgid "Drawing mode"
+msgstr "Режим отрисовки"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:10
+msgid "Defines what the visualizer looks like."
+msgstr "Определяет, как выглядит визуализатор."
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:19 src/preferences_window.py:92
+msgid "Drawing area margin"
+msgstr "Отступ области отрисовки"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:20 src/preferences_window.py:94
+msgid "Size of gaps around drawing area (in pixels)."
+msgstr "Размер отступа вокруг области отрисовки (в пикселях)."
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:25
+#: src/preferences_window.py:107
+msgid "Offset between items"
+msgstr "Расстояние между элементами"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:26
+#: src/preferences_window.py:109
+msgid ""
+"The size of spaces between elements in \"levels\" and \"bars\" modes (in "
+"percent)."
+msgstr ""
+"Размер пространства между элементами в режимах Уровни и Шкалы (в процентах)."
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:31
+msgid "Number of bars"
+msgstr "Количество шкал"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:32
+msgid "Number of bars in CAVA config"
+msgstr "Количество шкал в конфигурации CAVA"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:37
+#: src/preferences_window.py:163
+msgid "Channels"
+msgstr "Каналы"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:38
+msgid "Mono or stereo"
+msgstr "Моно или стерео"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:46
+#: src/preferences_window.py:185
+msgid "Smoothing"
+msgstr "Сглаживание"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:54
+msgid "Noise reduction"
+msgstr "Шумоподавление"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:55
+msgid ""
+"This factor adjusts the integral and gravity filters to keep the signal "
+"smooth. 1 will be very slow and smooth, 0 will be fast but noisy."
+msgstr ""
+"Этот параметр регулирует интегральные и гравитационные фильтры, делающие "
+"сигнал гладким. 1 - медленно и гладко, 0 - быстро, но шумно."
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:60
+#: src/preferences_window.py:230
+msgid "Widgets style"
+msgstr "Стиль виджетов"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:61
+#: src/preferences_window.py:231
+msgid "Style used by Adwaita widgets."
+msgstr "Стиль, используемый виджетами Adwaita."
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:69
+#: src/preferences_window.py:122
+msgid "Sharp corners"
+msgstr "Острые углы"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:70
+#: src/preferences_window.py:124
+msgid "Whether the main window corners should be sharp."
+msgstr "Должны ли углы главного окна быть острыми."
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:74
+msgid "Foreground colors"
+msgstr "Цвета переднего плана"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:75
+msgid "The array of foregound colors (RGBA)."
+msgstr "Массив цветов переднего плана (RGBA)."
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:79
+msgid "Background colors"
+msgstr "Цвета фона"
+
+#: data/io.github.fsobolev.Cavalier.gschema.xml:80
+msgid "The array of background colors (RGBA)."
+msgstr "Массив фоновых цветов (RGBA)."
+
+#: src/preferences_window.py:55
+msgid "Drawing Mode"
+msgstr "Режим отрисовки"
+
+#: src/preferences_window.py:59
+msgid "Wave"
+msgstr "Волна"
+
+#: src/preferences_window.py:66
+msgid "Levels"
+msgstr "Уровни"
+
+#: src/preferences_window.py:74 src/preferences_window.py:150
+msgid "Bars"
+msgstr "Шкалы"
+
+#: src/preferences_window.py:169
+msgid "Mono"
+msgstr "Моно"
+
+#: src/preferences_window.py:171
+msgid "Stereo"
+msgstr "Стерео"
+
+#: src/preferences_window.py:191
+msgid "Off"
+msgstr "Выключено"
+
+#: src/preferences_window.py:193
+msgid "Monstercat"
+msgstr "Monstercat"
+
+#: src/preferences_window.py:207
+msgid "Noise Reduction"
+msgstr "Шумоподавление"
+
+#: src/preferences_window.py:208
+msgid "0 - noisy, 1 - smooth"
+msgstr "0 - шумно, 1 - гладко"
+
+#: src/preferences_window.py:222 src/preferences_window.py:256
+msgid "Colors"
+msgstr "Цвета"
+
+#: src/preferences_window.py:236
+msgid "Light"
+msgstr "Светлый"
+
+#: src/preferences_window.py:238
+msgid "Dark"
+msgstr "Тёмный"
+
+#: src/preferences_window.py:263
+msgid "<b>Foreground</b>"
+msgstr "<b>Передний план</b>"
+
+#: src/preferences_window.py:268
+msgid "<b>Background</b>"
+msgstr "<b>Фон</b>"
+
+#: src/preferences_window.py:304 src/preferences_window.py:339
+msgid "Add"
+msgstr "Добавить"
+
+#: src/window.py:86
+msgid "Preferences"
+msgstr "Настройки"
+
+#: src/window.py:87
+msgid "About"
+msgstr "О приложении"
+
+#: src/window.py:88
+msgid "Quit"
+msgstr "Выход"

@@ -89,7 +89,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.cavalier_page.add(self.cavalier_group)
 
         self.pref_margin = Adw.ActionRow.new()
-        self.pref_margin.set_title('Drawing area margin')
+        self.pref_margin.set_title(_('Drawing area margin'))
         self.pref_margin.set_subtitle( \
             _('Size of gaps around drawing area (in pixels).'))
         self.pref_margin_scale = Gtk.Scale.new_with_range( \
@@ -104,7 +104,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.cavalier_group.add(self.pref_margin)
 
         self.pref_offset = Adw.ActionRow.new()
-        self.pref_offset.set_title('Offset between items')
+        self.pref_offset.set_title(_('Offset between items'))
         self.pref_offset.set_subtitle( \
             _('The size of spaces between elements in "levels" and "bars" modes (in percent).'))
         self.pref_offset_scale = Gtk.Scale.new_with_range( \
@@ -119,7 +119,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.cavalier_group.add(self.pref_offset)
 
         self.pref_sharp_corners = Adw.ActionRow.new()
-        self.pref_sharp_corners.set_title('Sharp corners')
+        self.pref_sharp_corners.set_title(_('Sharp corners'))
         self.pref_sharp_corners.set_subtitle( \
             _('Whether the main window corners should be sharp.'))
         self.pref_sharp_corners_switch = Gtk.Switch.new()

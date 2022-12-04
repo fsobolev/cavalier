@@ -28,7 +28,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from gi.repository import Gtk, GObject, GdkPixbuf
+from gi.repository import Gtk, GObject
 from threading import Thread
 from cavalier.cava import Cava
 from cavalier.draw_functions import wave, levels, bars

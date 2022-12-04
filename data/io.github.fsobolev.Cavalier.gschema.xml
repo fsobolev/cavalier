@@ -17,13 +17,13 @@
 	  </key>
 	  <key name="margin" type="i">
 	    <summary>Drawing area margin</summary>
-	    <description>Size of gaps around drawing area (in pixels)</description>
+	    <description>Size of gaps around drawing area (in pixels).</description>
 	    <range min="0" max="40"/>
 	    <default>0</default>
 	  </key>
 	  <key name="items-offset" type="i">
 	    <summary>Offset between items</summary>
-	    <description>The size of spaces between squares in the levels mode and between bars in the bars mode (in percent).</description>
+	    <description>The size of spaces between elements in "levels" and "bars" modes (in percent).</description>
 	    <range min="0" max="20"/>
 	    <default>10</default>
 	  </key>

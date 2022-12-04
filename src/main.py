@@ -37,6 +37,7 @@ gi.require_version('Adw', '1')
 from gi.repository import Gtk, Gio, Adw
 from .window import CavalierWindow
 from .preferences_window import CavalierPreferencesWindow
+from .translator_credits import get_translator_credits
 
 
 class CavalierApplication(Adw.Application):
@@ -64,12 +65,16 @@ class CavalierApplication(Adw.Application):
     def on_about_action(self, widget, _):
         """Callback for the app.about action."""
         about = Adw.AboutWindow(transient_for=self.props.active_window,
-                                application_name='cavalier',
+                                application_name='Cavalier',
                                 application_icon='io.github.fsobolev.Cavalier',
                                 developer_name='Fyodor Sobolev',
                                 version='0.1.0',
                                 developers=['Fyodor Sobolev'],
-                                copyright='© 2022 Fyodor Sobolev')
+                                copyright='© 2022 Fyodor Sobolev',
+                                website='https://github.com/fsobolev/cavalier',
+                                issue_url='https://github.com/fsobolev/cavalier/issues',
+                                license_type=Gtk.License.MIT_X11,
+                                translator_credits=get_translator_credits())
         about.present()
 
     def on_preferences_action(self, widget, _):

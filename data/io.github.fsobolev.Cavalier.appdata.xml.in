@@ -3,7 +3,31 @@
 	<id>io.github.fsobolev.Cavalier.desktop</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>MIT</project_license>
-	<description>
-	  <p>No description</p>
+	<summary>Audio visualizer based on CAVA.</summary>
+  <description>
+	  <p>Cavalier is an audio visualizer based on CAVA with customizable LibAdwaita interface.</p>
+    <ul>
+      <li>3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - Bars!</li>
+      <li>Set single color or up to 10 colors gradient for background and foreground.</li>
+      <li>Configure smoothing, noise reduction and a few other CAVA settings.</li>
+    </ul>
 	</description>
+  <launchable type="desktop-id">io.github.fsobolev.Cavalier.desktop</launchable>
+  <url type="homepage">https://github.com/fsobolev/cavalier</url>
+  <url type="bugtracker">https://github.com/fsobolev/cavalier/issues</url>
+  <developer_name>Fyodor Sobolev</developer_name>
+  <translation type="gettext">cavalier</translation>
+  <content_rating type="oars-1.1" />
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <custom>
+    <value key="Purism::form_factor">workstation</value>
+    <value key="Purism::form_factor">mobile</value>
+  </custom>
 </component>
