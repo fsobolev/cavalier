@@ -63,15 +63,19 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.overlay = Gtk.Overlay.new()
         self.set_content(self.overlay)
 
-        self.drawing_area = CavalierDrawingArea.new()
-        self.drawing_area.run()
-        self.overlay.set_child(self.drawing_area)
-
         self.header = Adw.HeaderBar.new()
         self.header.add_css_class('flat')
         self.header.set_decoration_layout('')
-        self.header.set_title_widget(Gtk.Label.new(''))
+        self.spinner = Gtk.Spinner.new()
+        self.spinner.set_spinning(True)
+        self.spinner.set_size_request(50, -1)
+        self.header.set_title_widget(self.spinner)
         self.overlay.add_overlay(self.header)
+
+        self.drawing_area = CavalierDrawingArea.new()
+        self.drawing_area.spinner = self.spinner
+        self.drawing_area.run()
+        self.overlay.set_child(self.drawing_area)
 
         self.menu_button = Gtk.MenuButton.new()
         self.menu_button.set_valign(Gtk.Align.START)

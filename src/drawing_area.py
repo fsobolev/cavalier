@@ -47,6 +47,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         cda.set_hexpand(True)
         cda.set_draw_func(cda.draw_func, None, None)
         cda.cava = None
+        cda.spinner = None
         cda.settings = CavalierSettings.new(cda.on_settings_changed)
         cda.connect('unrealize', cda.on_unrealize)
         return cda
@@ -57,6 +58,8 @@ class CavalierDrawingArea(Gtk.DrawingArea):
             self.cava = Cava()
         self.cava_thread = Thread(target=self.cava.run)
         self.cava_thread.start()
+        if self.spinner != None:
+            self.spinner.set_visible(False)
         GObject.timeout_add(1000.0 / 60.0, self.redraw)
 
     def on_settings_changed(self, key):
@@ -74,6 +77,9 @@ class CavalierDrawingArea(Gtk.DrawingArea):
             if not self.cava.restarting:
                 self.cava.stop()
                 self.cava.restarting = True
+                if self.spinner != None:
+                    self.spinner.set_visible(True)
+                    self.cava.sample = []
                 GObject.timeout_add_seconds(3, self.run)
 
     def draw_func(self, area, cr, width, height, data, n):
