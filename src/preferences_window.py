@@ -28,7 +28,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from gi.repository import Adw, Gtk, Gio, GObject
+from gi.repository import Adw, Gtk, GObject, Gdk
 from cavalier.settings import CavalierSettings
 
 
@@ -38,8 +38,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.set_modal(False)
-        self.settings = CavalierSettings.new()
+        self.settings = CavalierSettings.new(self.on_settings_changed)
 
+        self.set_default_size(-1, 518)
         self.create_cavalier_page()
         self.create_cava_page()
         self.create_colors_page()
@@ -125,9 +126,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_sharp_corners_switch.set_valign(Gtk.Align.CENTER)
         self.pref_sharp_corners_switch.set_active( \
             self.settings.get('sharp-corners'))
-        # `state-set` signal returns additional argument that we don't need,
+        # `state-set` signal returns additional parameter that we don't need,
         # that's why lambda is used. Also GtkSwitch's state is changed after
-        # signal, so we have to pass the opposite of ot
+        # signal, so we have to pass the opposite of it
         self.pref_sharp_corners_switch.connect('state-set', \
             lambda *args : self.on_save(self.pref_sharp_corners_switch, \
                 'sharp-corners', not self.pref_sharp_corners_switch.get_state()))
@@ -174,6 +175,141 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
              GObject.BindingFlags.INVERT_BOOLEAN))
         self.style_group.add(self.style_row)
 
+        self.fg_colors = self.settings.get('fg-colors')
+        self.bg_colors = self.settings.get('bg-colors')
+
+        self.colors_group = Adw.PreferencesGroup.new()
+        self.colors_group.set_title(_('Colors'))
+        self.colors_page.add(self.colors_group)
+
+        self.colors_grid = Gtk.Grid.new()
+        self.colors_grid.add_css_class('card')
+        self.colors_grid.set_column_homogeneous(True)
+        self.colors_group.add(self.colors_grid)
+        self.fg_lbl = Gtk.Label.new(_('<b>Foreground</b>'))
+        self.fg_lbl.set_use_markup(True)
+        self.fg_lbl.set_margin_top(12)
+        self.fg_lbl.set_margin_bottom(12)
+        self.colors_grid.attach(self.fg_lbl, 0, 0, 1, 1)
+        self.bg_lbl = Gtk.Label.new(_('<b>Background</b>'))
+        self.bg_lbl.set_use_markup(True)
+        self.bg_lbl.set_margin_top(12)
+        self.bg_lbl.set_margin_bottom(12)
+        self.colors_grid.attach(self.bg_lbl, 1, 0, 1, 1)
+        self.fg_color_btns = []
+        self.bg_color_btns = []
+        self.fill_colors_grid()
+
+    def fill_colors_grid(self):
+        counter = 0
+        for fg_color in self.fg_colors:
+            box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 6)
+            box.set_halign(Gtk.Align.CENTER)
+            box.set_margin_top(6)
+            box.set_margin_bottom(6)
+            color = Gdk.RGBA()
+            Gdk.RGBA.parse(color, 'rgba(%d, %d, %d, %f)' % fg_color)
+            color_btn = Gtk.ColorButton.new_with_rgba(color)
+            color_btn.set_size_request(124, -1)
+            color_btn.connect('color-set', self.color_changed, 0, counter)
+            box.append(color_btn)
+            rm_btn = Gtk.Button.new_from_icon_name('edit-delete-symbolic')
+            rm_btn.add_css_class('circular')
+            if counter == 0:
+                rm_btn.set_sensitive(False)
+            rm_btn.connect('clicked', self.remove_color, 0, counter)
+            box.append(rm_btn)
+            self.colors_grid.attach(box, 0, counter + 1, 1, 1)
+            counter += 1
+        if counter < 9:
+            self.fg_add_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 4)
+            self.fg_add_box.set_halign(Gtk.Align.CENTER)
+            self.fg_add_box.set_valign(Gtk.Align.CENTER)
+            self.fg_add_box.append(Gtk.Label.new(_('Add')))
+            color = Gdk.RGBA()
+            Gdk.RGBA.parse(color, '#000f')
+            self.fg_add_colorbtn = Gtk.ColorButton.new_with_rgba(color)
+            self.fg_add_box.append(self.fg_add_colorbtn)
+            self.fg_add_btn = Gtk.Button.new_from_icon_name('list-add-symbolic')
+            self.fg_add_btn.add_css_class('circular')
+            self.fg_add_btn.connect('clicked', self.add_color, 0)
+            self.fg_add_box.append(self.fg_add_btn)
+            self.colors_grid.attach(self.fg_add_box, 0, counter + 1, 1, 1)
+        counter = 0
+        for bg_color in self.bg_colors:
+            box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 6)
+            box.set_halign(Gtk.Align.CENTER)
+            box.set_margin_top(6)
+            box.set_margin_bottom(6)
+            color = Gdk.RGBA()
+            Gdk.RGBA.parse(color, 'rgba(%d, %d, %d, %f)' % bg_color)
+            color_btn = Gtk.ColorButton.new_with_rgba(color)
+            color_btn.set_size_request(124, -1)
+            color_btn.connect('color-set', self.color_changed, 1, counter)
+            box.append(color_btn)
+            rm_btn = Gtk.Button.new_from_icon_name('edit-delete-symbolic')
+            rm_btn.add_css_class('circular')
+            rm_btn.connect('clicked', self.remove_color, 1, counter)
+            box.append(rm_btn)
+            self.colors_grid.attach(box, 1, counter + 1, 1, 1)
+            counter += 1
+        if counter < 9:
+            self.bg_add_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 4)
+            self.bg_add_box.set_halign(Gtk.Align.CENTER)
+            self.bg_add_box.set_valign(Gtk.Align.CENTER)
+            self.bg_add_box.append(Gtk.Label.new(_('Add')))
+            color = Gdk.RGBA()
+            Gdk.RGBA.parse(color, '#000f')
+            self.bg_add_colorbtn = Gtk.ColorButton.new_with_rgba(color)
+            self.bg_add_box.append(self.bg_add_colorbtn)
+            self.bg_add_btn = Gtk.Button.new_from_icon_name('list-add-symbolic')
+            self.bg_add_btn.add_css_class('circular')
+            self.bg_add_btn.connect('clicked', self.add_color, 1)
+            self.bg_add_box.append(self.bg_add_btn)
+            self.colors_grid.attach(self.bg_add_box, 1, counter + 1, 1, 1)
+
+    def clear_colors_grid(self):
+        while True:
+            if (self.colors_grid.get_child_at(0, 1) != None) or \
+                    (self.colors_grid.get_child_at(1, 1) != None):
+                self.colors_grid.remove_row(1)
+            else:
+                break
+
+    def add_color(self, obj, color_type): # color_type 0 for fg, 1 for bg
+        if color_type == 0:
+            color = self.fg_add_colorbtn.get_rgba()
+            self.fg_colors.append((round(color.red * 255), \
+                round(color.green * 255), round(color.blue * 255), color.alpha))
+            self.settings.set('fg-colors', self.fg_colors)
+        else:
+            color = self.bg_add_colorbtn.get_rgba()
+            self.bg_colors.append((round(color.red * 255), \
+                round(color.green * 255), round(color.blue * 255), color.alpha))
+            self.settings.set('bg-colors', self.bg_colors)
+
+    def remove_color(self, obj, color_type, index):
+        if color_type == 0:
+            self.fg_colors.pop(index)
+            self.settings.set('fg-colors', self.fg_colors)
+        else:
+            self.bg_colors.pop(index)
+            self.settings.set('bg-colors', self.bg_colors)
+
+    def color_changed(self, obj, color_type, index):
+        if color_type == 0:
+            self.fg_colors.pop(index)
+            color = obj.get_rgba()
+            self.fg_colors.insert(index, (round(color.red * 255), \
+                round(color.green * 255), round(color.blue * 255), color.alpha))
+            self.settings.set('fg-colors', self.fg_colors)
+        else:
+            self.bg_colors.pop(index)
+            color = obj.get_rgba()
+            self.bg_colors.insert(index, (round(color.red * 255), \
+                round(color.green * 255), round(color.blue * 255), color.alpha))
+            self.settings.set('bg-colors', self.bg_colors)
+
     def apply_style(self, obj):
         if self.btn_light.get_active():
             self.settings.set('widgets-style', 'light')
@@ -186,3 +322,10 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         if type(value) is float and type(self.settings.get(key)) is int:
             value = round(value)
         self.settings.set(key, value)
+
+    def on_settings_changed(self):
+        try: # settings are initialized before colors_grid
+            self.clear_colors_grid()
+            self.fill_colors_grid()
+        except:
+            pass

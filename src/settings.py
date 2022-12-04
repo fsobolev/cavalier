@@ -60,8 +60,19 @@ class CavalierSettings(Gio.Settings):
             self.set_boolean(key, value)
         elif type(value) == tuple:
             self.set_value(key, GLib.Variant.new_tuple(*value))
+        elif type(value) == list:
+            # Used for RGBA colors, for example [(0, 0, 255, 1.0)]
+            arr = []
+            for item in value:
+                arr.append(GLib.Variant.new_tuple( \
+                    GLib.Variant.new_int32(item[0]),
+                    GLib.Variant.new_int32(item[1]),
+                    GLib.Variant.new_int32(item[2]),
+                    GLib.Variant.new_double(item[3])))
+            self.set_value(key, GLib.Variant.new_array( \
+                GLib.VariantType.new('(iiid)'), arr))
         else:
-            print("Error: Can't identify type of the value " + value)
+            print("Error: Can't identify type of the value " + str(value))
 
     def on_settings_changed(self, obj, key):
         if self.callback_fn_sig_len > 0:

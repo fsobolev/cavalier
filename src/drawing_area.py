@@ -65,6 +65,8 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.set_margin_end(self.settings.get('margin'))
         self.offset = self.settings.get('items-offset')
         self.colors = self.settings.get('fg-colors')
+        if len(self.colors) == 0:
+            self.settings.set('fg-colors', [(53, 132, 228, 1.0)])
 
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:

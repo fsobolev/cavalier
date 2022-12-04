@@ -98,12 +98,11 @@ class CavalierWindow(Adw.ApplicationWindow):
 
     def apply_colors(self):
         colors = self.settings.get('bg-colors')
-        print(colors)
         if len(colors) == 0:
             self.get_style_context().remove_provider(self.css_provider)
         elif len(colors) == 1:
             self.css_data = b'''#cavalier-window {
-                background-color: rgba(%d, %d, %d, %f)
+                background-color: rgba(%d, %d, %d, %f);
             }''' % colors[0]
             self.css_provider.load_from_data(self.css_data)
             self.get_style_context().add_provider(self.css_provider, \
