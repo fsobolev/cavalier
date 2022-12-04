@@ -46,13 +46,15 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         cda.set_vexpand(True)
         cda.set_hexpand(True)
         cda.set_draw_func(cda.draw_func, None, None)
+        cda.cava = None
         cda.settings = CavalierSettings.new(cda.on_settings_changed)
         cda.connect('unrealize', cda.on_unrealize)
         return cda
 
     def run(self):
         self.on_settings_changed(None)
-        self.cava = Cava()
+        if self.cava == None:
+            self.cava = Cava()
         self.cava_thread = Thread(target=self.cava.run)
         self.cava_thread.start()
         GObject.timeout_add(1000.0 / 60.0, self.redraw)
@@ -67,9 +69,12 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.colors = self.settings.get('fg-colors')
         if len(self.colors) == 0:
             self.settings.set('fg-colors', [(53, 132, 228, 1.0)])
+
         if key in ('bars', 'channels', 'smoothing', 'noise-reduction'):
-            self.cava.kill()
-            self.run()
+            if not self.cava.restarting:
+                self.cava.stop()
+                self.cava.restarting = True
+                GObject.timeout_add_seconds(3, self.run)
 
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:

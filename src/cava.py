@@ -31,7 +31,6 @@
 import os
 import subprocess
 import struct
-import signal
 from cavalier.settings import CavalierSettings
 
 class Cava:
@@ -39,10 +38,9 @@ class Cava:
         self.BYTETYPE = "H"
         self.BYTESIZE = 2
         self.BYTENORM = 65535
-        self.running = False
+        self.restarting = False
 
-        self.settings = CavalierSettings.new(self.on_settings_changed)
-        self.load_settings()
+        self.settings = CavalierSettings.new()
 
         self.sample = []
 
@@ -53,28 +51,25 @@ class Cava:
         if not os.path.isdir(self.config_dir):
             os.makedirs(self.config_dir)
         self.config_file_path = self.config_dir + '/config'
-        self.write_config()
 
     def run(self):
-        self.running = True
+        self.load_settings()
+        self.write_config()
         self.process = subprocess.Popen(["cava", "-p", self.config_file_path], \
             stdout=subprocess.PIPE)
         source = self.process.stdout
-        self.reading_preparation()
+        self.restarting = False
+        self.chunk = self.BYTESIZE * self.bars
+        self.fmt = self.BYTETYPE * self.bars
         while True:
             data = source.read(self.chunk)
-            if len(data) < self.chunk or not self.running:
+            if len(data) < self.chunk or self.restarting:
                 break
             self.sample = \
                 [i / self.BYTENORM for i in struct.unpack(self.fmt, data)]
 
-    def reading_preparation(self):
-        self.chunk = self.BYTESIZE * self.bars
-        self.fmt = self.BYTETYPE * self.bars
-
     def stop(self):
-        if self.running:
-            self.running = False
+        if not self.restarting:
             self.process.kill()
 
     def load_settings(self):
@@ -87,21 +82,6 @@ class Cava:
         else:
             self.monstercat = 1
         self.noise_reduction = self.settings.get('noise-reduction')
-
-    def reload(self):
-        pass
-        # self.load_settings()
-        # self.write_config()
-        # if self.running:
-        #     self.reading_preparation()
-        #     self.process.send_signal(signal.SIGUSR1)
-
-    def kill(self):
-        self.process.send_signal(signal.SIGKILL)
-
-    def on_settings_changed(self, key):
-        if key in ('bars', 'channels', 'smoothing', 'noise-reduction'):
-            self.reload()
 
     def write_config(self):
         try:
