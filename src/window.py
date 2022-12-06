@@ -50,6 +50,7 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.connect('close-request', self.on_close_request)
 
     def build_ui(self):
+        self.set_title('Cavalier')
         self.set_size_request(150, 150)
         (width, height) = self.settings.get('size')
         self.set_default_size(width, height)
