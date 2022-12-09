@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-	<id>io.github.fsobolev.Cavalier.desktop</id>
-	<metadata_license>CC0-1.0</metadata_license>
-	<project_license>MIT</project_license>
+  <id>io.github.fsobolev.Cavalier.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
   <name>Cavalier</name>
-	<summary>Audio visualizer based on CAVA.</summary>
+  <summary>Audio visualizer based on CAVA.</summary>
   <description>
-	  <p>Cavalier is an audio visualizer based on CAVA with customizable LibAdwaita interface.</p>
+    <p>Cavalier is an audio visualizer based on CAVA with customizable LibAdwaita interface.</p>
     <ul>
       <li>3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - Bars!</li>
       <li>Set single color or up to 10 colors gradient for background and foreground.</li>
       <li>Configure smoothing, noise reduction and a few other CAVA settings.</li>
     </ul>
-	</description>
+  </description>
   <launchable type="desktop-id">io.github.fsobolev.Cavalier.desktop</launchable>
   <url type="homepage">https://github.com/fsobolev/cavalier</url>
   <url type="bugtracker">https://github.com/fsobolev/cavalier/issues</url>
@@ -32,7 +32,7 @@
       <image>https://raw.githubusercontent.com/fsobolev/cavalier/master/data/screenshots/bars.png</image>
     </screenshot>
   </screenshots>
-  <content_rating type="oars-1.1" />
+  <content_rating type="oars-1.1"/>
   <supports>
     <control>pointing</control>
     <control>keyboard</control>

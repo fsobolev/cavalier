@@ -13,11 +13,11 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-        input: 'io.github.fsobolev.Cavalier.appdata.xml.in',
-       output: 'io.github.fsobolev.Cavalier.appdata.xml',
+        input: 'io.github.fsobolev.Cavalier.metainfo.xml.in',
+       output: 'io.github.fsobolev.Cavalier.metainfo.xml',
        po_dir: '../po',
       install: true,
-  install_dir: join_paths(get_option('datadir'), 'appdata')
+  install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
 appstream_util = find_program('appstream-util', required: false)
