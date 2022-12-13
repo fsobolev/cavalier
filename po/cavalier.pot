@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-04 23:23+0300\n"
+"POT-Creation-Date: 2022-12-13 13:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: data/io.github.fsobolev.Cavalier.desktop.in:3
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:6
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:6
 msgid "Cavalier"
 msgstr "Cavalier"
 
@@ -26,31 +26,31 @@ msgstr "Cavalier"
 msgid "Audio Visualizer"
 msgstr ""
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:7
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:7
 msgid "Audio visualizer based on CAVA."
 msgstr ""
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:9
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:9
 msgid ""
 "Cavalier is an audio visualizer based on CAVA with customizable LibAdwaita "
 "interface."
 msgstr ""
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:11
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:11
 msgid ""
 "3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - Bars!"
 msgstr ""
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:12
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:12
 msgid ""
 "Set single color or up to 10 colors gradient for background and foreground."
 msgstr ""
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:13
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:13
 msgid "Configure smoothing, noise reduction and a few other CAVA settings."
 msgstr ""
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:19
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:19
 msgid "Fyodor Sobolev"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgid ""
 msgstr ""
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:48
-#: src/preferences_window.py:195
+#: src/preferences_window.py:194
 msgid "Channels"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgid "Mono or stereo"
 msgstr ""
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:57
-#: src/preferences_window.py:217
+#: src/preferences_window.py:216
 msgid "Smoothing"
 msgstr ""
 
@@ -141,12 +141,12 @@ msgid ""
 msgstr ""
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:71
-#: src/preferences_window.py:262
+#: src/preferences_window.py:251
 msgid "Widgets style"
 msgstr ""
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:72
-#: src/preferences_window.py:263
+#: src/preferences_window.py:252
 msgid "Style used by Adwaita widgets."
 msgstr ""
 
@@ -192,62 +192,62 @@ msgstr ""
 msgid "Bars"
 msgstr ""
 
-#: src/preferences_window.py:201
+#: src/preferences_window.py:200
 msgid "Mono"
 msgstr ""
 
-#: src/preferences_window.py:203
+#: src/preferences_window.py:202
 msgid "Stereo"
 msgstr ""
 
-#: src/preferences_window.py:223
+#: src/preferences_window.py:221
 msgid "Off"
 msgstr ""
 
-#: src/preferences_window.py:225
+#: src/preferences_window.py:224
 msgid "Monstercat"
 msgstr ""
 
-#: src/preferences_window.py:239
+#: src/preferences_window.py:238
 msgid "Noise Reduction"
 msgstr ""
 
-#: src/preferences_window.py:240
+#: src/preferences_window.py:239
 msgid "0 - noisy, 1 - smooth"
 msgstr ""
 
-#: src/preferences_window.py:254 src/preferences_window.py:288
+#: src/preferences_window.py:243 src/preferences_window.py:277
 msgid "Colors"
 msgstr ""
 
-#: src/preferences_window.py:268
+#: src/preferences_window.py:257
 msgid "Light"
 msgstr ""
 
-#: src/preferences_window.py:270
+#: src/preferences_window.py:259
 msgid "Dark"
 msgstr ""
 
-#: src/preferences_window.py:295
+#: src/preferences_window.py:284
 msgid "<b>Foreground</b>"
 msgstr ""
 
-#: src/preferences_window.py:300
+#: src/preferences_window.py:289
 msgid "<b>Background</b>"
 msgstr ""
 
-#: src/preferences_window.py:336 src/preferences_window.py:371
+#: src/preferences_window.py:325 src/preferences_window.py:360
 msgid "Add"
 msgstr ""
 
-#: src/window.py:86
+#: src/window.py:87
 msgid "Preferences"
 msgstr ""
 
-#: src/window.py:87
+#: src/window.py:88
 msgid "About"
 msgstr ""
 
-#: src/window.py:88
+#: src/window.py:89
 msgid "Quit"
 msgstr ""

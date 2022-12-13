@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 22.12.0\n"
 
 #: data/io.github.fsobolev.Cavalier.desktop.in:3
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:6
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:6
 msgid "Cavalier"
 msgstr "Cavalier"
 
@@ -26,11 +26,11 @@ msgstr "Cavalier"
 msgid "Audio Visualizer"
 msgstr "Audiovisualisatie"
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:7
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:7
 msgid "Audio visualizer based on CAVA."
 msgstr "Audiovisualisatie, gebaseerd op CAVA."
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:9
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:9
 msgid ""
 "Cavalier is an audio visualizer based on CAVA with customizable LibAdwaita "
 "interface."
@@ -38,24 +38,24 @@ msgstr ""
 "Cavalier is een audiovisualisatietoepassing, gemaakt met LibAdwaita en"
 " gebaseerd op CAVA."
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:11
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:11
 msgid ""
 "3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - Bars!"
 msgstr ""
 "Er zijn drie weergavemodi beschikbaar: dansende golf, retro-achtige"
 " volumeniveaubalken en klassieke CAVA-balken."
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:12
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:12
 msgid ""
 "Set single color or up to 10 colors gradient for background and foreground."
 msgstr "Stel een of maximaal tien kleurverlopen in voor voor- en achtergrond."
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:13
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:13
 msgid "Configure smoothing, noise reduction and a few other CAVA settings."
 msgstr ""
 "Stel vloeiendheid, ruisonderdrukking en enkele andere CAVA-voorkeuren in."
 
-#: data/io.github.fsobolev.Cavalier.appdata.xml.in:19
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:19
 msgid "Fyodor Sobolev"
 msgstr "Fyodor Sobolev"
 

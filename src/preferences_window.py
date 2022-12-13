@@ -40,7 +40,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.set_modal(False)
         self.settings = CavalierSettings.new(self.on_settings_changed)
 
-        self.set_default_size(-1, 518)
+        self.set_default_size(572, 518)
         self.create_cavalier_page()
         self.create_cava_page()
         self.create_colors_page()
