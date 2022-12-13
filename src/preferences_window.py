@@ -212,27 +212,15 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.btn_mono.connect('toggled', self.on_channels_changed)
         self.btn_stereo.connect('toggled', self.on_channels_changed)
 
-        self.smoothing_row = Adw.ActionRow.new()
-        self.smoothing_row.set_title(_('Smoothing'))
-        self.cava_group.add(self.smoothing_row)
-        self.smoothing_buttons_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        self.smoothing_buttons_box.add_css_class('linked')
-        self.smoothing_buttons_box.set_valign(Gtk.Align.CENTER)
-        self.smoothing_row.add_suffix(self.smoothing_buttons_box)
-        self.btn_smooth_off = Gtk.ToggleButton.new_with_label(_('Off'))
-        self.smoothing_buttons_box.append(self.btn_smooth_off)
-        self.btn_smooth_mc = Gtk.ToggleButton.new_with_label(_('Monstercat'))
-        self.smoothing_buttons_box.append(self.btn_smooth_mc)
-        if self.settings.get('smoothing') == 'off':
-            self.btn_smooth_off.set_active(True)
-        else:
-            self.btn_smooth_mc.set_active(True)
-        self.btn_smooth_off.bind_property('active', self.btn_smooth_mc, 'active', \
-            (GObject.BindingFlags.BIDIRECTIONAL | \
-             GObject.BindingFlags.SYNC_CREATE | \
-             GObject.BindingFlags.INVERT_BOOLEAN))
-        self.btn_smooth_off.connect('toggled', self.on_smoothing_changed)
-        self.btn_smooth_mc.connect('toggled', self.on_smoothing_changed)
+        self.smoothing_row = Adw.ComboRow.new()
+        self.smoothing_row.set_title(_('Smoothing'));
+        self.cava_group.add(self.smoothing_row);
+        self.smoothing_row.set_model(Gtk.StringList.new([_('Off'), _('Monstercat')]))
+        self.smoothing_row.set_selected( \
+            ['off', 'monstercat'].index(self.settings.get('smoothing')))
+        self.smoothing_row.connect('notify::selected-item', \
+            lambda *args: self.settings.set('smoothing', \
+            ['off', 'monstercat'][self.smoothing_row.get_selected()]))
 
         self.nr_row = Adw.ActionRow.new()
         self.nr_row.set_title(_('Noise Reduction'))
@@ -441,12 +429,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.settings.set('channels', 'mono')
         else:
             self.settings.set('channels', 'stereo')
-
-    def on_smoothing_changed(self, obj):
-        if self.btn_smooth_off.get_active():
-            self.settings.set('smoothing', 'off')
-        else:
-            self.settings.set('smoothing', 'monstercat')
 
     def on_save(self, obj, key, value):
         if callable(value):
