@@ -56,6 +56,7 @@ msgstr ""
 "Настраивайте сглаживание, шумоподавление и парочку других параметров CAVA."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:19
+#: src/main.py:70 src/main.py:72
 msgid "Fyodor Sobolev"
 msgstr "Фёдор Соболев"
 

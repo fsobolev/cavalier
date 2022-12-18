@@ -32,6 +32,16 @@
       <image>https://raw.githubusercontent.com/fsobolev/cavalier/master/data/screenshots/bars.png</image>
     </screenshot>
   </screenshots>
+  <releases>
+    <release type="stable" date="2022-12-18" version="2022.12.18">
+      <description>
+        <ul>
+          <li>First release! 🎉</li>
+          <li>Thanks @Vistaus for Dutch translation!</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
   <content_rating type="oars-1.1"/>
   <supports>
     <control>pointing</control>

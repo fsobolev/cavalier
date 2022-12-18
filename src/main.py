@@ -62,14 +62,14 @@ class CavalierApplication(Adw.Application):
             self.win = CavalierWindow(application=self)
         self.win.present()
 
-    def on_about_action(self, widget, _):
+    def on_about_action(self, *args):
         """Callback for the app.about action."""
         about = Adw.AboutWindow(transient_for=self.props.active_window,
                                 application_name='Cavalier',
                                 application_icon='io.github.fsobolev.Cavalier',
-                                developer_name='Fyodor Sobolev',
-                                version='0.1.0',
-                                developers=['Fyodor Sobolev'],
+                                developer_name=_('Fyodor Sobolev'),
+                                version='2022.12.18',
+                                developers=[_('Fyodor Sobolev')],
                                 copyright='© 2022 Fyodor Sobolev',
                                 website='https://github.com/fsobolev/cavalier',
                                 issue_url='https://github.com/fsobolev/cavalier/issues',

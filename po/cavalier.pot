@@ -51,6 +51,7 @@ msgid "Configure smoothing, noise reduction and a few other CAVA settings."
 msgstr ""
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:19
+#: src/main.py:70 src/main.py:72
 msgid "Fyodor Sobolev"
 msgstr ""
 
