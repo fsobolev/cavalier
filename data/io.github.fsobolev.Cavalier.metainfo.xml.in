@@ -35,10 +35,8 @@
   <releases>
     <release type="stable" date="2022-12-18" version="2022.12.18">
       <description>
-        <ul>
-          <li>First release! 🎉</li>
-          <li>Thanks @Vistaus for Dutch translation!</li>
-        </ul>
+        <p>First release! 🎉</p>
+        <p>Thanks @Vistaus for Dutch translation!</p>
       </description>
     </release>
   </releases>
