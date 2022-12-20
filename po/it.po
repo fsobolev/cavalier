@@ -148,7 +148,7 @@ msgid ""
 "This factor adjusts the integral and gravity filters to keep the signal "
 "smooth. 1 will be very slow and smooth, 0 will be fast but noisy."
 msgstr ""
-"Questo fattore regola i filtri integrale e gravitazionale per mantenere il segnale"
+"Questo fattore regola i filtri integrale e gravitazionale per mantenere il segnale "
 "regolare. 1 sarà molto lento e regolare, 0 sarà veloce ma rumoroso."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:71
