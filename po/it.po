@@ -40,7 +40,7 @@ msgstr ""
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:11
 msgid ""
 "3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - Bars!"
-msgst ""
+msgstr ""
 "3 modalità di disegno: strana onda, livelli retrò e aspetto classico Barra - CAVA!"
 
 
