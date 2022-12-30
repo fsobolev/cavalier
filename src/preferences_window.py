@@ -126,12 +126,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_sharp_corners_switch.set_valign(Gtk.Align.CENTER)
         self.pref_sharp_corners_switch.set_active( \
             self.settings.get('sharp-corners'))
-        # `state-set` signal returns additional parameter that we don't need,
-        # that's why lambda is used. Also GtkSwitch's state is changed after
-        # signal, so we have to pass the opposite of it
-        self.pref_sharp_corners_switch.connect('state-set', \
+        # `notify::state` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
+        self.pref_sharp_corners_switch.connect('notify::state', \
             lambda *args : self.on_save(self.pref_sharp_corners_switch, \
-                'sharp-corners', not self.pref_sharp_corners_switch.get_state()))
+                'sharp-corners', self.pref_sharp_corners_switch.get_state()))
         self.pref_sharp_corners.add_suffix(self.pref_sharp_corners_switch)
         self.pref_sharp_corners.set_activatable_widget( \
             self.pref_sharp_corners_switch)
@@ -147,6 +146,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_show_controls_switch.set_valign(Gtk.Align.CENTER)
         self.pref_show_controls_switch.set_active( \
             self.settings.get('window-controls'))
+        # `notify::state` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
         self.pref_show_controls_switch.connect('notify::state', \
             lambda *args : self.on_save(self.pref_show_controls_switch, \
                 'window-controls', self.pref_show_controls_switch.get_state()))
@@ -184,12 +185,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.autosens_switch = Gtk.Switch.new()
         self.autosens_switch.set_valign(Gtk.Align.CENTER)
         self.autosens_switch.set_active(self.settings.get('autosens'))
-        # `state-set` signal returns additional parameter that we don't need,
-        # that's why lambda is used. Also GtkSwitch's state is changed after
-        # signal, so we have to pass the opposite of it
-        self.autosens_switch.connect('state-set', \
+        # `notify::state` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
+        self.autosens_switch.connect('notify::state', \
             lambda *args : self.on_save(self.autosens_switch, \
-                'autosens', not self.autosens_switch.get_state()))
+                'autosens', self.autosens_switch.get_state()))
         self.autosens_row.add_suffix(self.autosens_switch)
         self.autosens_row.set_activatable_widget(self.autosens_switch)
         self.cava_group.add(self.autosens_row)
