@@ -30,6 +30,7 @@
 
 from gi.repository import Adw, Gtk, GObject, Gdk
 from cavalier.settings import CavalierSettings
+from cavalier.settings_import_export import export_settings
 
 
 class CavalierPreferencesWindow(Adw.PreferencesWindow):
@@ -174,6 +175,20 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_autohide_header.set_activatable_widget( \
             self.pref_autohide_header_switch)
         self.window_group.add(self.pref_autohide_header)
+
+        self.box_import_export = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 12)
+        self.box_import_export.set_halign(Gtk.Align.CENTER)
+        self.box_import_export.set_margin_top(24)
+        self.window_group.add(self.box_import_export)
+
+        self.btn_import = Gtk.Button.new_with_label(_('Import'))
+        self.btn_import.add_css_class('pill')
+        self.box_import_export.append(self.btn_import)
+
+        self.btn_export = Gtk.Button.new_with_label(_('Export'))
+        self.btn_export.add_css_class('pill')
+        self.btn_export.connect('clicked', self.export_settings_to_file)
+        self.box_import_export.append(self.btn_export)
 
     def create_cava_page(self):
         self.cava_page = Adw.PreferencesPage.new()
@@ -494,3 +509,19 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.fill_colors_grid()
         except:
             pass
+
+    def export_settings_to_file(self, obj):
+        def on_response(dialog, response):
+            if response == Gtk.ResponseType.ACCEPT:
+                export_settings(dialog.get_file().get_path())
+
+        file_chooser = Gtk.FileChooserNative.new(_("Export Settings"), \
+            self, Gtk.FileChooserAction.SAVE, _('Save'), _('Cancel'))
+        file_chooser.set_modal(True)
+        file_filter = Gtk.FileFilter.new()
+        file_filter.set_name(_('Cavalier Settings File (*.cavalier)'))
+        file_filter.add_pattern('*.cavalier')
+        file_chooser.add_filter(file_filter)
+        file_chooser.set_current_name('settings.cavalier')
+        file_chooser.connect('response', on_response)
+        file_chooser.show()

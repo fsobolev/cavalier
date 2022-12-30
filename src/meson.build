@@ -33,6 +33,7 @@ cavalier_sources = [
   'drawing_area.py',
   'draw_functions.py',
   'settings.py',
+  'settings_import_export.py',
   'preferences_window.py'
 ]
 
