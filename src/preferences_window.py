@@ -137,6 +137,24 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.pref_sharp_corners_switch)
         self.cavalier_group.add(self.pref_sharp_corners)
 
+        self.window_group = Adw.PreferencesGroup.new()
+        self.cavalier_page.add(self.window_group)
+
+        self.pref_show_controls = Adw.ActionRow.new()
+        self.pref_show_controls.set_title(_('Window controls'))
+        self.pref_show_controls.set_subtitle(_('Whether to show window control buttons.'))
+        self.pref_show_controls_switch = Gtk.Switch.new()
+        self.pref_show_controls_switch.set_valign(Gtk.Align.CENTER)
+        self.pref_show_controls_switch.set_active( \
+            self.settings.get('window-controls'))
+        self.pref_show_controls_switch.connect('notify::state', \
+            lambda *args : self.on_save(self.pref_show_controls_switch, \
+                'window-controls', self.pref_show_controls_switch.get_state()))
+        self.pref_show_controls.add_suffix(self.pref_show_controls_switch)
+        self.pref_show_controls.set_activatable_widget( \
+            self.pref_show_controls_switch)
+        self.window_group.add(self.pref_show_controls)
+
     def create_cava_page(self):
         self.cava_page = Adw.PreferencesPage.new()
         self.cava_page.set_title('CAVA')

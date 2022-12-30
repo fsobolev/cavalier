@@ -1,95 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="cavalier">
 	<schema id="io.github.fsobolev.Cavalier" path="/io/github/fsobolev/Cavalier/">
-	  <key name="size" type="(ii)">
-	    <summary>Window size</summary>
-	    <default>(300,200)</default>
-	  </key>
-	  <key name="mode" type="s">
-	    <summary>Drawing mode</summary>
-	    <description>Defines what the visualizer looks like.</description>
-	    <choices>
-	      <choice value="wave"/>
-	      <choice value="levels"/>
-	      <choice value="bars"/>
-	    </choices>
-	    <default>"wave"</default>
-	  </key>
-	  <key name="margin" type="i">
-	    <summary>Drawing area margin</summary>
-	    <description>Size of gaps around drawing area (in pixels).</description>
-	    <range min="0" max="40"/>
-	    <default>0</default>
-	  </key>
-	  <key name="items-offset" type="i">
-	    <summary>Offset between items</summary>
-	    <description>The size of spaces between elements in "levels" and "bars" modes (in percent).</description>
-	    <range min="0" max="20"/>
-	    <default>10</default>
-	  </key>
-	  <key name="bars" type="i">
-	    <summary>Number of bars</summary>
-	    <description>Number of bars in CAVA config</description>
-	    <range min="6" max="50"/>
-	    <default>12</default>
-	  </key>
-	  <key name="autosens" type="b">
-	    <summary>Automatic sensitivity</summary>
-	    <description>Attempt to decrease sensitivity if the bars peak.</description>
-	    <default>true</default>
-	  </key>
-	  <key name="sensitivity" type="d">
-	    <summary>Sensitivity</summary>
-	    <description>Manual sensitivity. If automatic sensitivity is enabled, this will only be the initial value.</description>
-	    <range min="10.0" max="250.0"/>
-	    <default>10.0</default>
-	  </key>
-	  <key name="channels" type="s">
-	    <summary>Channels</summary>
-	    <description>Mono or stereo</description>
-	    <choices>
-	      <choice value="mono"/>
-	      <choice value="stereo"/>
-	    </choices>
-	    <default>"stereo"</default>
-	  </key>
-	  <key name="smoothing" type="s">
-	    <summary>Smoothing</summary>
-	    <choices>
-	      <choice value="off"/>
-	      <choice value="monstercat"/>
-	    </choices>
-	    <default>"monstercat"</default>
-	  </key>
-	  <key name="noise-reduction" type="d">
-	    <summary>Noise reduction</summary>
-	    <description>This factor adjusts the integral and gravity filters to keep the signal smooth. 1 will be very slow and smooth, 0 will be fast but noisy.</description>
-	    <range min="0.0" max="1.0"/>
-	    <default>0.77</default>
-	  </key>
-	  <key name="widgets-style" type="s">
-	    <summary>Widgets style</summary>
-	    <description>Style used by Adwaita widgets.</description>
-	    <choices>
-	      <choice value="light"/>
-	      <choice value="dark"/>
-	    </choices>
-	    <default>"dark"</default>
-	  </key>
-	  <key name="sharp-corners" type="b">
-	    <summary>Sharp corners</summary>
-	    <description>Whether the main window corners should be sharp.</description>
-	    <default>false</default>
-	  </key>
-	  <key name="fg-colors" type="a(iiid)">
-	    <summary>Foreground colors</summary>
-	    <description>The array of foregound colors (RGBA).</description>
-	    <default>[(53,132,228,1.0)]</default>
-	  </key>
-	  <key name="bg-colors" type="a(iiid)">
-	    <summary>Background colors</summary>
-	    <description>The array of background colors (RGBA).</description>
-	    <default>[]</default>
-	  </key>
+		<key name="size" type="(ii)">
+			<summary>Window size</summary>
+			<default>(300,200)</default>
+		</key>
+		<key name="window-controls" type="b">
+			<summary>Window controls</summary>
+			<description>Whether to show window control buttons.</description>
+			<default>false</default>
+		</key>
+		<key name="mode" type="s">
+			<summary>Drawing mode</summary>
+			<description>Defines what the visualizer looks like.</description>
+			<choices>
+				<choice value="wave"/>
+				<choice value="levels"/>
+				<choice value="bars"/>
+			</choices>
+			<default>"wave"</default>
+		</key>
+		<key name="margin" type="i">
+			<summary>Drawing area margin</summary>
+			<description>Size of gaps around drawing area (in pixels).</description>
+			<range min="0" max="40"/>
+			<default>0</default>
+		</key>
+		<key name="items-offset" type="i">
+			<summary>Offset between items</summary>
+			<description>The size of spaces between elements in "levels" and "bars" modes (in percent).</description>
+			<range min="0" max="20"/>
+			<default>10</default>
+		</key>
+		<key name="bars" type="i">
+			<summary>Number of bars</summary>
+			<description>Number of bars in CAVA config</description>
+			<range min="6" max="50"/>
+			<default>12</default>
+		</key>
+		<key name="autosens" type="b">
+			<summary>Automatic sensitivity</summary>
+			<description>Attempt to decrease sensitivity if the bars peak.</description>
+			<default>true</default>
+		</key>
+		<key name="sensitivity" type="d">
+			<summary>Sensitivity</summary>
+			<description>Manual sensitivity. If automatic sensitivity is enabled, this will only be the initial value.</description>
+			<range min="10.0" max="250.0"/>
+			<default>10.0</default>
+		</key>
+		<key name="channels" type="s">
+			<summary>Channels</summary>
+			<description>Mono or stereo</description>
+			<choices>
+				<choice value="mono"/>
+				<choice value="stereo"/>
+			</choices>
+			<default>"stereo"</default>
+		</key>
+		<key name="smoothing" type="s">
+			<summary>Smoothing</summary>
+			<choices>
+				<choice value="off"/>
+				<choice value="monstercat"/>
+			</choices>
+			<default>"monstercat"</default>
+		</key>
+		<key name="noise-reduction" type="d">
+			<summary>Noise reduction</summary>
+			<description>This factor adjusts the integral and gravity filters to keep the signal smooth. 1 will be very slow and smooth, 0 will be fast but noisy.</description>
+			<range min="0.0" max="1.0"/>
+			<default>0.77</default>
+		</key>
+		<key name="widgets-style" type="s">
+			<summary>Widgets style</summary>
+			<description>Style used by Adwaita widgets.</description>
+			<choices>
+				<choice value="light"/>
+				<choice value="dark"/>
+			</choices>
+			<default>"dark"</default>
+		</key>
+		<key name="sharp-corners" type="b">
+			<summary>Sharp corners</summary>
+			<description>Whether the main window corners should be sharp.</description>
+			<default>false</default>
+		</key>
+		<key name="fg-colors" type="a(iiid)">
+			<summary>Foreground colors</summary>
+			<description>The array of foregound colors (RGBA).</description>
+			<default>[(53,132,228,1.0)]</default>
+		</key>
+		<key name="bg-colors" type="a(iiid)">
+			<summary>Background colors</summary>
+			<description>The array of background colors (RGBA).</description>
+			<default>[]</default>
+		</key>
 	</schema>
 </schemalist>

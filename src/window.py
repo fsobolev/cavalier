@@ -71,8 +71,8 @@ class CavalierWindow(Adw.ApplicationWindow):
 
         self.header = Adw.HeaderBar.new()
         self.header.add_css_class('flat')
-        self.header.set_show_start_title_buttons(False);
-        self.header.set_show_end_title_buttons(False);
+        self.header.set_show_start_title_buttons(self.settings.get('window-controls'))
+        self.header.set_show_end_title_buttons(self.settings.get('window-controls'))
         self.header.set_title_widget(Gtk.Label.new(''))
         self.main_box.append(self.header)
 
@@ -144,6 +144,8 @@ class CavalierWindow(Adw.ApplicationWindow):
                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
     def on_settings_changed(self):
+        self.header.set_show_start_title_buttons(self.settings.get('window-controls'))
+        self.header.set_show_end_title_buttons(self.settings.get('window-controls'))
         self.toggle_sharp_corners()
         self.set_style()
         self.apply_colors()
