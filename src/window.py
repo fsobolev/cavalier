@@ -54,6 +54,8 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.set_size_request(150, 150)
         (width, height) = self.settings.get('size')
         self.set_default_size(width, height)
+        if self.settings.get('maximized'):
+            self.maximize()
 
         self.set_name('cavalier-window')
         self.toggle_sharp_corners()
@@ -154,6 +156,7 @@ class CavalierWindow(Adw.ApplicationWindow):
         (width, height) = self.get_default_size()
         self.settings.set('size', (GLib.Variant.new_int32(width), \
             GLib.Variant.new_int32(height)))
+        self.settings.set('maximized', self.is_maximized())
         if hasattr(self.get_application(), 'pref_win'):
             self.get_application().pref_win.close()
 

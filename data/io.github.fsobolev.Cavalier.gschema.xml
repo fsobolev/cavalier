@@ -5,6 +5,11 @@
 			<summary>Window size</summary>
 			<default>(300,200)</default>
 		</key>
+		<key name="maximized" type="b">
+			<summary>Window maximized state</summary>
+			<description>Whether main window is maximized or not</description>
+			<default>false</default>
+		</key>
 		<key name="window-controls" type="b">
 			<summary>Window controls</summary>
 			<description>Whether to show window control buttons.</description>
