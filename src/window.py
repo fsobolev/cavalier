@@ -64,14 +64,34 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.overlay = Gtk.Overlay.new()
         self.set_content(self.overlay)
 
+        self.main_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.main_box.set_hexpand(True)
+        self.main_box.set_vexpand(True)
+        self.overlay.add_overlay(self.main_box)
+
         self.header = Adw.HeaderBar.new()
         self.header.add_css_class('flat')
-        self.header.set_decoration_layout('')
+        self.header.set_show_start_title_buttons(False);
+        self.header.set_show_end_title_buttons(False);
+        self.header.set_title_widget(Gtk.Label.new(''))
+        self.main_box.append(self.header)
+
+        self.handle = Gtk.WindowHandle.new()
+        self.handle.set_hexpand(True)
+        self.handle.set_vexpand(True)
+        self.main_box.append(self.handle)
+
+        self.bin_spinner = Adw.Bin.new()
+        self.bin_spinner.set_hexpand(True)
+        self.bin_spinner.set_vexpand(True)
+        self.handle.set_child(self.bin_spinner)
+
         self.spinner = Gtk.Spinner.new()
         self.spinner.set_spinning(True)
         self.spinner.set_size_request(50, -1)
-        self.header.set_title_widget(self.spinner)
-        self.overlay.add_overlay(self.header)
+        self.spinner.set_halign(Gtk.Align.CENTER)
+        self.spinner.set_margin_bottom(46)
+        self.bin_spinner.set_child(self.spinner)
 
         self.drawing_area = CavalierDrawingArea.new()
         self.drawing_area.spinner = self.spinner
