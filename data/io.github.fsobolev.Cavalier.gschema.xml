@@ -15,6 +15,11 @@
 			<description>Whether to show window control buttons.</description>
 			<default>false</default>
 		</key>
+		<key name="autohide-header" type="b">
+			<summary>Autohide headerbar</summary>
+			<description>Whether to hide headerbar when main window is not focused.</description>
+			<default>false</default>
+		</key>
 		<key name="mode" type="s">
 			<summary>Drawing mode</summary>
 			<description>Defines what the visualizer looks like.</description>

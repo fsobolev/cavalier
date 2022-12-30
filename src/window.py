@@ -32,6 +32,7 @@ from gi.repository import Adw
 from gi.repository import Gtk
 from gi.repository import Gio
 from gi.repository import GLib
+from gi.repository import GObject
 
 from cavalier.settings import CavalierSettings
 from cavalier.drawing_area import CavalierDrawingArea
@@ -48,10 +49,11 @@ class CavalierWindow(Adw.ApplicationWindow):
 
         self.build_ui()
         self.connect('close-request', self.on_close_request)
+        self.connect('notify::is-active', self.on_active_state_changed)
 
     def build_ui(self):
         self.set_title('Cavalier')
-        self.set_size_request(150, 150)
+        self.set_size_request(170, 170)
         (width, height) = self.settings.get('size')
         self.set_default_size(width, height)
         if self.settings.get('maximized'):
@@ -92,7 +94,7 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.spinner.set_spinning(True)
         self.spinner.set_size_request(50, -1)
         self.spinner.set_halign(Gtk.Align.CENTER)
-        self.spinner.set_margin_bottom(46)
+        self.spinner.set_margin_bottom(46) # headerbar height
         self.bin_spinner.set_child(self.spinner)
 
         self.drawing_area = CavalierDrawingArea.new()
@@ -151,6 +153,7 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.toggle_sharp_corners()
         self.set_style()
         self.apply_colors()
+        self.on_active_state_changed()
 
     def on_close_request(self, obj):
         (width, height) = self.get_default_size()
@@ -159,4 +162,24 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.settings.set('maximized', self.is_maximized())
         if hasattr(self.get_application(), 'pref_win'):
             self.get_application().pref_win.close()
+
+    def hide_header(self):
+        if not self.is_active():
+            self.header.set_show_start_title_buttons(False)
+            self.header.set_show_end_title_buttons(False)
+            self.menu_button.set_visible(False)
+        return False # we don't need to restart the function
+
+    def on_active_state_changed(self, *args):
+        if self.settings.get('autohide-header') and not self.is_active():
+            # The window becomes inactive for a moment when
+            # the menu button is pressed, making it impossible
+            # to open the menu, so the delay is required
+            GObject.timeout_add(100, self.hide_header)
+        else:
+            self.header.set_show_start_title_buttons( \
+                self.settings.get('window-controls'))
+            self.header.set_show_end_title_buttons( \
+                self.settings.get('window-controls'))
+            self.menu_button.set_visible(True)
 

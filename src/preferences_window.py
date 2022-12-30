@@ -141,7 +141,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
         self.pref_show_controls = Adw.ActionRow.new()
         self.pref_show_controls.set_title(_('Window controls'))
-        self.pref_show_controls.set_subtitle(_('Whether to show window control buttons.'))
+        self.pref_show_controls.set_subtitle( \
+            _('Whether to show window control buttons.'))
         self.pref_show_controls_switch = Gtk.Switch.new()
         self.pref_show_controls_switch.set_valign(Gtk.Align.CENTER)
         self.pref_show_controls_switch.set_active( \
@@ -155,6 +156,24 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_show_controls.set_activatable_widget( \
             self.pref_show_controls_switch)
         self.window_group.add(self.pref_show_controls)
+
+        self.pref_autohide_header = Adw.ActionRow.new()
+        self.pref_autohide_header.set_title(_('Autohide headerbar'))
+        self.pref_autohide_header.set_subtitle( \
+            _('Whether to hide headerbar when main window is not focused.'))
+        self.pref_autohide_header_switch = Gtk.Switch.new()
+        self.pref_autohide_header_switch.set_valign(Gtk.Align.CENTER)
+        self.pref_autohide_header_switch.set_active( \
+            self.settings.get('autohide-header'))
+        # `notify::state` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
+        self.pref_autohide_header_switch.connect('notify::state', \
+            lambda *args : self.on_save(self.pref_autohide_header_switch, \
+                'autohide-header', self.pref_autohide_header_switch.get_state()))
+        self.pref_autohide_header.add_suffix(self.pref_autohide_header_switch)
+        self.pref_autohide_header.set_activatable_widget( \
+            self.pref_autohide_header_switch)
+        self.window_group.add(self.pref_autohide_header)
 
     def create_cava_page(self):
         self.cava_page = Adw.PreferencesPage.new()
