@@ -154,6 +154,6 @@ class CavalierWindow(Adw.ApplicationWindow):
         (width, height) = self.get_default_size()
         self.settings.set('size', (GLib.Variant.new_int32(width), \
             GLib.Variant.new_int32(height)))
+        if hasattr(self.get_application(), 'pref_win'):
+            self.get_application().pref_win.close()
 
-    def quit(self, obj):
-        self.close()
