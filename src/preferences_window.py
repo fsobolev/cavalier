@@ -275,6 +275,20 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             'noise-reduction', self.nr_scale.get_value)
         self.nr_row.add_suffix(self.nr_scale)
 
+        self.reverse_order_row = Adw.ActionRow.new()
+        self.reverse_order_row.set_title(_('Reverse order'))
+        self.reverse_order_switch = Gtk.Switch.new()
+        self.reverse_order_switch.set_valign(Gtk.Align.CENTER)
+        self.reverse_order_switch.set_active(self.settings.get('reverse-order'))
+        # `notify::state` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
+        self.reverse_order_switch.connect('notify::state', \
+            lambda *args : self.on_save(self.reverse_order_switch, \
+                'reverse-order', self.reverse_order_switch.get_state()))
+        self.reverse_order_row.add_suffix(self.reverse_order_switch)
+        self.reverse_order_row.set_activatable_widget(self.reverse_order_switch)
+        self.cava_group.add(self.reverse_order_row)
+
     def create_colors_page(self):
         self.colors_page = Adw.PreferencesPage.new()
         self.colors_page.set_title(_('Colors'))

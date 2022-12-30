@@ -82,6 +82,10 @@
 			<range min="0.0" max="1.0"/>
 			<default>0.77</default>
 		</key>
+		<key name="reverse-order" type="b">
+			<summary>Reverse order</summary>
+			<default>false</default>
+		</key>
 		<key name="widgets-style" type="s">
 			<summary>Widgets style</summary>
 			<description>Style used by Adwaita widgets.</description>
