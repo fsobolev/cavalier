@@ -30,6 +30,20 @@
 
 import subprocess
 
+def import_settings(path):
+    try:
+        with open(path, 'r') as file:
+            lines = file.readlines()
+            for line in lines:
+                if line != '\n':
+                    subprocess.run(['gsettings', 'set', \
+                        'io.github.fsobolev.Cavalier', line.split(' ')[0], \
+                        line.replace(line.split(' ')[0], '').strip()])
+    except Exception as e:
+        print('Can\'t import settings from file: ' + path)
+        print(e)
+
+
 def export_settings(path):
     gsettings_list = subprocess.run( \
         ['gsettings', 'list-recursively', 'io.github.fsobolev.Cavalier'], \

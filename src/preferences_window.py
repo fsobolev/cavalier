@@ -30,7 +30,7 @@
 
 from gi.repository import Adw, Gtk, GObject, Gdk
 from cavalier.settings import CavalierSettings
-from cavalier.settings_import_export import export_settings
+from cavalier.settings_import_export import import_settings, export_settings
 
 
 class CavalierPreferencesWindow(Adw.PreferencesWindow):
@@ -45,6 +45,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.create_cavalier_page()
         self.create_cava_page()
         self.create_colors_page()
+        self.settings_bind = False
+        self.load_settings()
 
     def create_cavalier_page(self):
         self.cavalier_page = Adw.PreferencesPage.new()
@@ -79,13 +81,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.bars_row.set_activatable_widget(self.bars_check_btn)
         self.cavalier_mode_group.add(self.bars_row)
 
-        (self.wave_row, self.levels_row, self.bars_row)[ \
-            ('wave', 'levels', 'bars').index(self.settings.get('mode')) \
-            ].activate()
-        self.wave_check_btn.connect('toggled', self.on_save, 'mode', 'wave')
-        self.levels_check_btn.connect('toggled', self.on_save, 'mode', 'levels')
-        self.bars_check_btn.connect('toggled', self.on_save, 'mode', 'bars')
-
         self.cavalier_group = Adw.PreferencesGroup.new()
         self.cavalier_page.add(self.cavalier_group)
 
@@ -98,9 +93,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_margin_scale.set_size_request(180, -1)
         self.pref_margin_scale.set_draw_value(True)
         self.pref_margin_scale.set_value_pos(Gtk.PositionType.LEFT)
-        self.pref_margin_scale.set_value(self.settings.get('margin'))
-        self.pref_margin_scale.connect('value-changed', self.on_save, \
-            'margin', self.pref_margin_scale.get_value)
         self.pref_margin.add_suffix(self.pref_margin_scale)
         self.cavalier_group.add(self.pref_margin)
 
@@ -113,9 +105,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_offset_scale.set_size_request(180, -1)
         self.pref_offset_scale.set_draw_value(True)
         self.pref_offset_scale.set_value_pos(Gtk.PositionType.LEFT)
-        self.pref_offset_scale.set_value(self.settings.get('items-offset'))
-        self.pref_offset_scale.connect('value-changed', self.on_save, \
-            'items-offset', self.pref_offset_scale.get_value)
         self.pref_offset.add_suffix(self.pref_offset_scale)
         self.cavalier_group.add(self.pref_offset)
 
@@ -125,13 +114,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             _('Whether the main window corners should be sharp.'))
         self.pref_sharp_corners_switch = Gtk.Switch.new()
         self.pref_sharp_corners_switch.set_valign(Gtk.Align.CENTER)
-        self.pref_sharp_corners_switch.set_active( \
-            self.settings.get('sharp-corners'))
-        # `notify::state` signal returns additional parameter that
-        # we don't need, that's why lambda is used.
-        self.pref_sharp_corners_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.pref_sharp_corners_switch, \
-                'sharp-corners', self.pref_sharp_corners_switch.get_state()))
         self.pref_sharp_corners.add_suffix(self.pref_sharp_corners_switch)
         self.pref_sharp_corners.set_activatable_widget( \
             self.pref_sharp_corners_switch)
@@ -146,13 +128,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             _('Whether to show window control buttons.'))
         self.pref_show_controls_switch = Gtk.Switch.new()
         self.pref_show_controls_switch.set_valign(Gtk.Align.CENTER)
-        self.pref_show_controls_switch.set_active( \
-            self.settings.get('window-controls'))
-        # `notify::state` signal returns additional parameter that
-        # we don't need, that's why lambda is used.
-        self.pref_show_controls_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.pref_show_controls_switch, \
-                'window-controls', self.pref_show_controls_switch.get_state()))
         self.pref_show_controls.add_suffix(self.pref_show_controls_switch)
         self.pref_show_controls.set_activatable_widget( \
             self.pref_show_controls_switch)
@@ -164,13 +139,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             _('Whether to hide headerbar when main window is not focused.'))
         self.pref_autohide_header_switch = Gtk.Switch.new()
         self.pref_autohide_header_switch.set_valign(Gtk.Align.CENTER)
-        self.pref_autohide_header_switch.set_active( \
-            self.settings.get('autohide-header'))
-        # `notify::state` signal returns additional parameter that
-        # we don't need, that's why lambda is used.
-        self.pref_autohide_header_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.pref_autohide_header_switch, \
-                'autohide-header', self.pref_autohide_header_switch.get_state()))
         self.pref_autohide_header.add_suffix(self.pref_autohide_header_switch)
         self.pref_autohide_header.set_activatable_widget( \
             self.pref_autohide_header_switch)
@@ -183,6 +151,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
         self.btn_import = Gtk.Button.new_with_label(_('Import'))
         self.btn_import.add_css_class('pill')
+        self.btn_import.connect('clicked', self.import_settings_from_file)
         self.box_import_export.append(self.btn_import)
 
         self.btn_export = Gtk.Button.new_with_label(_('Export'))
@@ -199,18 +168,16 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.cava_group = Adw.PreferencesGroup.new()
         self.cava_page.add(self.cava_group)
 
-        self.bars_row = Adw.ActionRow.new()
-        self.bars_row.set_title(_('Bars'))
-        self.cava_group.add(self.bars_row)
-        self.bars_scale = Gtk.Scale.new_with_range( \
+        self.cava_bars_row = Adw.ActionRow.new()
+        self.cava_bars_row.set_title(_('Bars'))
+        self.cava_group.add(self.cava_bars_row)
+        self.cava_bars_scale = Gtk.Scale.new_with_range( \
             Gtk.Orientation.HORIZONTAL, 6.0, 50.0, 2.0)
-        self.bars_scale.set_size_request(180, -1)
-        self.bars_scale.set_draw_value(True)
-        self.bars_scale.set_value_pos(Gtk.PositionType.LEFT)
-        self.bars_scale.set_value(self.settings.get('bars'))
-        self.bars_scale.set_increments(2.0, 2.0)
-        self.bars_scale.connect('value-changed', self.on_bars_changed)
-        self.bars_row.add_suffix(self.bars_scale)
+        self.cava_bars_scale.set_size_request(180, -1)
+        self.cava_bars_scale.set_draw_value(True)
+        self.cava_bars_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.cava_bars_scale.set_increments(2.0, 2.0)
+        self.cava_bars_row.add_suffix(self.cava_bars_scale)
 
         self.autosens_row = Adw.ActionRow.new()
         self.autosens_row.set_title(_('Automatic sensitivity'))
@@ -218,12 +185,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             _('Attempt to decrease sensitivity if the bars peak.'))
         self.autosens_switch = Gtk.Switch.new()
         self.autosens_switch.set_valign(Gtk.Align.CENTER)
-        self.autosens_switch.set_active(self.settings.get('autosens'))
-        # `notify::state` signal returns additional parameter that
-        # we don't need, that's why lambda is used.
-        self.autosens_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.autosens_switch, \
-                'autosens', self.autosens_switch.get_state()))
         self.autosens_row.add_suffix(self.autosens_switch)
         self.autosens_row.set_activatable_widget(self.autosens_switch)
         self.cava_group.add(self.autosens_row)
@@ -237,9 +198,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             Gtk.Orientation.HORIZONTAL, 10.0, 250.0, 10.0)
         self.sensitivity_scale.set_size_request(150, -1)
         self.sensitivity_scale.set_draw_value(False)
-        self.sensitivity_scale.set_value(self.settings.get('sensitivity'))
-        self.sensitivity_scale.connect('value-changed', self.on_save, \
-            'sensitivity', self.sensitivity_scale.get_value)
         self.sensitivity_row.add_suffix(self.sensitivity_scale)
 
         self.channels_row = Adw.ActionRow.new()
@@ -253,26 +211,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.channels_buttons_box.append(self.btn_mono)
         self.btn_stereo = Gtk.ToggleButton.new_with_label(_('Stereo'))
         self.channels_buttons_box.append(self.btn_stereo)
-        if self.settings.get('channels') == 'mono':
-            self.btn_mono.set_active(True)
-        else:
-            self.btn_stereo.set_active(True)
-        self.btn_mono.bind_property('active', self.btn_stereo, 'active', \
-            (GObject.BindingFlags.BIDIRECTIONAL | \
-             GObject.BindingFlags.SYNC_CREATE | \
-             GObject.BindingFlags.INVERT_BOOLEAN))
-        self.btn_mono.connect('toggled', self.on_channels_changed)
-        self.btn_stereo.connect('toggled', self.on_channels_changed)
 
         self.smoothing_row = Adw.ComboRow.new()
         self.smoothing_row.set_title(_('Smoothing'));
         self.cava_group.add(self.smoothing_row);
         self.smoothing_row.set_model(Gtk.StringList.new([_('Off'), _('Monstercat')]))
-        self.smoothing_row.set_selected( \
-            ['off', 'monstercat'].index(self.settings.get('smoothing')))
-        self.smoothing_row.connect('notify::selected-item', \
-            lambda *args: self.settings.set('smoothing', \
-            ['off', 'monstercat'][self.smoothing_row.get_selected()]))
 
         self.nr_row = Adw.ActionRow.new()
         self.nr_row.set_title(_('Noise Reduction'))
@@ -285,21 +228,12 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.nr_scale.set_draw_value(True)
         self.nr_scale.set_value_pos(Gtk.PositionType.LEFT)
         self.nr_scale.get_first_child().set_margin_bottom(12)
-        self.nr_scale.set_value(self.settings.get('noise-reduction'))
-        self.nr_scale.connect('value-changed', self.on_save, \
-            'noise-reduction', self.nr_scale.get_value)
         self.nr_row.add_suffix(self.nr_scale)
 
         self.reverse_order_row = Adw.ActionRow.new()
         self.reverse_order_row.set_title(_('Reverse order'))
         self.reverse_order_switch = Gtk.Switch.new()
         self.reverse_order_switch.set_valign(Gtk.Align.CENTER)
-        self.reverse_order_switch.set_active(self.settings.get('reverse-order'))
-        # `notify::state` signal returns additional parameter that
-        # we don't need, that's why lambda is used.
-        self.reverse_order_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.reverse_order_switch, \
-                'reverse-order', self.reverse_order_switch.get_state()))
         self.reverse_order_row.add_suffix(self.reverse_order_switch)
         self.reverse_order_row.set_activatable_widget(self.reverse_order_switch)
         self.cava_group.add(self.reverse_order_row)
@@ -324,20 +258,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.style_buttons_box.append(self.btn_light)
         self.btn_dark = Gtk.ToggleButton.new_with_label(_('Dark'))
         self.style_buttons_box.append(self.btn_dark)
-        if self.settings.get('widgets-style') == 'light':
-            self.btn_light.set_active(True)
-        else:
-            self.btn_dark.set_active(True)
-        self.btn_dark.bind_property('active', self.btn_light, 'active', \
-            (GObject.BindingFlags.BIDIRECTIONAL | \
-             GObject.BindingFlags.SYNC_CREATE | \
-             GObject.BindingFlags.INVERT_BOOLEAN))
-        self.btn_light.connect('toggled', self.apply_style)
-        self.btn_dark.connect('toggled', self.apply_style)
         self.style_group.add(self.style_row)
-
-        self.fg_colors = self.settings.get('fg-colors')
-        self.bg_colors = self.settings.get('bg-colors')
 
         self.colors_group = Adw.PreferencesGroup.new()
         self.colors_group.set_title(_('Colors'))
@@ -359,7 +280,96 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.colors_grid.attach(self.bg_lbl, 1, 0, 1, 1)
         self.fg_color_btns = []
         self.bg_color_btns = []
+
+    def load_settings(self):
+        (self.wave_check_btn, self.levels_check_btn, self.bars_check_btn)[ \
+            ('wave', 'levels', 'bars').index(self.settings.get('mode')) \
+            ].set_active(True)
+        self.pref_margin_scale.set_value(self.settings.get('margin'))
+        self.pref_offset_scale.set_value(self.settings.get('items-offset'))
+        self.pref_sharp_corners_switch.set_active( \
+            self.settings.get('sharp-corners'))
+        self.pref_show_controls_switch.set_active( \
+            self.settings.get('window-controls'))
+        self.pref_autohide_header_switch.set_active( \
+            self.settings.get('autohide-header'))
+
+        self.cava_bars_scale.set_value(self.settings.get('bars'))
+        self.autosens_switch.set_active(self.settings.get('autosens'))
+        self.sensitivity_scale.set_value(self.settings.get('sensitivity'))
+        if self.settings.get('channels') == 'mono':
+            self.btn_mono.set_active(True)
+        else:
+            self.btn_stereo.set_active(True)
+        self.smoothing_row.set_selected( \
+            ['off', 'monstercat'].index(self.settings.get('smoothing')))
+        self.nr_scale.set_value(self.settings.get('noise-reduction'))
+        self.reverse_order_switch.set_active(self.settings.get('reverse-order'))
+
+        if self.settings.get('widgets-style') == 'light':
+            self.btn_light.set_active(True)
+        else:
+            self.btn_dark.set_active(True)
+        if not self.settings_bind:
+            self.bind_settings()
+        self.fg_colors = self.settings.get('fg-colors')
+        self.bg_colors = self.settings.get('bg-colors')
+        self.clear_colors_grid()
         self.fill_colors_grid()
+
+    def bind_settings(self):
+        self.wave_row.connect('activated', self.on_save, 'mode', 'wave')
+        self.levels_row.connect('activated', self.on_save, 'mode', 'levels')
+        self.bars_row.connect('activated', self.on_save, 'mode', 'bars')
+        self.pref_margin_scale.connect('value-changed', self.on_save, \
+            'margin', self.pref_margin_scale.get_value)
+        self.pref_offset_scale.connect('value-changed', self.on_save, \
+            'items-offset', self.pref_offset_scale.get_value)
+        # `notify::state` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
+        self.pref_sharp_corners_switch.connect('notify::state', \
+            lambda *args : self.on_save(self.pref_sharp_corners_switch, \
+                'sharp-corners', self.pref_sharp_corners_switch.get_state()))
+        self.pref_show_controls_switch.connect('notify::state', \
+            lambda *args : self.on_save(self.pref_show_controls_switch, \
+                'window-controls', self.pref_show_controls_switch.get_state()))
+        self.pref_autohide_header_switch.connect('notify::state', \
+            lambda *args : self.on_save(self.pref_autohide_header_switch, \
+                'autohide-header', self.pref_autohide_header_switch.get_state()))
+
+        self.cava_bars_scale.connect('value-changed', self.on_bars_changed)
+        # `notify::state` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
+        self.autosens_switch.connect('notify::state', \
+            lambda *args : self.on_save(self.autosens_switch, \
+                'autosens', self.autosens_switch.get_state()))
+        self.sensitivity_scale.connect('value-changed', self.on_save, \
+            'sensitivity', self.sensitivity_scale.get_value)
+        self.btn_mono.bind_property('active', self.btn_stereo, 'active', \
+            (GObject.BindingFlags.BIDIRECTIONAL | \
+             GObject.BindingFlags.SYNC_CREATE | \
+             GObject.BindingFlags.INVERT_BOOLEAN))
+        self.btn_mono.connect('toggled', self.on_channels_changed)
+        self.btn_stereo.connect('toggled', self.on_channels_changed)
+        self.smoothing_row.connect('notify::selected-item', \
+            lambda *args: self.settings.set('smoothing', \
+            ['off', 'monstercat'][self.smoothing_row.get_selected()]))
+        self.nr_scale.connect('value-changed', self.on_save, \
+            'noise-reduction', self.nr_scale.get_value)
+        # `notify::state` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
+        self.reverse_order_switch.connect('notify::state', \
+            lambda *args : self.on_save(self.reverse_order_switch, \
+                'reverse-order', self.reverse_order_switch.get_state()))
+
+        self.btn_dark.bind_property('active', self.btn_light, 'active', \
+            (GObject.BindingFlags.BIDIRECTIONAL | \
+             GObject.BindingFlags.SYNC_CREATE | \
+             GObject.BindingFlags.INVERT_BOOLEAN))
+        self.btn_light.connect('toggled', self.apply_style)
+        self.btn_dark.connect('toggled', self.apply_style)
+
+        self.settings_bind = True
 
     def fill_colors_grid(self):
         counter = 0
@@ -504,18 +514,34 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.settings.set(key, value)
 
     def on_settings_changed(self):
-        try: # settings are initialized before colors_grid
-            self.clear_colors_grid()
-            self.fill_colors_grid()
-        except:
-            pass
+        self.load_settings()
+
+    def import_settings_from_file(self, obj):
+        def on_response(dialog, response):
+            if response == Gtk.ResponseType.ACCEPT:
+                import_settings(dialog.get_file().get_path())
+                self.load_settings()
+
+        file_chooser = Gtk.FileChooserNative.new(_('Import Settings'), \
+            self, Gtk.FileChooserAction.OPEN, _('Open'), _('Cancel'))
+        file_chooser.set_modal(True)
+        file_filter = Gtk.FileFilter.new()
+        file_filter.set_name(_('Cavalier Settings File (*.cavalier)'))
+        file_filter.add_pattern('*.cavalier')
+        file_chooser.add_filter(file_filter)
+        file_filter_all = Gtk.FileFilter.new()
+        file_filter_all.set_name(_('All Files'))
+        file_filter_all.add_pattern('*')
+        file_chooser.add_filter(file_filter_all)
+        file_chooser.connect('response', on_response)
+        file_chooser.show()
 
     def export_settings_to_file(self, obj):
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
                 export_settings(dialog.get_file().get_path())
 
-        file_chooser = Gtk.FileChooserNative.new(_("Export Settings"), \
+        file_chooser = Gtk.FileChooserNative.new(_('Export Settings'), \
             self, Gtk.FileChooserAction.SAVE, _('Save'), _('Cancel'))
         file_chooser.set_modal(True)
         file_filter = Gtk.FileFilter.new()
