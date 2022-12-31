@@ -30,6 +30,7 @@
 
 import os
 import cairo
+import math
 
 def set_source(cr, height, colors):
     if len(colors) > 1:
@@ -42,6 +43,19 @@ def set_source(cr, height, colors):
     else:
         (red, green, blue, alpha) = colors[0]
         cr.set_source_rgba(red / 255, green / 255, blue / 255, alpha)
+
+def draw_element(cr, x, y, width, height, radius):
+    degrees = math.pi / 180.0
+    cr.new_sub_path()
+    cr.arc(x + width * radius / 100, y + height * radius / 100, \
+        radius * min(width, height) / 100, -180 * degrees, -90 * degrees)
+    cr.arc(x + width - width * radius / 100, y + height * radius / 100, \
+        radius * min(width, height) / 100, -90 * degrees, 0)
+    cr.arc(x + width - width * radius / 100, y + height - height * radius / 100, \
+        radius * min(width, height) / 100, 0, 90 * degrees)
+    cr.arc(x + width * radius / 100, y + height - height * radius / 100, \
+        radius * min(width, height) / 100, 90 * degrees, -180 * degrees)
+    cr.close_path()
 
 def wave(sample, cr, width, height, colors):
     set_source(cr, height, colors)
@@ -57,7 +71,7 @@ def wave(sample, cr, width, height, colors):
     cr.close_path()
     cr.fill()
 
-def levels(sample, cr, width, height, colors, offset):
+def levels(sample, cr, width, height, colors, offset, radius):
     set_source(cr, height, colors)
     ls = len(sample)
     step = width / ls
@@ -65,9 +79,9 @@ def levels(sample, cr, width, height, colors, offset):
     for i in range(ls):
         q = int(round(sample[i], 1) * 10)
         for r in range(q):
-            cr.rectangle(step * i + offset_px, \
+            draw_element(cr, step * i + offset_px, \
                 height - (height / 10 * (r + 1)) + offset_px, \
-                step - offset_px * 2, height / 10 - offset_px * 2)
+                step - offset_px * 2, height / 10 - offset_px * 2, radius)
     cr.fill()
 
 def bars(sample, cr, width, height, colors, offset):

@@ -108,6 +108,18 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_offset.add_suffix(self.pref_offset_scale)
         self.cavalier_group.add(self.pref_offset)
 
+        self.pref_roundness = Adw.ActionRow.new()
+        self.pref_roundness.set_title(_('Roundness of items'))
+        self.pref_roundness.set_subtitle( \
+            _('This setting only affect "levels" mode.'))
+        self.pref_roundness_scale = Gtk.Scale.new_with_range( \
+            Gtk.Orientation.HORIZONTAL, 0.0, 50.0, 1.0)
+        self.pref_roundness_scale.set_size_request(180, -1)
+        self.pref_roundness_scale.set_draw_value(True)
+        self.pref_roundness_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.pref_roundness.add_suffix(self.pref_roundness_scale)
+        self.cavalier_group.add(self.pref_roundness)
+
         self.pref_sharp_corners = Adw.ActionRow.new()
         self.pref_sharp_corners.set_title(_('Sharp corners'))
         self.pref_sharp_corners.set_subtitle( \
@@ -287,6 +299,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             ].set_active(True)
         self.pref_margin_scale.set_value(self.settings.get('margin'))
         self.pref_offset_scale.set_value(self.settings.get('items-offset'))
+        self.pref_roundness_scale.set_value(self.settings.get('items-roundness'))
         self.pref_sharp_corners_switch.set_active( \
             self.settings.get('sharp-corners'))
         self.pref_show_controls_switch.set_active( \
@@ -325,6 +338,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             'margin', self.pref_margin_scale.get_value)
         self.pref_offset_scale.connect('value-changed', self.on_save, \
             'items-offset', self.pref_offset_scale.get_value)
+        self.pref_roundness_scale.connect('value-changed', self.on_save, \
+            'items-roundness', self.pref_roundness_scale.get_value)
         # `notify::state` signal returns additional parameter that
         # we don't need, that's why lambda is used.
         self.pref_sharp_corners_switch.connect('notify::state', \

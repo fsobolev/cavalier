@@ -69,6 +69,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.set_margin_start(self.settings.get('margin'))
         self.set_margin_end(self.settings.get('margin'))
         self.offset = self.settings.get('items-offset')
+        self.roundness = self.settings.get('items-roundness')
         self.reverse_order = self.settings.get('reverse-order')
         self.channels = self.settings.get('channels')
         self.colors = self.settings.get('fg-colors')
@@ -90,9 +91,11 @@ class CavalierDrawingArea(Gtk.DrawingArea):
             if self.draw_mode == 'wave':
                 wave(self.cava_sample, cr, width, height, self.colors)
             elif self.draw_mode == 'levels':
-                levels(self.cava_sample, cr, width, height, self.colors, self.offset)
+                levels(self.cava_sample, cr, width, height, self.colors, \
+                    self.offset, self.roundness)
             elif self.draw_mode == 'bars':
-                bars(self.cava_sample, cr, width, height, self.colors, self.offset)
+                bars(self.cava_sample, cr, width, height, self.colors, \
+                    self.offset)
             else:
                 print(f'Error: Unknown drawing mode "{self.draw_mode}"')
 

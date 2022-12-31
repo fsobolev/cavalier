@@ -42,6 +42,12 @@
 			<range min="0" max="20"/>
 			<default>10</default>
 		</key>
+		<key name="items-roundness" type="i">
+			<summary>Roundness of items</summary>
+			<description>This setting only affect "levels" mode.</description>
+			<range min="0" max="50"/>
+			<default>10</default>
+		</key>
 		<key name="bars" type="i">
 			<summary>Number of bars</summary>
 			<description>Number of bars in CAVA config</description>
