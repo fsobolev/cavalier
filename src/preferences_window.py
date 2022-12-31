@@ -120,6 +120,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_roundness.add_suffix(self.pref_roundness_scale)
         self.cavalier_group.add(self.pref_roundness)
 
+        self.window_group = Adw.PreferencesGroup.new()
+        self.cavalier_page.add(self.window_group)
+
         self.pref_sharp_corners = Adw.ActionRow.new()
         self.pref_sharp_corners.set_title(_('Sharp corners'))
         self.pref_sharp_corners.set_subtitle( \
@@ -129,10 +132,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_sharp_corners.add_suffix(self.pref_sharp_corners_switch)
         self.pref_sharp_corners.set_activatable_widget( \
             self.pref_sharp_corners_switch)
-        self.cavalier_group.add(self.pref_sharp_corners)
-
-        self.window_group = Adw.PreferencesGroup.new()
-        self.cavalier_page.add(self.window_group)
+        self.window_group.add(self.pref_sharp_corners)
 
         self.pref_show_controls = Adw.ActionRow.new()
         self.pref_show_controls.set_title(_('Window controls'))
