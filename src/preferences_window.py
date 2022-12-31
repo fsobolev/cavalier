@@ -494,10 +494,10 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.settings.set('widgets-style', 'dark')
 
     def on_bars_changed(self, obj):
-        value = self.bars_scale.get_value()
+        value = self.cava_bars_scale.get_value()
         if value % 2 != 0:
             value -= 1
-            self.bars_scale.set_value(value)
+            self.cava_bars_scale.set_value(value)
         self.on_save(obj, 'bars', value)
 
     def on_channels_changed(self, obj):
