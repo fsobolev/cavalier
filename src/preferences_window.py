@@ -119,7 +119,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_roundness = Adw.ActionRow.new()
         self.pref_roundness.set_title(_('Roundness of items'))
         self.pref_roundness.set_subtitle( \
-            _('This setting only affect "levels" mode.\n0 - square, 1 - round'))
+            _('This setting only affect "levels" and "particles" modes.\n0 - square, 1 - round'))
         self.pref_roundness_scale = Gtk.Scale.new_with_range( \
             Gtk.Orientation.HORIZONTAL, 0.0, 1.0, 0.02)
         self.pref_roundness_scale.set_size_request(190, -1)
