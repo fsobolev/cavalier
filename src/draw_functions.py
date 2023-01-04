@@ -84,6 +84,17 @@ def levels(sample, cr, width, height, colors, offset, radius):
                 step - offset_px * 2, height / 10 - offset_px * 2, radius)
     cr.fill()
 
+def particles(sample, cr, width, height, colors, offset, radius):
+    set_source(cr, height, colors)
+    ls = len(sample)
+    step = width / ls
+    offset_px = step * offset / 100
+    for i in range(ls):
+        draw_element(cr, step * i + offset_px, \
+            height * 0.9 - height * 0.9 * sample[i] + offset_px, step - offset_px * 2, \
+            height / 10 - offset_px * 2, radius)
+    cr.fill()
+
 def bars(sample, cr, width, height, colors, offset):
     set_source(cr, height, colors)
     ls = len(sample)

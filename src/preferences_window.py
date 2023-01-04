@@ -73,6 +73,14 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.levels_row.set_activatable_widget(self.levels_check_btn)
         self.cavalier_mode_group.add(self.levels_row)
 
+        self.particles_row = Adw.ActionRow.new()
+        self.particles_row.set_title(_('Particles'))
+        self.particles_check_btn = Gtk.CheckButton.new()
+        self.particles_check_btn.set_group(self.wave_check_btn)
+        self.particles_row.add_prefix(self.particles_check_btn)
+        self.particles_row.set_activatable_widget(self.particles_check_btn)
+        self.cavalier_mode_group.add(self.particles_row)
+
         self.bars_row = Adw.ActionRow.new()
         self.bars_row.set_title(_('Bars'))
         self.bars_check_btn = Gtk.CheckButton.new()
@@ -294,9 +302,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.bg_color_btns = []
 
     def load_settings(self):
-        (self.wave_check_btn, self.levels_check_btn, self.bars_check_btn)[ \
-            ('wave', 'levels', 'bars').index(self.settings.get('mode')) \
-            ].set_active(True)
+        (self.wave_check_btn, self.levels_check_btn, self.particles_check_btn, \
+            self.bars_check_btn)[ ('wave', 'levels', 'particles', \
+            'bars').index(self.settings.get('mode')) ].set_active(True)
         self.pref_margin_scale.set_value(self.settings.get('margin'))
         self.pref_offset_scale.set_value(self.settings.get('items-offset'))
         self.pref_roundness_scale.set_value(round(self.settings.get('items-roundness') / 50.0, 2))
@@ -333,6 +341,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
     def bind_settings(self):
         self.wave_row.connect('activated', self.on_save, 'mode', 'wave')
         self.levels_row.connect('activated', self.on_save, 'mode', 'levels')
+        self.particles_row.connect('activated', self.on_save, 'mode', \
+            'particles')
         self.bars_row.connect('activated', self.on_save, 'mode', 'bars')
         self.pref_margin_scale.connect('value-changed', self.on_save, \
             'margin', self.pref_margin_scale.get_value)

@@ -31,7 +31,7 @@
 from gi.repository import Gtk, GObject
 from threading import Thread
 from cavalier.cava import Cava
-from cavalier.draw_functions import wave, levels, bars
+from cavalier.draw_functions import wave, levels, particles, bars
 from cavalier.settings import CavalierSettings
 
 class CavalierDrawingArea(Gtk.DrawingArea):
@@ -93,11 +93,12 @@ class CavalierDrawingArea(Gtk.DrawingArea):
             elif self.draw_mode == 'levels':
                 levels(self.cava_sample, cr, width, height, self.colors, \
                     self.offset, self.roundness)
+            elif self.draw_mode == 'particles':
+                particles(self.cava_sample, cr, width, height, self.colors, \
+                    self.offset, self.roundness)
             elif self.draw_mode == 'bars':
                 bars(self.cava_sample, cr, width, height, self.colors, \
                     self.offset)
-            else:
-                print(f'Error: Unknown drawing mode "{self.draw_mode}"')
 
     def redraw(self):
         self.queue_draw()
