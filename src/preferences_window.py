@@ -344,32 +344,32 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.particles_check_btn.connect('toggled', self.change_mode, \
             'particles')
         self.bars_check_btn.connect('toggled', self.change_mode, 'bars')
-        self.pref_margin_scale.connect('value-changed', self.on_save, \
+        self.pref_margin_scale.connect('value-changed', self.save_setting, \
             'margin', self.pref_margin_scale.get_value)
-        self.pref_offset_scale.connect('value-changed', self.on_save, \
+        self.pref_offset_scale.connect('value-changed', self.save_setting, \
             'items-offset', self.pref_offset_scale.get_value)
-        self.pref_roundness_scale.connect('value-changed', self.on_save, \
+        self.pref_roundness_scale.connect('value-changed', self.save_setting, \
             'items-roundness', lambda *args : \
             self.pref_roundness_scale.get_value() * 50.0)
         # `notify::state` signal returns additional parameter that
         # we don't need, that's why lambda is used.
         self.pref_sharp_corners_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.pref_sharp_corners_switch, \
+            lambda *args : self.save_setting(self.pref_sharp_corners_switch, \
                 'sharp-corners', self.pref_sharp_corners_switch.get_state()))
         self.pref_show_controls_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.pref_show_controls_switch, \
+            lambda *args : self.save_setting(self.pref_show_controls_switch, \
                 'window-controls', self.pref_show_controls_switch.get_state()))
         self.pref_autohide_header_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.pref_autohide_header_switch, \
+            lambda *args : self.save_setting(self.pref_autohide_header_switch, \
                 'autohide-header', self.pref_autohide_header_switch.get_state()))
 
         self.cava_bars_scale.connect('value-changed', self.change_bars_count)
         # `notify::state` signal returns additional parameter that
         # we don't need, that's why lambda is used.
         self.autosens_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.autosens_switch, \
+            lambda *args : self.save_setting(self.autosens_switch, \
                 'autosens', self.autosens_switch.get_state()))
-        self.sensitivity_scale.connect('value-changed', self.on_save, \
+        self.sensitivity_scale.connect('value-changed', self.save_setting, \
             'sensitivity', self.sensitivity_scale.get_value)
         self.btn_mono.bind_property('active', self.btn_stereo, 'active', \
             (GObject.BindingFlags.BIDIRECTIONAL | \
@@ -380,12 +380,12 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.smoothing_row.connect('notify::selected-item', \
             lambda *args: self.settings.set('smoothing', \
             ['off', 'monstercat'][self.smoothing_row.get_selected()]))
-        self.nr_scale.connect('value-changed', self.on_save, \
+        self.nr_scale.connect('value-changed', self.save_setting, \
             'noise-reduction', self.nr_scale.get_value)
         # `notify::state` signal returns additional parameter that
         # we don't need, that's why lambda is used.
         self.reverse_order_switch.connect('notify::state', \
-            lambda *args : self.on_save(self.reverse_order_switch, \
+            lambda *args : self.save_setting(self.reverse_order_switch, \
                 'reverse-order', self.reverse_order_switch.get_state()))
 
         self.btn_dark.bind_property('active', self.btn_light, 'active', \
@@ -521,14 +521,14 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
     def change_mode(self, obj, mode):
         if(obj.get_active()):
-            self.on_save(obj, 'mode', mode)
+            self.save_setting(obj, 'mode', mode)
 
     def change_bars_count(self, obj):
         value = self.cava_bars_scale.get_value()
         if value % 2 != 0:
             value -= 1
             self.cava_bars_scale.set_value(value)
-        self.on_save(obj, 'bars', value)
+        self.save_setting(obj, 'bars', value)
 
     def change_channels(self, obj):
         if self.btn_mono.get_active():
@@ -536,7 +536,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         else:
             self.settings.set('channels', 'stereo')
 
-    def on_save(self, obj, key, value):
+    def save_setting(self, obj, key, value):
         if callable(value):
             value = value()
         if type(value) is float and type(self.settings.get(key)) is int:
