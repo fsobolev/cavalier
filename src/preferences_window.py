@@ -339,11 +339,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.fill_colors_grid()
 
     def bind_settings(self):
-        self.wave_row.connect('activated', self.on_save, 'mode', 'wave')
-        self.levels_row.connect('activated', self.on_save, 'mode', 'levels')
-        self.particles_row.connect('activated', self.on_save, 'mode', \
+        self.wave_check_btn.connect('toggled', self.change_mode, 'wave')
+        self.levels_check_btn.connect('toggled', self.change_mode, 'levels')
+        self.particles_check_btn.connect('toggled', self.change_mode, \
             'particles')
-        self.bars_row.connect('activated', self.on_save, 'mode', 'bars')
+        self.bars_check_btn.connect('toggled', self.change_mode, 'bars')
         self.pref_margin_scale.connect('value-changed', self.on_save, \
             'margin', self.pref_margin_scale.get_value)
         self.pref_offset_scale.connect('value-changed', self.on_save, \
@@ -363,7 +363,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             lambda *args : self.on_save(self.pref_autohide_header_switch, \
                 'autohide-header', self.pref_autohide_header_switch.get_state()))
 
-        self.cava_bars_scale.connect('value-changed', self.on_bars_changed)
+        self.cava_bars_scale.connect('value-changed', self.change_bars_count)
         # `notify::state` signal returns additional parameter that
         # we don't need, that's why lambda is used.
         self.autosens_switch.connect('notify::state', \
@@ -375,8 +375,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             (GObject.BindingFlags.BIDIRECTIONAL | \
              GObject.BindingFlags.SYNC_CREATE | \
              GObject.BindingFlags.INVERT_BOOLEAN))
-        self.btn_mono.connect('toggled', self.on_channels_changed)
-        self.btn_stereo.connect('toggled', self.on_channels_changed)
+        self.btn_mono.connect('toggled', self.change_channels)
+        self.btn_stereo.connect('toggled', self.change_channels)
         self.smoothing_row.connect('notify::selected-item', \
             lambda *args: self.settings.set('smoothing', \
             ['off', 'monstercat'][self.smoothing_row.get_selected()]))
@@ -519,14 +519,18 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         else:
             self.settings.set('widgets-style', 'dark')
 
-    def on_bars_changed(self, obj):
+    def change_mode(self, obj, mode):
+        if(obj.get_active()):
+            self.on_save(obj, 'mode', mode)
+
+    def change_bars_count(self, obj):
         value = self.cava_bars_scale.get_value()
         if value % 2 != 0:
             value -= 1
             self.cava_bars_scale.set_value(value)
         self.on_save(obj, 'bars', value)
 
-    def on_channels_changed(self, obj):
+    def change_channels(self, obj):
         if self.btn_mono.get_active():
             self.settings.set('channels', 'mono')
         else:
