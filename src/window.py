@@ -28,11 +28,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from gi.repository import Adw
-from gi.repository import Gtk
-from gi.repository import Gio
-from gi.repository import GLib
-from gi.repository import GObject
+from gi.repository import Adw, Gtk, Gio, GLib, GObject
 
 from cavalier.settings import CavalierSettings
 from cavalier.drawing_area import CavalierDrawingArea
