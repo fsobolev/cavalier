@@ -154,7 +154,10 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.toggle_sharp_corners()
         self.set_style()
         self.apply_colors()
-        self.on_active_state_changed()
+        try:
+            self.on_active_state_changed()
+        except:
+            pass
 
     def on_close_request(self, obj):
         (width, height) = self.get_default_size()

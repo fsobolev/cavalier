@@ -3,7 +3,7 @@
 	<schema id="io.github.fsobolev.Cavalier" path="/io/github/fsobolev/Cavalier/">
 		<key name="size" type="(ii)">
 			<summary>Window size</summary>
-			<default>(300,200)</default>
+			<default>(400,200)</default>
 		</key>
 		<key name="maximized" type="b">
 			<summary>Window maximized state</summary>
