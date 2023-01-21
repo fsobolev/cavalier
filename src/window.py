@@ -153,8 +153,7 @@ class CavalierWindow(Adw.ApplicationWindow):
 
     def on_close_request(self, obj):
         (width, height) = self.get_default_size()
-        self.settings.set('size', (GLib.Variant.new_int32(width), \
-            GLib.Variant.new_int32(height)))
+        self.settings.set('size', (width, height))
         self.settings.set('maximized', self.is_maximized())
         if hasattr(self.get_application(), 'pref_win'):
             self.get_application().pref_win.close()

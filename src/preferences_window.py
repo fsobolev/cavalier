@@ -484,20 +484,20 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             color = self.fg_add_colorbtn.get_rgba()
             self.fg_colors.append((round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('fg-colors', self.fg_colors)
+            self.settings.set('fg-colors', ['(iiid)'] + self.fg_colors)
         else:
             color = self.bg_add_colorbtn.get_rgba()
             self.bg_colors.append((round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('bg-colors', self.bg_colors)
+            self.settings.set('bg-colors', ['(iiid)'] + self.bg_colors)
 
     def remove_color(self, obj, color_type, index):
         if color_type == 0:
             self.fg_colors.pop(index)
-            self.settings.set('fg-colors', self.fg_colors)
+            self.settings.set('fg-colors', ['(iiid)'] + self.fg_colors)
         else:
             self.bg_colors.pop(index)
-            self.settings.set('bg-colors', self.bg_colors)
+            self.settings.set('bg-colors', ['(iiid)'] + self.bg_colors)
 
     def color_changed(self, obj, color_type, index):
         if color_type == 0:
@@ -505,13 +505,13 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             color = obj.get_rgba()
             self.fg_colors.insert(index, (round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('fg-colors', self.fg_colors)
+            self.settings.set('fg-colors', ['(iiid)'] + self.fg_colors)
         else:
             self.bg_colors.pop(index)
             color = obj.get_rgba()
             self.bg_colors.insert(index, (round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('bg-colors', self.bg_colors)
+            self.settings.set('bg-colors', ['(iiid)'] + self.bg_colors)
 
     def apply_style(self, obj):
         if self.btn_light.get_active():

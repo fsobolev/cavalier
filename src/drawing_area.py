@@ -74,7 +74,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.channels = self.settings.get('channels')
         self.colors = self.settings.get('fg-colors')
         if len(self.colors) == 0:
-            self.settings.set('fg-colors', [(53, 132, 228, 1.0)])
+            self.settings.set('fg-colors', ['(iiid)', (53, 132, 228, 1.0)])
 
         if key in ('bars', 'autosens', 'sensitivity', 'channels', \
                 'smoothing', 'noise-reduction'):

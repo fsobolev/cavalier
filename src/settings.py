@@ -50,27 +50,32 @@ class CavalierSettings(Gio.Settings):
         return self.get_value(key).unpack()
 
     def set(self, key, value):
+        try:
+            self.set_value(key, self.convert(value))
+        except:
+            print(f'Can\'t set value "{value}" for key "{key}"')
+
+    def convert(self, value):
         if type(value) == int:
-            self.set_int(key, value)
+            return GLib.Variant.new_int32(value)
         elif type(value) == float:
-            self.set_double(key, value)
+            return GLib.Variant.new_double(value)
         elif type(value) == str:
-            self.set_string(key, value)
+            return GLib.Variant.new_string(value)
         elif type(value) == bool:
-            self.set_boolean(key, value)
+            return GLib.Variant.new_boolean(value)
         elif type(value) == tuple:
-            self.set_value(key, GLib.Variant.new_tuple(*value))
-        elif type(value) == list:
-            # Used for RGBA colors, for example [(0, 0, 255, 1.0)]
             arr = []
-            for item in value:
-                arr.append(GLib.Variant.new_tuple( \
-                    GLib.Variant.new_int32(item[0]),
-                    GLib.Variant.new_int32(item[1]),
-                    GLib.Variant.new_int32(item[2]),
-                    GLib.Variant.new_double(item[3])))
-            self.set_value(key, GLib.Variant.new_array( \
-                GLib.VariantType.new('(iiid)'), arr))
+            for v in value:
+                arr.append(self.convert(v))
+            return GLib.Variant.new_tuple(*arr)
+        elif type(value) == list:
+            # The first item in value list should be a string with
+            # array children GLib type (e.g. '(iiid)')
+            arr = []
+            for v in value[1:]:
+                arr.append(self.convert(v))
+            return GLib.Variant.new_array(GLib.VariantType.new(value[0]), arr)
         else:
             print("Error: Can't identify type of the value " + str(value))
 
