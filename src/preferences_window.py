@@ -289,7 +289,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.colors_group.set_header_suffix(self.color_profiles)
         self.profiles_label = Gtk.Label.new(_('Profile:'))
         self.color_profiles.append(self.profiles_label)
-        self.profiles_dropdown = Gtk.DropDown.new_from_strings([_('Default')])
+        self.profiles_list = Gtk.StringList.new(None)
+        self.profiles_dropdown = Gtk.DropDown.new(self.profiles_list, None)
         self.color_profiles.append(self.profiles_dropdown)
         self.profile_add_button = Gtk.MenuButton.new()
         self.profile_add_button.set_icon_name('list-add-symbolic')
@@ -364,8 +365,14 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.btn_dark.set_active(True)
         if not self.settings_bind:
             self.bind_settings()
-        self.fg_colors = self.settings.get('fg-colors')
-        self.bg_colors = self.settings.get('bg-colors')
+        for i in range(self.profiles_list.get_n_items()):
+            self.profiles_list.remove(i)
+        for p in self.settings.get('color-profiles'):
+            self.profiles_list.append(p[0])
+        self.fg_colors = self.settings.get('color-profiles')[ \
+            self.settings.get('active-color-profile')][1]
+        self.bg_colors = self.settings.get('color-profiles')[ \
+            self.settings.get('active-color-profile')][2]
         self.clear_colors_grid()
         self.fill_colors_grid()
 
@@ -510,25 +517,37 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             else:
                 break
 
+    def save_color_profiles(self):
+        profiles = self.settings.get('color-profiles')
+        for i in range(len(profiles)):
+            if i == self.settings.get('active-color-profile'):
+                fg_arr = self.fg_colors
+                bg_arr = self.bg_colors
+            else:
+                fg_arr = profiles[i][1]
+                bg_arr = profiles[i][2]
+            profiles[i] = (profiles[i][0], ['(iiid)'] + fg_arr, \
+                ['(iiid)'] + bg_arr)
+        profiles = ['(sa(iiid)a(iiid))'] + profiles
+        self.settings.set('color-profiles', profiles)
+
     def add_color(self, obj, color_type): # color_type 0 for fg, 1 for bg
         if color_type == 0:
             color = self.fg_add_colorbtn.get_rgba()
             self.fg_colors.append((round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('fg-colors', ['(iiid)'] + self.fg_colors)
         else:
             color = self.bg_add_colorbtn.get_rgba()
             self.bg_colors.append((round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('bg-colors', ['(iiid)'] + self.bg_colors)
+        self.save_color_profiles()
 
     def remove_color(self, obj, color_type, index):
         if color_type == 0:
             self.fg_colors.pop(index)
-            self.settings.set('fg-colors', ['(iiid)'] + self.fg_colors)
         else:
             self.bg_colors.pop(index)
-            self.settings.set('bg-colors', ['(iiid)'] + self.bg_colors)
+        self.save_color_profiles()
 
     def color_changed(self, obj, color_type, index):
         if color_type == 0:
@@ -536,13 +555,12 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             color = obj.get_rgba()
             self.fg_colors.insert(index, (round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('fg-colors', ['(iiid)'] + self.fg_colors)
         else:
             self.bg_colors.pop(index)
             color = obj.get_rgba()
             self.bg_colors.insert(index, (round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('bg-colors', ['(iiid)'] + self.bg_colors)
+        self.save_color_profiles()
 
     def apply_style(self, obj):
         if self.btn_light.get_active():

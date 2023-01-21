@@ -72,9 +72,16 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.roundness = self.settings.get('items-roundness')
         self.reverse_order = self.settings.get('reverse-order')
         self.channels = self.settings.get('channels')
-        self.colors = self.settings.get('fg-colors')
+        try:
+            color_profile = self.settings.get('color-profiles')[ \
+                self.settings.get('active-color-profile')]
+            self.colors = color_profile[1]
+        except:
+            self.colors = []
         if len(self.colors) == 0:
-            self.settings.set('fg-colors', ['(iiid)', (53, 132, 228, 1.0)])
+            self.settings.set('color-profiles', ['(sa(iiid)a(iiid))', \
+                (_('Default'), ['(iiid)', (53, 132, 228, 1.0)], ['(iiid)'])])
+            return
 
         if key in ('bars', 'autosens', 'sensitivity', 'channels', \
                 'smoothing', 'noise-reduction'):
