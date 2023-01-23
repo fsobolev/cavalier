@@ -28,7 +28,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from gi.repository import Adw, Gtk, Gio, GLib, GObject
+from gi.repository import Adw, Gtk, Gio, GObject
 
 from cavalier.settings import CavalierSettings
 from cavalier.drawing_area import CavalierDrawingArea
@@ -122,7 +122,12 @@ class CavalierWindow(Adw.ApplicationWindow):
             self.remove_css_class('sharp-corners')
 
     def apply_colors(self):
-        colors = self.settings.get('bg-colors')
+        try:
+            color_profile = self.settings.get('color-profiles')[ \
+                self.settings.get('active-color-profile')]
+            colors = color_profile[2]
+        except:
+            colors = []
         if len(colors) == 0:
             self.get_style_context().remove_provider(self.css_provider)
         elif len(colors) == 1:
@@ -149,7 +154,10 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.toggle_sharp_corners()
         self.set_style()
         self.apply_colors()
-        self.on_active_state_changed()
+        try:
+            self.on_active_state_changed()
+        except:
+            pass
 
     def on_close_request(self, obj):
         (width, height) = self.get_default_size()

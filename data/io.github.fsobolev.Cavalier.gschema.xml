@@ -3,7 +3,7 @@
 	<schema id="io.github.fsobolev.Cavalier" path="/io/github/fsobolev/Cavalier/">
 		<key name="size" type="(ii)">
 			<summary>Window size</summary>
-			<default>(300,200)</default>
+			<default>(400,200)</default>
 		</key>
 		<key name="maximized" type="b">
 			<summary>Window maximized state</summary>
@@ -107,15 +107,13 @@
 			<description>Whether the main window corners should be sharp.</description>
 			<default>false</default>
 		</key>
-		<key name="fg-colors" type="a(iiid)">
-			<summary>Foreground colors</summary>
-			<description>The array of foregound colors (RGBA).</description>
-			<default>[(53,132,228,1.0)]</default>
-		</key>
-		<key name="bg-colors" type="a(iiid)">
-			<summary>Background colors</summary>
-			<description>The array of background colors (RGBA).</description>
+		<key name="color-profiles" type="a(sa(iiid)a(iiid))">
+			<summary>Color Profiles</summary>
 			<default>[]</default>
+		</key>
+		<key name="active-color-profile" type="i">
+			<summary>Index of active color profile</summary>
+			<default>0</default>
 		</key>
 	</schema>
 </schemalist>

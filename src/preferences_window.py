@@ -46,6 +46,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.create_cava_page()
         self.create_colors_page()
         self.settings_bind = False
+        self.do_not_change_profile = False
         self.load_settings()
 
     def create_cavalier_page(self):
@@ -284,6 +285,63 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.colors_group.set_title(_('Colors'))
         self.colors_page.add(self.colors_group)
 
+        self.color_profiles = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 2)
+        self.color_profiles.set_valign(Gtk.Align.CENTER)
+        self.colors_group.set_header_suffix(self.color_profiles)
+        self.profiles_label = Gtk.Label.new(_('Profile:'))
+        self.color_profiles.append(self.profiles_label)
+        self.profiles_list = Gtk.StringList.new(None)
+        self.profiles_dropdown = Gtk.DropDown.new(self.profiles_list, None)
+        self.color_profiles.append(self.profiles_dropdown)
+        self.profile_add_button = Gtk.MenuButton.new()
+        self.profile_add_button.set_icon_name('list-add-symbolic')
+        self.profile_add_button.add_css_class('circular')
+        self.color_profiles.append(self.profile_add_button)
+        self.profile_add_popover = Gtk.Popover.new()
+        self.profile_add_button.set_popover(self.profile_add_popover)
+        self.profile_add_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 4)
+        self.profile_add_popover.set_child(self.profile_add_box)
+        self.profile_new_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.profile_new_box.add_css_class('linked')
+        self.profile_add_box.append(self.profile_new_box)
+        self.profile_add_entry = Gtk.Entry.new()
+        self.profile_new_box.append(self.profile_add_entry)
+        self.profile_new_button_add = Gtk.Button.new_with_label(_('Add'))
+        self.profile_new_button_add.add_css_class('suggested-action')
+        self.profile_new_button_add.connect('clicked', \
+            self.create_color_profile)
+        self.profile_new_box.append(self.profile_new_button_add)
+        self.profile_new_label = Gtk.Label.new('')
+        self.profile_add_box.append(self.profile_new_label)
+        self.profile_remove_button = Gtk.MenuButton.new()
+        self.profile_remove_button.set_icon_name('list-remove-symbolic')
+        self.profile_remove_button.add_css_class('circular')
+        self.color_profiles.append(self.profile_remove_button)
+        self.profile_remove_popover = Gtk.Popover.new()
+        self.profile_remove_button.set_popover(self.profile_remove_popover)
+        self.profile_remove_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 10)
+        self.profile_remove_popover.set_child(self.profile_remove_box)
+        self.profile_remove_label = Gtk.Label.new( \
+            _('Are you sure you want to remove this profile?'))
+        self.profile_remove_box.append(self.profile_remove_label)
+        self.profile_remove_buttons_box = Gtk.Box.new( \
+            Gtk.Orientation.HORIZONTAL, 6)
+        self.profile_remove_buttons_box.set_halign(Gtk.Align.CENTER)
+        self.profile_remove_box.append(self.profile_remove_buttons_box)
+        self.profile_remove_button_confirm = Gtk.Button.new_with_label( \
+            _('Remove'))
+        self.profile_remove_button_confirm.add_css_class('destructive-action')
+        self.profile_remove_button_confirm.connect('clicked', \
+            self.remove_color_profile)
+        self.profile_remove_buttons_box.append( \
+            self.profile_remove_button_confirm)
+        self.profile_remove_button_cancel = Gtk.Button.new_with_label( \
+            _('Cancel'))
+        self.profile_remove_button_cancel.connect('clicked', \
+            lambda *args: self.profile_remove_popover.popdown())
+        self.profile_remove_buttons_box.append( \
+            self.profile_remove_button_cancel)
+
         self.colors_grid = Gtk.Grid.new()
         self.colors_grid.add_css_class('card')
         self.colors_grid.set_column_homogeneous(True)
@@ -333,8 +391,22 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.btn_dark.set_active(True)
         if not self.settings_bind:
             self.bind_settings()
-        self.fg_colors = self.settings.get('fg-colors')
-        self.bg_colors = self.settings.get('bg-colors')
+        profiles = self.settings.get('color-profiles')
+        active_profile = self.settings.get('active-color-profile')
+        self.do_not_change_profile = True
+        while self.profiles_list.get_n_items() > 0:
+            self.profiles_list.remove(0)
+        for p in profiles:
+            self.profiles_list.append(p[0])
+        try:
+            self.fg_colors = profiles[active_profile][1]
+            self.bg_colors = profiles[active_profile][2]
+        except:
+            self.settings.set('active-color-profile', 0)
+            return
+        self.do_not_change_profile = False
+        self.profiles_dropdown.set_selected(active_profile)
+        self.profile_remove_button.set_sensitive(active_profile != 0)
         self.clear_colors_grid()
         self.fill_colors_grid()
 
@@ -394,6 +466,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
              GObject.BindingFlags.INVERT_BOOLEAN))
         self.btn_light.connect('toggled', self.apply_style)
         self.btn_dark.connect('toggled', self.apply_style)
+
+        self.profiles_dropdown.connect('notify::selected', \
+            self.select_color_profile)
 
         self.settings_bind = True
 
@@ -479,25 +554,77 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             else:
                 break
 
+    def select_color_profile(self, obj, pos):
+        if self.do_not_change_profile:
+            return
+        if self.profiles_dropdown.get_selected() != \
+                self.settings.get('active-color-profile'):
+            self.settings.set('active-color-profile', \
+                self.profiles_dropdown.get_selected())
+
+    def create_color_profile(self, obj):
+        if self.profile_add_entry.get_text() == '':
+            return
+        profiles = self.settings.get('color-profiles')
+        for p in profiles:
+            if p[0] == self.profile_add_entry.get_text():
+                self.profile_new_label.set_text( \
+                    _('This name is already in use.'))
+                return
+        self.profile_add_popover.popdown()
+        active_profile = self.settings.get('active-color-profile')
+        profiles.append((self.profile_add_entry.get_text(), \
+            profiles[active_profile][1], profiles[active_profile][2]))
+        self.profile_add_entry.set_text('')
+        for i in range(len(profiles)):
+            profiles[i] = (profiles[i][0], ['(iiid)'] + profiles[i][1], \
+                ['(iiid)'] + profiles[i][2])
+        profiles = ['(sa(iiid)a(iiid))'] + profiles
+        self.settings.set('color-profiles', profiles)
+        self.settings.set('active-color-profile', len(profiles) - 2)
+
+    def remove_color_profile(self, obj):
+        active_profile = self.settings.get('active-color-profile')
+        self.settings.set('active-color-profile', 0)
+        profiles = self.settings.get('color-profiles')
+        profiles.pop(active_profile)
+        for i in range(len(profiles)):
+            profiles[i] = (profiles[i][0], ['(iiid)'] + profiles[i][1], \
+                ['(iiid)'] + profiles[i][2])
+        profiles = ['(sa(iiid)a(iiid))'] + profiles
+        self.settings.set('color-profiles', profiles)
+
+    def save_color_profiles(self):
+        profiles = self.settings.get('color-profiles')
+        for i in range(len(profiles)):
+            if i == self.settings.get('active-color-profile'):
+                fg_arr = self.fg_colors
+                bg_arr = self.bg_colors
+            else:
+                fg_arr = profiles[i][1]
+                bg_arr = profiles[i][2]
+            profiles[i] = (profiles[i][0], ['(iiid)'] + fg_arr, \
+                ['(iiid)'] + bg_arr)
+        profiles = ['(sa(iiid)a(iiid))'] + profiles
+        self.settings.set('color-profiles', profiles)
+
     def add_color(self, obj, color_type): # color_type 0 for fg, 1 for bg
         if color_type == 0:
             color = self.fg_add_colorbtn.get_rgba()
             self.fg_colors.append((round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('fg-colors', ['(iiid)'] + self.fg_colors)
         else:
             color = self.bg_add_colorbtn.get_rgba()
             self.bg_colors.append((round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('bg-colors', ['(iiid)'] + self.bg_colors)
+        self.save_color_profiles()
 
     def remove_color(self, obj, color_type, index):
         if color_type == 0:
             self.fg_colors.pop(index)
-            self.settings.set('fg-colors', ['(iiid)'] + self.fg_colors)
         else:
             self.bg_colors.pop(index)
-            self.settings.set('bg-colors', ['(iiid)'] + self.bg_colors)
+        self.save_color_profiles()
 
     def color_changed(self, obj, color_type, index):
         if color_type == 0:
@@ -505,13 +632,12 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             color = obj.get_rgba()
             self.fg_colors.insert(index, (round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('fg-colors', ['(iiid)'] + self.fg_colors)
         else:
             self.bg_colors.pop(index)
             color = obj.get_rgba()
             self.bg_colors.insert(index, (round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-            self.settings.set('bg-colors', ['(iiid)'] + self.bg_colors)
+        self.save_color_profiles()
 
     def apply_style(self, obj):
         if self.btn_light.get_active():
