@@ -9,7 +9,7 @@ Audio visualizer based on CAVA</p>
 <a href="https://matrix.to/#/#sable-burrow:matrix.org"><img src="https://camo.githubusercontent.com/870f80ce7fd32ac263ec68010d5ee1439e66ee11433858601680debf7f916d47/68747470733a2f2f692e696d6775722e636f6d2f6373496f72374f2e706e67" height=48px></a>
 
 **Cavalier** is an audio visualizer based on [CAVA](https://github.com/karlstav/cava) with customizable LibAdwaita interface.
-* 3 drawing modes: weird *Wave*, retro-ish *Levels* and classic CAVA look - *Bars*!
+* 4 drawing modes!
 * Set single color or up to 10 colors gradient for background and foreground.
 * Configure smoothing, noise reduction and a few other CAVA settings.
 
@@ -17,7 +17,7 @@ Audio visualizer based on CAVA</p>
 
 ## Building
 
-The easiest way to build the development version of Time Switch is by using GNOME Builder as described [here](https://wiki.gnome.org/Newcomers/BuildProject).
+The easiest way to build the development version of Cavalier is by using GNOME Builder as described [here](https://wiki.gnome.org/Newcomers/BuildProject).
 
 ## Translations
 
