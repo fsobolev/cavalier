@@ -285,7 +285,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.colors_group.set_title(_('Colors'))
         self.colors_page.add(self.colors_group)
 
-        self.color_profiles = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 2)
+        self.color_profiles = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 4)
         self.color_profiles.set_valign(Gtk.Align.CENTER)
         self.colors_group.set_header_suffix(self.color_profiles)
         self.profiles_label = Gtk.Label.new(_('Profile:'))
@@ -305,6 +305,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.profile_new_box.add_css_class('linked')
         self.profile_add_box.append(self.profile_new_box)
         self.profile_add_entry = Gtk.Entry.new()
+        self.profile_add_entry.set_placeholder_text( \
+            _('Type a name for a new profile'))
         self.profile_new_box.append(self.profile_add_entry)
         self.profile_new_button_add = Gtk.Button.new_with_label(_('Add'))
         self.profile_new_button_add.add_css_class('suggested-action')
@@ -576,6 +578,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         profiles.append((self.profile_add_entry.get_text(), \
             profiles[active_profile][1], profiles[active_profile][2]))
         self.profile_add_entry.set_text('')
+        self.profile_new_label.set_text('')
         for i in range(len(profiles)):
             profiles[i] = (profiles[i][0], ['(iiid)'] + profiles[i][1], \
                 ['(iiid)'] + profiles[i][2])
