@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-28 06:36+0300\n"
+"POT-Creation-Date: 2023-01-28 14:37+0300\n"
 "PO-Revision-Date: 2022-12-04 23:26+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language: ru\n"
@@ -57,15 +57,15 @@ msgstr ""
 msgid "Fyodor Sobolev"
 msgstr "Фёдор Соболев"
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:38
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:41
 msgid "Second release of Cavalier."
 msgstr "Второй выпуск Cavalier."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:40
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:43
 msgid "New drawing mode — Particles!"
 msgstr "Новый режим отрисовки — Частицы!"
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:41
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:44
 msgid ""
 "Color profiles! Create as many as you want and change between them "
 "instantly. Unfortunately, this new feature required to change how the "
@@ -77,31 +77,31 @@ msgstr ""
 "изменить, как приложение сохраняет цвета, поэтому после установки этого "
 "обновления ваши предыдущие настройки цветов будут утеряны."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:42
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:45
 msgid "Added keyboard shortcuts to change most of the settings on the fly."
 msgstr "Добавлены сочетания клавиш для изменения большинства настроек на лету."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:43
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:46
 msgid "Added option to show/hide window controls."
 msgstr "Добавлена опция для скрытия/отображения кнопок управления окном."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:44
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:47
 msgid "Added option to autohide headerbar when the main window is not focused."
 msgstr ""
 "Добавлена опция автоматического скрытия заголовка, когда окно не в фокусе."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:45
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:48
 msgid ""
 "Added option to change roundness of items in \"levels\" and \"particles\" "
 "modes."
 msgstr ""
 "Добавлена опция изменения округлости элементов в режимах Уровни и Частицы."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:46
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:49
 msgid "Added option to reverse the order of bars."
 msgstr "Добавлена опция обратного порядка шкал."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:47
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:50
 msgid "Import/Export Settings"
 msgstr "Импорт/Экспорт настроек"
 
@@ -164,8 +164,8 @@ msgid ""
 "The size of spaces between elements in \"levels\", \"particles\" and \"bars"
 "\" modes (in percent)."
 msgstr ""
-"Размер пространства между элементами в режимах Уровни, Частицы и Шкалы "
-"(в процентах)."
+"Размер пространства между элементами в режимах Уровни, Частицы и Шкалы (в "
+"процентах)."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:47
 #: src/preferences_window.py:121
@@ -481,7 +481,7 @@ msgid "Toggle Reverse Order"
 msgstr "Переключить обратный порядок"
 
 #: src/shortcuts_dialog.ui:85
-msgid "Change Widgets Style"
+msgid "Toggle Widgets Style"
 msgstr "Переключить стиль виджетов"
 
 #: src/shortcuts_dialog.ui:91
