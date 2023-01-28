@@ -32,6 +32,7 @@ from gi.repository import Adw, Gtk, Gio, GObject
 
 from cavalier.settings import CavalierSettings
 from cavalier.drawing_area import CavalierDrawingArea
+from cavalier.shortcuts import add_shortcuts
 
 
 class CavalierWindow(Adw.ApplicationWindow):
@@ -44,6 +45,7 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.cava_sample = []
 
         self.build_ui()
+        add_shortcuts(self, self.settings)
         self.connect('close-request', self.on_close_request)
         self.connect('notify::is-active', self.on_active_state_changed)
 
