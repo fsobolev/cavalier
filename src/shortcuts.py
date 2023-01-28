@@ -102,9 +102,6 @@ def add_shortcuts(widget, settings):
     shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
         Gtk.ShortcutTrigger.parse_string("S"), \
         Gtk.NamedAction.new("cavalier.toggle-corners")))
-    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
-        Gtk.ShortcutTrigger.parse_string("<Shift>S"), \
-        Gtk.NamedAction.new("cavalier.toggle-corners")))
 
     act_toggle_controls = Gio.SimpleAction.new("toggle-controls", None)
     act_toggle_controls.connect('activate', toggle_setting, settings, \
@@ -113,9 +110,6 @@ def add_shortcuts(widget, settings):
     shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
         Gtk.ShortcutTrigger.parse_string("H"), \
         Gtk.NamedAction.new("cavalier.toggle-controls")))
-    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
-        Gtk.ShortcutTrigger.parse_string("<Shift>H"), \
-        Gtk.NamedAction.new("cavalier.toggle-controls")))
 
     act_toggle_autohide = Gio.SimpleAction.new("toggle-autohide", None)
     act_toggle_autohide.connect('activate', toggle_setting, settings, \
@@ -123,9 +117,6 @@ def add_shortcuts(widget, settings):
     action_map.add_action(act_toggle_autohide)
     shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
         Gtk.ShortcutTrigger.parse_string("A"), \
-        Gtk.NamedAction.new("cavalier.toggle-autohide")))
-    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
-        Gtk.ShortcutTrigger.parse_string("<Shift>A"), \
         Gtk.NamedAction.new("cavalier.toggle-autohide")))
 
     act_inc_bars = Gio.SimpleAction.new("increase-bars", None)
@@ -147,9 +138,6 @@ def add_shortcuts(widget, settings):
     shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
         Gtk.ShortcutTrigger.parse_string("C"), \
         Gtk.NamedAction.new("cavalier.toggle-channels")))
-    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
-        Gtk.ShortcutTrigger.parse_string("<Shift>C"), \
-        Gtk.NamedAction.new("cavalier.toggle-channels")))
 
     act_toggle_reverse = Gio.SimpleAction.new("toggle-reverse", None)
     act_toggle_reverse.connect('activate', toggle_setting, settings, \
@@ -158,18 +146,12 @@ def add_shortcuts(widget, settings):
     shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
         Gtk.ShortcutTrigger.parse_string("E"), \
         Gtk.NamedAction.new("cavalier.toggle-reverse")))
-    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
-        Gtk.ShortcutTrigger.parse_string("<Shift>E"), \
-        Gtk.NamedAction.new("cavalier.toggle-reverse")))
 
     act_toggle_style = Gio.SimpleAction.new("toggle-style", None)
     act_toggle_style.connect('activate', change_widgets_style, settings)
     action_map.add_action(act_toggle_style)
     shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
         Gtk.ShortcutTrigger.parse_string("W"), \
-        Gtk.NamedAction.new("cavalier.toggle-style")))
-    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
-        Gtk.ShortcutTrigger.parse_string("<Shift>W"), \
         Gtk.NamedAction.new("cavalier.toggle-style")))
 
     act_next_profile = Gio.SimpleAction.new("next-profile", None)

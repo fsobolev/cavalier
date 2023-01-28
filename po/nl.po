@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-28 14:37+0300\n"
+"POT-Creation-Date: 2023-01-28 14:48+0100\n"
 "PO-Revision-Date: 2022-12-09 20:28+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch\n"
@@ -160,8 +160,8 @@ msgstr "Verschuiving tussen items"
 #: src/preferences_window.py:111
 #, fuzzy
 msgid ""
-"The size of spaces between elements in \"levels\", \"particles\" and \"bars"
-"\" modes (in percent)."
+"The size of spaces between elements in \"levels\", \"particles\" and "
+"\"bars\" modes (in percent)."
 msgstr "De ruimte tussen elementen in niveau- en balkmodi (in procenten)."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:47
@@ -486,13 +486,13 @@ msgstr ""
 
 #: src/shortcuts_dialog.ui:85
 #, fuzzy
-msgid "Toggle Widgets Style"
-msgstr "Itemstijl"
+msgid "Change Colors Profile"
+msgstr "Kleuren"
 
 #: src/shortcuts_dialog.ui:91
 #, fuzzy
-msgid "Change Colors Profile"
-msgstr "Kleuren"
+msgid "Toggle Widgets Style"
+msgstr "Itemstijl"
 
 #~ msgid ""
 #~ "3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - "
