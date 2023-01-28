@@ -82,14 +82,14 @@
                         <property name='title' translatable='yes'>Colors</property>
                         <child>
                             <object class='GtkShortcutsShortcut'>
-                                <property name='title' translatable='yes'>Toggle Widgets Style</property>
-                                <property name='accelerator'>W</property>
+                                <property name='title' translatable='yes'>Change Colors Profile</property>
+                                <property name='accelerator'>P &lt;Shift&gt;P</property>
                             </object>
                         </child>
                         <child>
                             <object class='GtkShortcutsShortcut'>
-                                <property name='title' translatable='yes'>Change Colors Profile</property>
-                                <property name='accelerator'>P &lt;Shift&gt;P</property>
+                                <property name='title' translatable='yes'>Toggle Widgets Style</property>
+                                <property name='accelerator'>W</property>
                             </object>
                         </child>
                     </object>
