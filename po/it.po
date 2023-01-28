@@ -482,7 +482,7 @@ msgid "Toggle Reverse Order"
 msgstr "Attiva/disattiva ordine inverso"
 
 #: src/shortcuts_dialog.ui:85
-msgid "Change Widgets Style"
+msgid "Toggle Widgets Style"
 msgstr "Attiva/disattiva lo stile dei widget"
 
 #: src/shortcuts_dialog.ui:91
