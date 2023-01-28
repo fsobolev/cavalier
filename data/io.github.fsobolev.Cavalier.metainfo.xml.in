@@ -43,6 +43,7 @@
           <li>Added option to show/hide window controls.</li>
           <li>Added option to autohide headerbar when the main window is not focused.</li>
           <li>Added option to change roundness of items in "levels" and "particles" modes.</li>
+          <li>Added option to reverse the order of bars.</li>
           <li>Import/Export Settings</li>
         </ul>
       </description>
