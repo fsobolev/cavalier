@@ -95,6 +95,21 @@ def add_shortcuts(widget, settings):
         Gtk.ShortcutTrigger.parse_string("<Shift>R"), \
         Gtk.NamedAction.new("cavalier.decrease-roundness")))
 
+    act_inc_thickness = Gio.SimpleAction.new("increase-thickness", None)
+    act_inc_thickness.connect('activate', change_setting, settings, \
+        'line-thickness', 1)
+    action_map.add_action(act_inc_thickness)
+    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
+        Gtk.ShortcutTrigger.parse_string("T"), \
+        Gtk.NamedAction.new("cavalier.increase-thickness")))
+    act_dec_thickness = Gio.SimpleAction.new("decrease-thickness", None)
+    act_dec_thickness.connect('activate', change_setting, settings, \
+        'line-thickness', -1)
+    action_map.add_action(act_dec_thickness)
+    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
+        Gtk.ShortcutTrigger.parse_string("<Shift>T"), \
+        Gtk.NamedAction.new("cavalier.decrease-thickness")))
+
     act_toggle_corners = Gio.SimpleAction.new("toggle-corners", None)
     act_toggle_corners.connect('activate', toggle_setting, settings, \
         'sharp-corners')
