@@ -37,9 +37,8 @@ msgstr ""
 "интерфейсом на основе LibAdwaita."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:11
-#, fuzzy
 msgid "4 drawing modes!"
-msgstr "Режим отрисовки"
+msgstr "4 режима отрисовки!"
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:12
 msgid ""
@@ -60,11 +59,11 @@ msgstr "Фёдор Соболев"
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:38
 msgid "Second release of Cavalier."
-msgstr ""
+msgstr "Второй выпуск Cavalier."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:40
 msgid "New drawing mode — Particles!"
-msgstr ""
+msgstr "Новый режим отрисовки — Частицы!"
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:41
 msgid ""
@@ -73,67 +72,70 @@ msgid ""
 "application saves colors, and because of this your previous colors settings "
 "will be lost after installing this update."
 msgstr ""
+"Профили цветов! Создайте столько профилей, сколько захотите, и "
+"переключайтесь между ними мгновенно! К сожалению, эта функция потребовала "
+"изменить, как приложение сохраняет цвета, поэтому после установки этого "
+"обновления ваши предыдущие настройки цветов будут утеряны."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:42
 msgid "Added keyboard shortcuts to change most of the settings on the fly."
-msgstr ""
+msgstr "Добавлены сочетания клавиш для изменения большинства настроек на лету."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:43
 msgid "Added option to show/hide window controls."
-msgstr ""
+msgstr "Добавлена опция для скрытия/отображения кнопок управления окном."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:44
 msgid "Added option to autohide headerbar when the main window is not focused."
 msgstr ""
+"Добавлена опция автоматического скрытия заголовка, когда окно не в фокусе."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:45
 msgid ""
 "Added option to change roundness of items in \"levels\" and \"particles\" "
 "modes."
 msgstr ""
+"Добавлена опция изменения округлости элементов в режимах Уровни и Частицы."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:46
 msgid "Added option to reverse the order of bars."
-msgstr ""
+msgstr "Добавлена опция обратного порядка шкал."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:47
 msgid "Import/Export Settings"
-msgstr ""
+msgstr "Импорт/Экспорт настроек"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:5
 msgid "Window size"
 msgstr "Размер окна"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:9
-#, fuzzy
 msgid "Window maximized state"
-msgstr "Размер окна"
+msgstr "Развёрнутое состояние окна"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:10
 msgid "Whether main window is maximized or not"
-msgstr ""
+msgstr "Является ли окно развёрнутым или нет"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:14
 #: src/preferences_window.py:147
-#, fuzzy
 msgid "Window controls"
-msgstr "Размер окна"
+msgstr "Кнопки управления окном"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:15
 #: src/preferences_window.py:149
-#, fuzzy
 msgid "Whether to show window control buttons."
-msgstr "Должны ли углы главного окна быть острыми."
+msgstr "Должны ли отображаться кнопки управления окном."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:19
 #: src/preferences_window.py:158
 msgid "Autohide headerbar"
-msgstr ""
+msgstr "Автоскрытие заголовка"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:20
 #: src/preferences_window.py:160
 msgid "Whether to hide headerbar when main window is not focused."
-msgstr ""
+msgstr "Должен ли отображаться заголовок главного окна, когда оно не в фокусе."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:24
 msgid "Drawing mode"
@@ -158,21 +160,21 @@ msgstr "Расстояние между элементами"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:42
 #: src/preferences_window.py:111
-#, fuzzy
 msgid ""
 "The size of spaces between elements in \"levels\", \"particles\" and \"bars"
 "\" modes (in percent)."
 msgstr ""
-"Размер пространства между элементами в режимах Уровни и Шкалы (в процентах)."
+"Размер пространства между элементами в режимах Уровни, Частицы и Шкалы "
+"(в процентах)."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:47
 #: src/preferences_window.py:121
 msgid "Roundness of items"
-msgstr ""
+msgstr "Округлость элементов"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:48
 msgid "This setting only affect \"levels\" and \"particles\" modes."
-msgstr ""
+msgstr "Эта настройка влияет только на режимы Уровни и Частицы."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:53
 msgid "Number of bars"
@@ -236,7 +238,7 @@ msgstr ""
 #: data/io.github.fsobolev.Cavalier.gschema.xml:93
 #: src/preferences_window.py:255
 msgid "Reverse order"
-msgstr ""
+msgstr "Обратный порядок"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:97
 #: src/preferences_window.py:272
@@ -259,13 +261,12 @@ msgid "Whether the main window corners should be sharp."
 msgstr "Должны ли углы главного окна быть острыми."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:111
-#, fuzzy
 msgid "Color Profiles"
-msgstr "Цвета"
+msgstr "Профили цветов"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:115
 msgid "Index of active color profile"
-msgstr ""
+msgstr "Номер активного профиля цветов"
 
 #: src/preferences_window.py:59
 msgid "Drawing Mode"
@@ -281,7 +282,7 @@ msgstr "Уровни"
 
 #: src/preferences_window.py:78
 msgid "Particles"
-msgstr ""
+msgstr "Частицы"
 
 #: src/preferences_window.py:86 src/preferences_window.py:193
 msgid "Bars"
@@ -292,14 +293,16 @@ msgid ""
 "This setting only affect \"levels\" and \"particles\" modes.\n"
 "0 - square, 1 - round"
 msgstr ""
+"Эта настройка влияет только на режимы Уровни и Частицы.\n"
+"0 - квадратные, 1 - круглые"
 
 #: src/preferences_window.py:173
 msgid "Import"
-msgstr ""
+msgstr "Импорт"
 
 #: src/preferences_window.py:178
 msgid "Export"
-msgstr ""
+msgstr "Экспорт"
 
 #: src/preferences_window.py:231
 msgid "Mono"
@@ -340,15 +343,15 @@ msgstr "Тёмный"
 
 #: src/preferences_window.py:291
 msgid "Profile:"
-msgstr ""
+msgstr "Профиль:"
 
 #: src/preferences_window.py:299
 msgid "Add new profile"
-msgstr ""
+msgstr "Добавить новый профиль"
 
 #: src/preferences_window.py:310
 msgid "Type a name for a new profile"
-msgstr ""
+msgstr "Введите имя нового профиля"
 
 #: src/preferences_window.py:312 src/preferences_window.py:508
 #: src/preferences_window.py:547
@@ -357,20 +360,20 @@ msgstr "Добавить"
 
 #: src/preferences_window.py:322
 msgid "Remove profile"
-msgstr ""
+msgstr "Удалить профиль"
 
 #: src/preferences_window.py:329
 msgid "Are you sure you want to remove this profile?"
-msgstr ""
+msgstr "Вы уверены, что хотите удалить этот профиль?"
 
 #: src/preferences_window.py:336
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: src/preferences_window.py:343 src/preferences_window.py:695
 #: src/preferences_window.py:714
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: src/preferences_window.py:353
 msgid "<b>Foreground</b>"
@@ -383,43 +386,43 @@ msgstr "<b>Фон</b>"
 #: src/preferences_window.py:489 src/preferences_window.py:512
 #: src/preferences_window.py:530 src/preferences_window.py:551
 msgid "Select color"
-msgstr ""
+msgstr "Выбрать цвет"
 
 #: src/preferences_window.py:496 src/preferences_window.py:537
 msgid "Remove color"
-msgstr ""
+msgstr "Удалить цвет"
 
 #: src/preferences_window.py:517 src/preferences_window.py:556
 msgid "Add color"
-msgstr ""
+msgstr "Добавить цвет"
 
 #: src/preferences_window.py:584
 msgid "This name is already in use."
-msgstr ""
+msgstr "Это имя уже используется."
 
 #: src/preferences_window.py:694
 msgid "Import Settings"
-msgstr ""
+msgstr "Импорт Настроек"
 
 #: src/preferences_window.py:695
 msgid "Open"
-msgstr ""
+msgstr "Открыть"
 
 #: src/preferences_window.py:698 src/preferences_window.py:717
 msgid "Cavalier Settings File (*.cavalier)"
-msgstr ""
+msgstr "Файл настроек Cavalier (*.cavalier)"
 
 #: src/preferences_window.py:702
 msgid "All Files"
-msgstr ""
+msgstr "Все файлы"
 
 #: src/preferences_window.py:713
 msgid "Export Settings"
-msgstr ""
+msgstr "Экспорт Настроек"
 
 #: src/preferences_window.py:714
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: src/window.py:109
 msgid "Preferences"
@@ -427,7 +430,7 @@ msgstr "Настройки"
 
 #: src/window.py:110
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Комбинации клавиш"
 
 #: src/window.py:111
 msgid "About"
@@ -438,77 +441,49 @@ msgid "Quit"
 msgstr "Выход"
 
 #: src/shortcuts_dialog.ui:15
-#, fuzzy
 msgid "Change Drawing Mode"
-msgstr "Режим отрисовки"
+msgstr "Изменить режим отрисовки"
 
 #: src/shortcuts_dialog.ui:21
-#, fuzzy
 msgid "Change Drawing Area Margin"
-msgstr "Отступ области отрисовки"
+msgstr "Изменить отступ области отрисовки"
 
 #: src/shortcuts_dialog.ui:27
-#, fuzzy
 msgid "Change Offset Between Items"
-msgstr "Расстояние между элементами"
+msgstr "Изменить расстояние между элементами"
 
 #: src/shortcuts_dialog.ui:33
 msgid "Change Roundness of Items"
-msgstr ""
+msgstr "Изменить округлость элементов"
 
 #: src/shortcuts_dialog.ui:39
-#, fuzzy
 msgid "Toggle Sharp Corners"
-msgstr "Острые углы"
+msgstr "Переключить острые углы"
 
 #: src/shortcuts_dialog.ui:45
-#, fuzzy
 msgid "Toggle Window Controls"
-msgstr "Размер окна"
+msgstr "Переключить кнопки управления окном"
 
 #: src/shortcuts_dialog.ui:51
 msgid "Toggle Autohide Headerbar"
-msgstr ""
+msgstr "Переключить автоскрытие заголовка"
 
 #: src/shortcuts_dialog.ui:62
-#, fuzzy
 msgid "Change Number of Bars"
-msgstr "Количество шкал"
+msgstr "Изменить количество шкал"
 
 #: src/shortcuts_dialog.ui:68
-#, fuzzy
 msgid "Toggle Channels"
-msgstr "Каналы"
+msgstr "Переключить каналы"
 
 #: src/shortcuts_dialog.ui:74
 msgid "Toggle Reverse Order"
-msgstr ""
+msgstr "Переключить обратный порядок"
 
 #: src/shortcuts_dialog.ui:85
-#, fuzzy
 msgid "Change Widgets Style"
-msgstr "Стиль виджетов"
+msgstr "Переключить стиль виджетов"
 
 #: src/shortcuts_dialog.ui:91
-#, fuzzy
 msgid "Change Colors Profile"
-msgstr "Цвета"
-
-#~ msgid ""
-#~ "3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - "
-#~ "Bars!"
-#~ msgstr ""
-#~ "3 режима отрисовки: странные Волны, Уровни в стиле ретро, и классический "
-#~ "вид CAVA - Шкалы!"
-
-#~ msgid "Foreground colors"
-#~ msgstr "Цвета переднего плана"
-
-#~ msgid "The array of foregound colors (RGBA)."
-#~ msgstr "Массив цветов переднего плана (RGBA)."
-
-#~ msgid "Background colors"
-#~ msgstr "Цвета фона"
-
-#~ msgid "The array of background colors (RGBA)."
-#~ msgstr "Массив фоновых цветов (RGBA)."
+msgstr "Изменить профиль цветов"
