@@ -1,14 +1,14 @@
 # ITALIAN TRANSLATION FOR CAVALIER
 # Copyright (C) 2022 Fyodor Sobolev
 # This file is distributed under the same license as the PACKAGE package.
-# ALBANO BATTISTELLA <ALBANO_BATTISTELLA@HOTMAIL.COM>, 2022.
+# ALBANO BATTISTELLA <ALBANO_BATTISTELLA@HOTMAIL.COM>, 2022,2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-28 14:37+0300\n"
-"PO-Revision-Date: 2022-12-20 20:44+0100\n"
+"POT-Creation-Date: 2023-01-28 06:36+0300\n"
+"PO-Revision-Date: 2023-01-28 12:44+0100\n"
 "Last-Translator: albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <LL@li.org>\n"
 "Language: it\n"
@@ -38,9 +38,8 @@ msgstr ""
 "personalizzabile LibAdwaita."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:11
-#, fuzzy
 msgid "4 drawing modes!"
-msgstr "Modalità disegno"
+msgstr "4 modalità di disegno!"
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:12
 msgid ""
@@ -60,82 +59,85 @@ msgstr ""
 msgid "Fyodor Sobolev"
 msgstr "Fyodor Sobolev"
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:41
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:38
 msgid "Second release of Cavalier."
-msgstr ""
+msgstr "Secondo rilascio di Cavalier."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:43
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:40
 msgid "New drawing mode — Particles!"
-msgstr ""
+msgstr "Nuova modalità di disegno — Particelle!"
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:44
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:41
 msgid ""
 "Color profiles! Create as many as you want and change between them "
 "instantly. Unfortunately, this new feature required to change how the "
 "application saves colors, and because of this your previous colors settings "
 "will be lost after installing this update."
 msgstr ""
+"Profili colore! Creane quanti ne vuoi e cambia da uno all'altro"
+"all'istante. Sfortunatamente, questa nuova funzionalità richiedeva di modificare il modo in cui "
+"l'applicazione salva i colori e, per questo motivo, le impostazioni dei colori precedenti "
+"andranno perse dopo l'installazione di questo aggiornamento."
+
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:42
+msgid "Added keyboard shortcuts to change most of the settings on the fly."
+msgstr "Aggiunte scorciatoie da tastiera per modificare la maggior parte delle impostazioni al volo."
+
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:43
+msgid "Added option to show/hide window controls."
+msgstr "Aggiunta opzione per mostrare/nascondere i controlli della finestra."
+
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:44
+msgid "Added option to autohide headerbar when the main window is not focused."
+msgstr "Aggiunta opzione per nascondere automaticamente la barra dell'intestazione quando la finestra principale non è focalizzata."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:45
-msgid "Added keyboard shortcuts to change most of the settings on the fly."
-msgstr ""
-
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:46
-msgid "Added option to show/hide window controls."
-msgstr ""
-
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:47
-msgid "Added option to autohide headerbar when the main window is not focused."
-msgstr ""
-
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:48
 msgid ""
 "Added option to change roundness of items in \"levels\" and \"particles\" "
 "modes."
 msgstr ""
+"Aggiunta opzione per modificare la rotondità degli elementi in \"livelli\" e modalità "
+"\"particelle\"."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:49
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:46
 msgid "Added option to reverse the order of bars."
-msgstr ""
+msgstr "Aggiunta opzione per invertire l'ordine delle barre."
 
-#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:50
+#: data/io.github.fsobolev.Cavalier.metainfo.xml.in:47
 msgid "Import/Export Settings"
-msgstr ""
+msgstr "Impostazioni di importazione/esportazione"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:5
 msgid "Window size"
 msgstr "Dimensione finestra"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:9
-#, fuzzy
 msgid "Window maximized state"
-msgstr "Dimensione finestra"
+msgstr "Stato della finestra massimizzato"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:10
 msgid "Whether main window is maximized or not"
-msgstr ""
+msgstr "Se la finestra principale è massimizzata o meno"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:14
 #: src/preferences_window.py:147
-#, fuzzy
 msgid "Window controls"
-msgstr "Dimensione finestra"
+msgstr "Controlli finestra"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:15
 #: src/preferences_window.py:149
-#, fuzzy
 msgid "Whether to show window control buttons."
-msgstr "Se gli angoli della finestra principale devono essere nitidi."
+msgstr "Se mostrare i pulsanti di controllo della finestra."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:19
 #: src/preferences_window.py:158
 msgid "Autohide headerbar"
-msgstr ""
+msgstr "Nascondi automaticamente barra di intestazione"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:20
 #: src/preferences_window.py:160
 msgid "Whether to hide headerbar when main window is not focused."
-msgstr ""
+msgstr "Se nascondere la barra di intestazione quando la finestra principale non è focalizzata."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:24
 msgid "Drawing mode"
@@ -160,22 +162,21 @@ msgstr "Scostamento tra gli elementi"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:42
 #: src/preferences_window.py:111
-#, fuzzy
 msgid ""
 "The size of spaces between elements in \"levels\", \"particles\" and \"bars"
 "\" modes (in percent)."
 msgstr ""
-"La dimensione degli spazi tra gli elementi nelle modalità \"livelli\" e "
+"La dimensione degli spazi tra gli elementi nelle modalità \"livelli\",\"particelle\" e "
 "\"barre\" (in percentuale)."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:47
 #: src/preferences_window.py:121
 msgid "Roundness of items"
-msgstr ""
+msgstr "Rotondità degli oggetti"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:48
 msgid "This setting only affect \"levels\" and \"particles\" modes."
-msgstr ""
+msgstr "Questa impostazione riguarda solo le modalità \"livelli\" e \"particelle\"."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:53
 msgid "Number of bars"
@@ -238,7 +239,7 @@ msgstr ""
 #: data/io.github.fsobolev.Cavalier.gschema.xml:93
 #: src/preferences_window.py:255
 msgid "Reverse order"
-msgstr ""
+msgstr "Ordine inverso"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:97
 #: src/preferences_window.py:272
@@ -261,13 +262,12 @@ msgid "Whether the main window corners should be sharp."
 msgstr "Se gli angoli della finestra principale devono essere nitidi."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:111
-#, fuzzy
 msgid "Color Profiles"
-msgstr "Colori"
+msgstr "Profili colore"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:115
 msgid "Index of active color profile"
-msgstr ""
+msgstr "Indice del profilo colore attivo"
 
 #: src/preferences_window.py:59
 msgid "Drawing Mode"
@@ -283,7 +283,7 @@ msgstr "Livelli"
 
 #: src/preferences_window.py:78
 msgid "Particles"
-msgstr ""
+msgstr "Particelle"
 
 #: src/preferences_window.py:86 src/preferences_window.py:193
 msgid "Bars"
@@ -294,14 +294,16 @@ msgid ""
 "This setting only affect \"levels\" and \"particles\" modes.\n"
 "0 - square, 1 - round"
 msgstr ""
+"Questa impostazione riguarda solo le modalità \"livelli\" e \"particelle\".\n"
+"0 - quadrato, 1 - rotondo"
 
 #: src/preferences_window.py:173
 msgid "Import"
-msgstr ""
+msgstr "Importa"
 
 #: src/preferences_window.py:178
 msgid "Export"
-msgstr ""
+msgstr "Esporta"
 
 #: src/preferences_window.py:231
 msgid "Mono"
@@ -342,15 +344,15 @@ msgstr "Scuro"
 
 #: src/preferences_window.py:291
 msgid "Profile:"
-msgstr ""
+msgstr "Profilo:"
 
 #: src/preferences_window.py:299
 msgid "Add new profile"
-msgstr ""
+msgstr "Aggiungi nuovo profilo"
 
 #: src/preferences_window.py:310
 msgid "Type a name for a new profile"
-msgstr ""
+msgstr "Digitare un nome per un nuovo profilo"
 
 #: src/preferences_window.py:312 src/preferences_window.py:508
 #: src/preferences_window.py:547
@@ -359,20 +361,20 @@ msgstr "Aggiungi"
 
 #: src/preferences_window.py:322
 msgid "Remove profile"
-msgstr ""
+msgstr "Rimuovi profilo"
 
 #: src/preferences_window.py:329
 msgid "Are you sure you want to remove this profile?"
-msgstr ""
+msgstr "Sei sicuro di voler rimuovere questo profilo?"
 
 #: src/preferences_window.py:336
 msgid "Remove"
-msgstr ""
+msgstr "Rimuovi"
 
 #: src/preferences_window.py:343 src/preferences_window.py:695
 #: src/preferences_window.py:714
 msgid "Cancel"
-msgstr ""
+msgstr "Cancella"
 
 #: src/preferences_window.py:353
 msgid "<b>Foreground</b>"
@@ -385,43 +387,43 @@ msgstr "<b>Sfondo</b>"
 #: src/preferences_window.py:489 src/preferences_window.py:512
 #: src/preferences_window.py:530 src/preferences_window.py:551
 msgid "Select color"
-msgstr ""
+msgstr "Seleziona colore"
 
 #: src/preferences_window.py:496 src/preferences_window.py:537
 msgid "Remove color"
-msgstr ""
+msgstr "Rimuovi colore"
 
 #: src/preferences_window.py:517 src/preferences_window.py:556
 msgid "Add color"
-msgstr ""
+msgstr "Aggiungi colore"
 
 #: src/preferences_window.py:584
 msgid "This name is already in use."
-msgstr ""
+msgstr "Questo nome è già in uso."
 
 #: src/preferences_window.py:694
 msgid "Import Settings"
-msgstr ""
+msgstr "Impostazioni di importazione"
 
 #: src/preferences_window.py:695
 msgid "Open"
-msgstr ""
+msgstr "Apri"
 
 #: src/preferences_window.py:698 src/preferences_window.py:717
 msgid "Cavalier Settings File (*.cavalier)"
-msgstr ""
+msgstr "File impostazioni di Cavalier (*.cavalier)"
 
 #: src/preferences_window.py:702
 msgid "All Files"
-msgstr ""
+msgstr "Tutti i file"
 
 #: src/preferences_window.py:713
 msgid "Export Settings"
-msgstr ""
+msgstr "Impostazioni di esportazione"
 
 #: src/preferences_window.py:714
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: src/window.py:109
 msgid "Preferences"
@@ -429,7 +431,7 @@ msgstr "Preferenze"
 
 #: src/window.py:110
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Scorciatoie da tastiera"
 
 #: src/window.py:111
 msgid "About"
@@ -440,68 +442,59 @@ msgid "Quit"
 msgstr "Esci"
 
 #: src/shortcuts_dialog.ui:15
-#, fuzzy
 msgid "Change Drawing Mode"
-msgstr "Modalità disegno"
+msgstr "Cambia modalità di disegno"
 
 #: src/shortcuts_dialog.ui:21
-#, fuzzy
 msgid "Change Drawing Area Margin"
-msgstr "Margine dell'area di disegno"
+msgstr "Modifica margine area di disegno"
 
 #: src/shortcuts_dialog.ui:27
-#, fuzzy
 msgid "Change Offset Between Items"
-msgstr "Scostamento tra gli elementi"
+msgstr "Modifica scostamento tra gli elementi"
 
 #: src/shortcuts_dialog.ui:33
 msgid "Change Roundness of Items"
-msgstr ""
+msgstr "Cambia rotondità degli oggetti"
 
 #: src/shortcuts_dialog.ui:39
-#, fuzzy
 msgid "Toggle Sharp Corners"
-msgstr "Angoli acuti"
+msgstr "Attiva/disattiva angoli acuti"
 
 #: src/shortcuts_dialog.ui:45
-#, fuzzy
 msgid "Toggle Window Controls"
-msgstr "Dimensione finestra"
+msgstr "Attiva/disattiva i controlli della finestra"
 
 #: src/shortcuts_dialog.ui:51
 msgid "Toggle Autohide Headerbar"
-msgstr ""
+msgstr "Attiva/disattiva automaticamente la barra di intestazione"
 
 #: src/shortcuts_dialog.ui:62
-#, fuzzy
 msgid "Change Number of Bars"
-msgstr "Numero di barre"
+msgstr "Cambia numero di barre"
 
 #: src/shortcuts_dialog.ui:68
-#, fuzzy
 msgid "Toggle Channels"
-msgstr "Canali"
+msgstr "Abilita/disabilita canali"
 
 #: src/shortcuts_dialog.ui:74
 msgid "Toggle Reverse Order"
-msgstr ""
+msgstr "Attiva/disattiva ordine inverso"
 
 #: src/shortcuts_dialog.ui:85
-#, fuzzy
 msgid "Toggle Widgets Style"
-msgstr "Stile widget"
+msgstr "Attiva/disattiva lo stile dei widget"
 
 #: src/shortcuts_dialog.ui:91
-#, fuzzy
 msgid "Change Colors Profile"
-msgstr "Colori"
+msgstr "Cambia profilo colori"
 
 #~ msgid ""
 #~ "3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - "
 #~ "Bars!"
 #~ msgstr ""
 #~ "3 modalità di disegno: strana onda, livelli retrò e aspetto classico "
-#~ "Barra - CAVA!"
+#~ "Barre - CAVA!"
 
 #~ msgid "Foreground colors"
 #~ msgstr "Colori in primo piano"
