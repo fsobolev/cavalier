@@ -108,7 +108,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_offset = Adw.ActionRow.new()
         self.pref_offset.set_title(_('Offset between items'))
         self.pref_offset.set_subtitle( \
-            _('The size of spaces between elements in "levels" and "bars" modes (in percent).'))
+            _('The size of spaces between elements in "levels", "particles" and "bars" modes (in percent).'))
         self.pref_offset_scale = Gtk.Scale.new_with_range( \
             Gtk.Orientation.HORIZONTAL, 0.0, 20.0, 1.0)
         self.pref_offset_scale.set_size_request(180, -1)
