@@ -28,6 +28,7 @@
 				<choice value="levels"/>
 				<choice value="particles"/>
 				<choice value="bars"/>
+				<choice value="line"/>
 			</choices>
 			<default>"wave"</default>
 		</key>
