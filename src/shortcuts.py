@@ -168,7 +168,7 @@ def add_shortcuts(widget, settings):
         Gtk.NamedAction.new("cavalier.prev-profile")))
 
 def change_mode(action, parameter, settings, diff):
-    modes = ['wave', 'levels', 'particles', 'bars', 'line']
+    modes = settings.get_range('mode')[1]
     new_index = modes.index(settings.get('mode')) + diff
     if new_index > len(modes) - 1:
         new_index = 0
