@@ -38,7 +38,6 @@ msgstr ""
 "konfigurierbaren LibAdwaita-Oberfläche."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:11
-#, fuzzy
 msgid "4 drawing modes!"
 msgstr "4 Zeichenmodi!"
 
@@ -111,7 +110,6 @@ msgid "Window size"
 msgstr "Fenstergröße"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:9
-#, fuzzy
 msgid "Window maximized state"
 msgstr "Maximiertes Fenster"
 
@@ -121,13 +119,11 @@ msgstr "Gibt an, ob das Hauptfenster maximiert ist oder nicht"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:14
 #: src/preferences_window.py:147
-#, fuzzy
 msgid "Window controls"
 msgstr "Fensterregler"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:15
 #: src/preferences_window.py:149
-#, fuzzy
 msgid "Whether to show window control buttons."
 msgstr "Buttons der Fensterregelung anzeigen."
 
@@ -166,7 +162,6 @@ msgstr "Abstand zwischen Elementen"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:42
 #: src/preferences_window.py:111
-#, fuzzy
 msgid ""
 "The size of spaces between elements in \"levels\", \"particles\" and \"bars"
 "\" modes (in percent)."
@@ -268,7 +263,6 @@ msgid "Whether the main window corners should be sharp."
 msgstr "Die Ecken des Hauptfensters zuspitzen."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:111
-#, fuzzy
 msgid "Color Profiles"
 msgstr "Farbprofile"
 
@@ -449,17 +443,14 @@ msgid "Quit"
 msgstr "Schließen"
 
 #: src/shortcuts_dialog.ui:15
-#, fuzzy
 msgid "Change Drawing Mode"
 msgstr "Zeichenmodus wechseln"
 
 #: src/shortcuts_dialog.ui:21
-#, fuzzy
 msgid "Change Drawing Area Margin"
 msgstr "Rand um die Zeichenfläche ändern"
 
 #: src/shortcuts_dialog.ui:27
-#, fuzzy
 msgid "Change Offset Between Items"
 msgstr "Abstand zwischen Elementen ändern"
 
@@ -468,12 +459,10 @@ msgid "Change Roundness of Items"
 msgstr "Rundung der Elemente ändern"
 
 #: src/shortcuts_dialog.ui:39
-#, fuzzy
 msgid "Toggle Sharp Corners"
 msgstr "Spitze Ecken umschalten"
 
 #: src/shortcuts_dialog.ui:45
-#, fuzzy
 msgid "Toggle Window Controls"
 msgstr "Fensterregler umschalten"
 
@@ -482,12 +471,10 @@ msgid "Toggle Autohide Headerbar"
 msgstr "Ausblenden der Kopfleiste umschalten"
 
 #: src/shortcuts_dialog.ui:62
-#, fuzzy
 msgid "Change Number of Bars"
 msgstr "Anzahl der Säulen ändern"
 
 #: src/shortcuts_dialog.ui:68
-#, fuzzy
 msgid "Toggle Channels"
 msgstr "Kanäle umschalten"
 
@@ -496,12 +483,10 @@ msgid "Toggle Reverse Order"
 msgstr "Reihenfolge umkehren"
 
 #: src/shortcuts_dialog.ui:85
-#, fuzzy
 msgid "Toggle Widgets Style"
 msgstr "Stil umschalten"
 
 #: src/shortcuts_dialog.ui:91
-#, fuzzy
 msgid "Change Colors Profile"
 msgstr "Farbprofil wechseln"
 
