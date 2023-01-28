@@ -70,11 +70,11 @@ def wave(sample, cr, width, height, colors):
     cr.line_to(0, height)
     cr.fill()
 
-def line(sample, cr, width, height, colors):
+def line(sample, cr, width, height, colors, thickness):
     set_source(cr, height, colors)
     ls = len(sample)
     cr.move_to(0, (1.0 - sample[0]) * height)
-    cr.set_line_width(10)
+    cr.set_line_width(thickness)
     for i in range(ls - 1):
         height_diff = (sample[i] - sample[i+1])
         cr.rel_curve_to(width / (ls - 1) * 0.5, 0.0, \
