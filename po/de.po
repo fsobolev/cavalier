@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-28 14:37+0300\n"
+"POT-Creation-Date: 2023-01-28 14:48+0100\n"
 "PO-Revision-Date: 2023-01-28 13:37+0100\n"
 "Last-Translator: gregorni <gregorniehl@web.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -72,10 +72,10 @@ msgid ""
 "application saves colors, and because of this your previous colors settings "
 "will be lost after installing this update."
 msgstr ""
-"Farbprofile! Erstellen Sie beliebig viele und wechseln Sie zwischen "
-"ihnen in Handumdrehen. Leider werden Ihre bisherigen Farbeinstellungen "
-"verloren gehen, da für dieses neue Feature Farbprofile anders gespeichert "
-"werden als bisher."
+"Farbprofile! Erstellen Sie beliebig viele und wechseln Sie zwischen ihnen im "
+"Handumdrehen. Leider werden Ihre bisherigen Farbeinstellungen verloren "
+"gehen, da für dieses neue Feature Farbprofile anders gespeichert werden als "
+"bisher."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:45
 msgid "Added keyboard shortcuts to change most of the settings on the fly."
@@ -136,8 +136,8 @@ msgstr "Kopfleiste ausblenden"
 #: src/preferences_window.py:160
 msgid "Whether to hide headerbar when main window is not focused."
 msgstr ""
-"Kopfleiste automatisch ausblenden, wenn das Hauptfenster nicht "
-"fokussiert ist."
+"Kopfleiste automatisch ausblenden, wenn das Hauptfenster nicht fokussiert "
+"ist."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:24
 msgid "Drawing mode"
@@ -163,11 +163,11 @@ msgstr "Abstand zwischen Elementen"
 #: data/io.github.fsobolev.Cavalier.gschema.xml:42
 #: src/preferences_window.py:111
 msgid ""
-"The size of spaces between elements in \"levels\", \"particles\" and \"bars"
-"\" modes (in percent)."
+"The size of spaces between elements in \"levels\", \"particles\" and "
+"\"bars\" modes (in percent)."
 msgstr ""
-"Der Abstand zwischen den Elementen im Säulen-, Partikel- "
-"und Stufenmodus (in Prozent)."
+"Der Abstand zwischen den Elementen im Säulen-, Partikel- und Stufenmodus (in "
+"Prozent)."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:47
 #: src/preferences_window.py:121
@@ -483,12 +483,12 @@ msgid "Toggle Reverse Order"
 msgstr "Reihenfolge umkehren"
 
 #: src/shortcuts_dialog.ui:85
-msgid "Toggle Widgets Style"
-msgstr "Stil umschalten"
-
-#: src/shortcuts_dialog.ui:91
 msgid "Change Colors Profile"
 msgstr "Farbprofil wechseln"
+
+#: src/shortcuts_dialog.ui:91
+msgid "Toggle Widgets Style"
+msgstr "Stil umschalten"
 
 #~ msgid ""
 #~ "3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - "
