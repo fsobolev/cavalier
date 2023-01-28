@@ -47,9 +47,11 @@ class CavalierApplication(Adw.Application):
         super().__init__(application_id='io.github.fsobolev.Cavalier',
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
         self.create_action('quit', self.on_quit_action, ['<primary>q'])
-        self.create_action('about', self.on_about_action, ['<primary>question'])
+        self.create_action('about', self.on_about_action)
         self.create_action('preferences', self.on_preferences_action,
             ['<primary>p'])
+        self.create_action('shortcuts', self.on_shortcuts_action, \
+            ['<primary>question'])
 
     def do_activate(self):
         """Called when the application is activated.
@@ -86,6 +88,18 @@ class CavalierApplication(Adw.Application):
         if not self.pref_win:
             self.pref_win = CavalierPreferencesWindow(application=self)
         self.pref_win.present()
+
+    def on_shortcuts_action(self, widget, _):
+        self.shortcuts_win = None
+        for w in self.get_windows():
+            if type(w) == Gtk.ShortcutsWindow:
+                self.shortcuts_win = w
+                break
+        if not self.shortcuts_win:
+            builder = Gtk.Builder.new_from_resource( \
+                '/io/github/fsobolev/Cavalier/shortcuts_dialog.ui')
+            self.shortcuts_win = builder.get_object('dialog')
+        self.shortcuts_win.present()
 
     def on_quit_action(self, widget, _):
         self.win.close()

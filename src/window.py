@@ -107,6 +107,7 @@ class CavalierWindow(Adw.ApplicationWindow):
 
         self.menu = Gio.Menu.new()
         self.menu.append(_('Preferences'), 'app.preferences')
+        self.menu.append(_('Keyboard Shortcuts'), 'app.shortcuts')
         self.menu.append(_('About'), 'app.about')
         self.menu.append(_('Quit'), 'app.quit')
         self.menu_button.set_menu_model(self.menu)

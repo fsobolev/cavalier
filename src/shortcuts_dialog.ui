@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<interface>
+    <object class='GtkShortcutsWindow' id='dialog'>
+        <property name='modal'>false</property>
+        <property name='resizable'>true</property>
+        <property name='destroy-with-parent'>true</property>
+        <property name='hide-on-close'>false</property>
+        <child>
+            <object class='GtkShortcutsSection'>
+                <child>
+                    <object class='GtkShortcutsGroup'>
+                        <property name='title'>Cavalier</property>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Change Drawing Mode</property>
+                                <property name='accelerator'>D &lt;Shift&gt;D</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Change Drawing Area Margin</property>
+                                <property name='accelerator'>N &lt;Shift&gt;N</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Change Offset Between Items</property>
+                                <property name='accelerator'>O &lt;Shift&gt;O</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Change Roundness of Items</property>
+                                <property name='accelerator'>R &lt;Shift&gt;R</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Toggle Sharp Corners</property>
+                                <property name='accelerator'>S &lt;Shift&gt;S</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Toggle Window Controls</property>
+                                <property name='accelerator'>H &lt;Shift&gt;H</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Toggle Autohide Headerbar</property>
+                                <property name='accelerator'>A &lt;Shift&gt;A</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class='GtkShortcutsGroup'>
+                        <property name='title'>CAVA</property>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Change Number of Bars</property>
+                                <property name='accelerator'>B &lt;Shift&gt;B</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Toggle Channels</property>
+                                <property name='accelerator'>C &lt;Shift&gt;C</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Toggle Reverse Order</property>
+                                <property name='accelerator'>E &lt;Shift&gt;E</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+                <child>
+                    <object class='GtkShortcutsGroup'>
+                        <property name='title' translatable='yes'>Colors</property>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Change Widgets Style</property>
+                                <property name='accelerator'>W &lt;Shift&gt;W</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Change Colors Profile</property>
+                                <property name='accelerator'>P &lt;Shift&gt;P</property>
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+</interface>
