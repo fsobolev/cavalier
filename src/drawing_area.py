@@ -70,6 +70,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.set_margin_end(self.settings.get('margin'))
         self.offset = self.settings.get('items-offset')
         self.roundness = self.settings.get('items-roundness')
+        self.thickness = self.settings.get('line-thickness')
         self.reverse_order = self.settings.get('reverse-order')
         self.channels = self.settings.get('channels')
         try:
@@ -98,7 +99,8 @@ class CavalierDrawingArea(Gtk.DrawingArea):
             if self.draw_mode == 'wave':
                 wave(self.cava_sample, cr, width, height, self.colors)
             elif self.draw_mode == 'line':
-                line(self.cava_sample, cr, width, height, self.colors)
+                line(self.cava_sample, cr, width, height, self.colors, \
+                    self.thickness)
             elif self.draw_mode == 'levels':
                 levels(self.cava_sample, cr, width, height, self.colors, \
                     self.offset, self.roundness)
