@@ -95,6 +95,21 @@ def add_shortcuts(widget, settings):
         Gtk.ShortcutTrigger.parse_string("<Shift>R"), \
         Gtk.NamedAction.new("cavalier.decrease-roundness")))
 
+    act_inc_thickness = Gio.SimpleAction.new("increase-thickness", None)
+    act_inc_thickness.connect('activate', change_setting, settings, \
+        'line-thickness', 1)
+    action_map.add_action(act_inc_thickness)
+    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
+        Gtk.ShortcutTrigger.parse_string("T"), \
+        Gtk.NamedAction.new("cavalier.increase-thickness")))
+    act_dec_thickness = Gio.SimpleAction.new("decrease-thickness", None)
+    act_dec_thickness.connect('activate', change_setting, settings, \
+        'line-thickness', -1)
+    action_map.add_action(act_dec_thickness)
+    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
+        Gtk.ShortcutTrigger.parse_string("<Shift>T"), \
+        Gtk.NamedAction.new("cavalier.decrease-thickness")))
+
     act_toggle_corners = Gio.SimpleAction.new("toggle-corners", None)
     act_toggle_corners.connect('activate', toggle_setting, settings, \
         'sharp-corners')
@@ -168,37 +183,40 @@ def add_shortcuts(widget, settings):
         Gtk.NamedAction.new("cavalier.prev-profile")))
 
 def change_mode(action, parameter, settings, diff):
-    modes = ['wave', 'levels', 'particles', 'bars']
-    new_index = modes.index(settings.get('mode')) + diff
+    modes = settings.get_range('mode')[1]
+    new_index = modes.index(settings['mode']) + diff
     if new_index > len(modes) - 1:
         new_index = 0
     elif new_index < 0:
         new_index = len(modes) - 1
-    settings.set('mode', modes[new_index])
+    settings['mode'] = modes[new_index]
 
 def change_channels(action, parameter, settings):
-    if settings.get('channels') == 'mono':
-        settings.set('channels', 'stereo')
+    if settings['channels'] == 'mono':
+        settings['channels'] = 'stereo'
     else:
-        settings.set('channels', 'mono')
+        settings['channels'] = 'mono'
 
 def change_widgets_style(action, parameter, settings):
-    if settings.get('widgets-style') == 'light':
-        settings.set('widgets-style', 'dark')
+    if settings['widgets-style'] == 'light':
+        settings['widgets-style'] = 'dark'
     else:
-        settings.set('widgets-style', 'light')
+        settings['widgets-style'] = 'light'
 
 def change_color_profile(action, parameter, settings, diff):
-    profiles = settings.get('color-profiles')
-    new_index = settings.get('active-color-profile') + diff
+    profiles = settings['color-profiles']
+    new_index = settings['active-color-profile'] + diff
     if new_index > len(profiles) - 1:
         new_index = 0
     elif new_index < 0:
         new_index = len(profiles) - 1
-    settings.set('active-color-profile', new_index)
+    settings['active-color-profile'] = new_index
 
 def change_setting(action, parameter, settings, key, diff):
-    settings.set(key, settings.get(key) + diff)
+    try:
+        settings[key] += diff
+    except:
+        pass
 
 def toggle_setting(action, parameter, settings, key):
-    settings.set(key, not settings.get(key))
+    settings[key] = not settings[key]

@@ -25,6 +25,7 @@
 			<description>Defines what the visualizer looks like.</description>
 			<choices>
 				<choice value="wave"/>
+				<choice value="line"/>
 				<choice value="levels"/>
 				<choice value="particles"/>
 				<choice value="bars"/>
@@ -48,6 +49,12 @@
 			<description>This setting only affects "levels" and "particles" modes.</description>
 			<range min="0" max="50"/>
 			<default>10</default>
+		</key>
+			<key name="line-thickness" type="i">
+			<summary>Thickness of lines</summary>
+			<description>Thickness of lines in "line" mode (in pixels).</description>
+			<range min="1" max="40"/>
+			<default>15</default>
 		</key>
 		<key name="bars" type="i">
 			<summary>Number of bars</summary>

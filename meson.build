@@ -1,5 +1,5 @@
 project('cavalier',
-          version: '2023.01.29',
+          version: '2022.02-devel',
     meson_version: '>= 0.59.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
