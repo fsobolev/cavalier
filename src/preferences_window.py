@@ -490,7 +490,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.btn_stereo.connect('toggled', self.change_channels)
         self.smoothing_row.connect('notify::selected-item', \
             lambda *args: self.save_setting(self.smoothing_row, 'smoothing', \
-            ['off', 'monstercat'][self.smoothing_row.get_selected()]))
+                ['off', 'monstercat'][self.smoothing_row.get_selected()]))
         self.nr_scale.connect('value-changed', self.save_setting, \
             'noise-reduction', self.nr_scale.get_value)
         # `notify::state` signal returns additional parameter that
