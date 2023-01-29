@@ -52,9 +52,9 @@ class CavalierWindow(Adw.ApplicationWindow):
     def build_ui(self):
         self.set_title('Cavalier')
         self.set_size_request(170, 170)
-        (width, height) = self.settings.get('size')
+        (width, height) = self.settings['size']
         self.set_default_size(width, height)
-        if self.settings.get('maximized'):
+        if self.settings['maximized']:
             self.maximize()
 
         self.set_name('cavalier-window')
@@ -73,8 +73,9 @@ class CavalierWindow(Adw.ApplicationWindow):
 
         self.header = Adw.HeaderBar.new()
         self.header.add_css_class('flat')
-        self.header.set_show_start_title_buttons(self.settings.get('window-controls'))
-        self.header.set_show_end_title_buttons(self.settings.get('window-controls'))
+        self.header.set_show_start_title_buttons( \
+            self.settings['window-controls'])
+        self.header.set_show_end_title_buttons(self.settings['window-controls'])
         self.header.set_title_widget(Gtk.Label.new(''))
         self.main_box.append(self.header)
 
@@ -113,21 +114,21 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.menu_button.set_menu_model(self.menu)
 
     def set_style(self):
-        if self.settings.get('widgets-style') == 'light':
+        if self.settings['widgets-style'] == 'light':
             Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.FORCE_LIGHT)
         else:
             Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.FORCE_DARK)
 
     def toggle_sharp_corners(self):
-        if self.settings.get('sharp-corners'):
+        if self.settings['sharp-corners']:
             self.add_css_class('sharp-corners')
         else:
             self.remove_css_class('sharp-corners')
 
     def apply_colors(self):
         try:
-            color_profile = self.settings.get('color-profiles')[ \
-                self.settings.get('active-color-profile')]
+            color_profile = self.settings['color-profiles'][ \
+                self.settings['active-color-profile']]
             colors = color_profile[2]
         except:
             colors = []
@@ -152,8 +153,9 @@ class CavalierWindow(Adw.ApplicationWindow):
                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
     def on_settings_changed(self):
-        self.header.set_show_start_title_buttons(self.settings.get('window-controls'))
-        self.header.set_show_end_title_buttons(self.settings.get('window-controls'))
+        self.header.set_show_start_title_buttons( \
+            self.settings['window-controls'])
+        self.header.set_show_end_title_buttons(self.settings['window-controls'])
         self.toggle_sharp_corners()
         self.set_style()
         self.apply_colors()
@@ -164,8 +166,8 @@ class CavalierWindow(Adw.ApplicationWindow):
 
     def on_close_request(self, obj):
         (width, height) = self.get_default_size()
-        self.settings.set('size', (width, height))
-        self.settings.set('maximized', self.is_maximized())
+        self.settings['size'] = (width, height)
+        self.settings['maximized'] = self.is_maximized()
         if hasattr(self.get_application(), 'pref_win'):
             self.get_application().pref_win.close()
 
@@ -177,15 +179,15 @@ class CavalierWindow(Adw.ApplicationWindow):
         return False # we don't need to restart the function
 
     def on_active_state_changed(self, *args):
-        if self.settings.get('autohide-header') and not self.is_active():
+        if self.settings['autohide-header'] and not self.is_active():
             # The window becomes inactive for a moment when
             # the menu button is pressed, making it impossible
             # to open the menu, so the delay is required
             GObject.timeout_add(100, self.hide_header)
         else:
             self.header.set_show_start_title_buttons( \
-                self.settings.get('window-controls'))
+                self.settings['window-controls'])
             self.header.set_show_end_title_buttons( \
-                self.settings.get('window-controls'))
+                self.settings['window-controls'])
             self.menu_button.set_visible(True)
 

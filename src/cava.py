@@ -74,15 +74,13 @@ class Cava:
 
     def load_settings(self):
         # Cava config options
-        self.bars = self.settings.get('bars')
-        self.autosens = int(self.settings.get('autosens'))
-        self.sensitivity = self.settings.get('sensitivity')
-        self.channels = self.settings.get('channels')
-        if self.settings.get('smoothing') == 'off':
-            self.monstercat = 0
-        else:
-            self.monstercat = 1
-        self.noise_reduction = self.settings.get('noise-reduction')
+        self.bars = self.settings['bars']
+        self.autosens = int(self.settings['autosens'])
+        self.sensitivity = self.settings['sensitivity']
+        self.channels = self.settings['channels']
+        self.monstercat = \
+            ['off', 'monstercat'].index(self.settings['smoothing'])
+        self.noise_reduction = self.settings['noise-reduction']
 
     def write_config(self):
         try:

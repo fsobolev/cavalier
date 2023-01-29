@@ -385,39 +385,41 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
     def load_settings(self):
         (self.wave_check_btn, self.line_check_btn, self.levels_check_btn, \
-            self.particles_check_btn, self.bars_check_btn)[ ('wave', 'line', 'levels', 'particles', \
-            'bars').index(self.settings.get('mode')) ].set_active(True)
-        self.pref_margin_scale.set_value(self.settings.get('margin'))
-        self.pref_offset_scale.set_value(self.settings.get('items-offset'))
-        self.pref_roundness_scale.set_value(round(self.settings.get('items-roundness') / 50.0, 2))
-        self.pref_thickness_scale.set_value(self.settings.get('line-thickness'))
+            self.particles_check_btn, self.bars_check_btn)[ \
+            self.settings.get_range('mode')[1].index(self.settings['mode']) \
+            ].set_active(True)
+        self.pref_margin_scale.set_value(self.settings['margin'])
+        self.pref_offset_scale.set_value(self.settings['items-offset'])
+        self.pref_roundness_scale.set_value( \
+            round(self.settings['items-roundness'] / 50.0, 2))
+        self.pref_thickness_scale.set_value(self.settings['line-thickness'])
         self.pref_sharp_corners_switch.set_active( \
-            self.settings.get('sharp-corners'))
+            self.settings['sharp-corners'])
         self.pref_show_controls_switch.set_active( \
-            self.settings.get('window-controls'))
+            self.settings['window-controls'])
         self.pref_autohide_header_switch.set_active( \
-            self.settings.get('autohide-header'))
+            self.settings['autohide-header'])
 
-        self.cava_bars_scale.set_value(self.settings.get('bars'))
-        self.autosens_switch.set_active(self.settings.get('autosens'))
-        self.sensitivity_scale.set_value(self.settings.get('sensitivity'))
-        if self.settings.get('channels') == 'mono':
+        self.cava_bars_scale.set_value(self.settings['bars'])
+        self.autosens_switch.set_active(self.settings['autosens'])
+        self.sensitivity_scale.set_value(self.settings['sensitivity'])
+        if self.settings['channels'] == 'mono':
             self.btn_mono.set_active(True)
         else:
             self.btn_stereo.set_active(True)
         self.smoothing_row.set_selected( \
-            ['off', 'monstercat'].index(self.settings.get('smoothing')))
-        self.nr_scale.set_value(self.settings.get('noise-reduction'))
-        self.reverse_order_switch.set_active(self.settings.get('reverse-order'))
+            ['off', 'monstercat'].index(self.settings['smoothing']))
+        self.nr_scale.set_value(self.settings['noise-reduction'])
+        self.reverse_order_switch.set_active(self.settings['reverse-order'])
 
-        if self.settings.get('widgets-style') == 'light':
+        if self.settings['widgets-style'] == 'light':
             self.btn_light.set_active(True)
         else:
             self.btn_dark.set_active(True)
         if not self.settings_bind:
             self.bind_settings()
-        profiles = self.settings.get('color-profiles')
-        active_profile = self.settings.get('active-color-profile')
+        profiles = self.settings['color-profiles']
+        active_profile = self.settings['active-color-profile']
         self.do_not_change_profile = True
         while self.profiles_list.get_n_items() > 0:
             self.profiles_list.remove(0)
@@ -427,7 +429,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.fg_colors = profiles[active_profile][1]
             self.bg_colors = profiles[active_profile][2]
         except:
-            self.settings.set('active-color-profile', 0)
+            self.settings['active-color-profile'] = 0
             return
         self.do_not_change_profile = False
         self.profiles_dropdown.set_selected(active_profile)
@@ -478,8 +480,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.btn_mono.connect('toggled', self.change_channels)
         self.btn_stereo.connect('toggled', self.change_channels)
         self.smoothing_row.connect('notify::selected-item', \
-            lambda *args: self.settings.set('smoothing', \
-            ['off', 'monstercat'][self.smoothing_row.get_selected()]))
+            lambda *args: self.save_setting(self.smoothing_row, 'smoothing', \
+                ['off', 'monstercat'][self.smoothing_row.get_selected()]))
         self.nr_scale.connect('value-changed', self.save_setting, \
             'noise-reduction', self.nr_scale.get_value)
         # `notify::state` signal returns additional parameter that
@@ -594,56 +596,41 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         if self.do_not_change_profile:
             return
         if self.profiles_dropdown.get_selected() != \
-                self.settings.get('active-color-profile'):
-            self.settings.set('active-color-profile', \
-                self.profiles_dropdown.get_selected())
+                self.settings['active-color-profile']:
+            self.settings['active-color-profile'] = \
+                self.profiles_dropdown.get_selected()
 
     def create_color_profile(self, obj):
         if self.profile_add_entry.get_text() == '':
             return
-        profiles = self.settings.get('color-profiles')
+        profiles = self.settings['color-profiles']
         for p in profiles:
             if p[0] == self.profile_add_entry.get_text():
                 self.profile_new_label.set_text( \
                     _('This name is already in use.'))
                 return
         self.profile_add_popover.popdown()
-        active_profile = self.settings.get('active-color-profile')
+        active_profile = self.settings['active-color-profile']
         profiles.append((self.profile_add_entry.get_text(), \
             profiles[active_profile][1], profiles[active_profile][2]))
         self.profile_add_entry.set_text('')
         self.profile_new_label.set_text('')
-        for i in range(len(profiles)):
-            profiles[i] = (profiles[i][0], ['(iiid)'] + profiles[i][1], \
-                ['(iiid)'] + profiles[i][2])
-        profiles = ['(sa(iiid)a(iiid))'] + profiles
-        self.settings.set('color-profiles', profiles)
-        self.settings.set('active-color-profile', len(profiles) - 2)
+        self.settings['color-profiles'] = profiles
+        self.settings['active-color-profile'] = len(profiles) - 2
 
     def remove_color_profile(self, obj):
-        active_profile = self.settings.get('active-color-profile')
-        self.settings.set('active-color-profile', 0)
-        profiles = self.settings.get('color-profiles')
+        active_profile = self.settings['active-color-profile']
+        self.settings['active-color-profile'] = 0
+        profiles = self.settings['color-profiles']
         profiles.pop(active_profile)
-        for i in range(len(profiles)):
-            profiles[i] = (profiles[i][0], ['(iiid)'] + profiles[i][1], \
-                ['(iiid)'] + profiles[i][2])
-        profiles = ['(sa(iiid)a(iiid))'] + profiles
-        self.settings.set('color-profiles', profiles)
+        self.settings['color-profiles'] = profiles
 
     def save_color_profiles(self):
-        profiles = self.settings.get('color-profiles')
-        for i in range(len(profiles)):
-            if i == self.settings.get('active-color-profile'):
-                fg_arr = self.fg_colors
-                bg_arr = self.bg_colors
-            else:
-                fg_arr = profiles[i][1]
-                bg_arr = profiles[i][2]
-            profiles[i] = (profiles[i][0], ['(iiid)'] + fg_arr, \
-                ['(iiid)'] + bg_arr)
-        profiles = ['(sa(iiid)a(iiid))'] + profiles
-        self.settings.set('color-profiles', profiles)
+        profiles = self.settings['color-profiles']
+        active_profile = self.settings['active-color-profile']
+        profiles[active_profile] = (profiles[active_profile][0], \
+            self.fg_colors, self.bg_colors)
+        self.settings['color-profiles'] = profiles
 
     def add_color(self, obj, color_type): # color_type 0 for fg, 1 for bg
         if color_type == 0:
@@ -678,9 +665,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
     def apply_style(self, obj):
         if self.btn_light.get_active():
-            self.settings.set('widgets-style', 'light')
+            self.settings['widgets-style'] = 'light'
         else:
-            self.settings.set('widgets-style', 'dark')
+            self.settings['widgets-style'] = 'dark'
 
     def change_mode(self, obj, mode):
         if(obj.get_active()):
@@ -695,16 +682,16 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
     def change_channels(self, obj):
         if self.btn_mono.get_active():
-            self.settings.set('channels', 'mono')
+            self.settings['channels'] = 'mono'
         else:
-            self.settings.set('channels', 'stereo')
+            self.settings['channels'] = 'stereo'
 
     def save_setting(self, obj, key, value):
         if callable(value):
             value = value()
-        if type(value) is float and type(self.settings.get(key)) is int:
+        if type(value) is float and type(self.settings[key]) is int:
             value = round(value)
-        self.settings.set(key, value)
+        self.settings[key] = value
 
     def on_settings_changed(self):
         self.load_settings()

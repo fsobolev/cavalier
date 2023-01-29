@@ -63,25 +63,25 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         GObject.timeout_add(1000.0 / 60.0, self.redraw)
 
     def on_settings_changed(self, key):
-        self.draw_mode = self.settings.get('mode')
-        self.set_margin_top(self.settings.get('margin'))
-        self.set_margin_bottom(self.settings.get('margin'))
-        self.set_margin_start(self.settings.get('margin'))
-        self.set_margin_end(self.settings.get('margin'))
-        self.offset = self.settings.get('items-offset')
-        self.roundness = self.settings.get('items-roundness')
-        self.thickness = self.settings.get('line-thickness')
-        self.reverse_order = self.settings.get('reverse-order')
-        self.channels = self.settings.get('channels')
+        self.draw_mode = self.settings['mode']
+        self.set_margin_top(self.settings['margin'])
+        self.set_margin_bottom(self.settings['margin'])
+        self.set_margin_start(self.settings['margin'])
+        self.set_margin_end(self.settings['margin'])
+        self.offset = self.settings['items-offset']
+        self.roundness = self.settings['items-roundness']
+        self.thickness = self.settings['line-thickness']
+        self.reverse_order = self.settings['reverse-order']
+        self.channels = self.settings['channels']
         try:
-            color_profile = self.settings.get('color-profiles')[ \
-                self.settings.get('active-color-profile')]
+            color_profile = self.settings['color-profiles'][ \
+                self.settings['active-color-profile']]
             self.colors = color_profile[1]
         except:
             self.colors = []
         if len(self.colors) == 0:
-            self.settings.set('color-profiles', ['(sa(iiid)a(iiid))', \
-                (_('Default'), ['(iiid)', (53, 132, 228, 1.0)], ['(iiid)'])])
+            self.settings['color-profiles'] = [(_('Default'), \
+                [(53, 132, 228, 1.0)], [])]
             return
 
         if key in ('bars', 'autosens', 'sensitivity', 'channels', \

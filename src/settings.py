@@ -46,39 +46,6 @@ class CavalierSettings(Gio.Settings):
             gsettings.callback_fn_sig_len = len(signature(callback_fn).parameters)
         return gsettings
 
-    def get(self, key):
-        return self.get_value(key).unpack()
-
-    def set(self, key, value):
-        try:
-            self.set_value(key, self.convert(value))
-        except:
-            print(f'Can\'t set value "{value}" for key "{key}"')
-
-    def convert(self, value):
-        if type(value) == int:
-            return GLib.Variant.new_int32(value)
-        elif type(value) == float:
-            return GLib.Variant.new_double(value)
-        elif type(value) == str:
-            return GLib.Variant.new_string(value)
-        elif type(value) == bool:
-            return GLib.Variant.new_boolean(value)
-        elif type(value) == tuple:
-            arr = []
-            for v in value:
-                arr.append(self.convert(v))
-            return GLib.Variant.new_tuple(*arr)
-        elif type(value) == list:
-            # The first item in value list should be a string with
-            # array children GLib type (e.g. '(iiid)')
-            arr = []
-            for v in value[1:]:
-                arr.append(self.convert(v))
-            return GLib.Variant.new_array(GLib.VariantType.new(value[0]), arr)
-        else:
-            print("Error: Can't identify type of the value " + str(value))
-
     def on_settings_changed(self, obj, key):
         if self.callback_fn_sig_len > 0:
             self.callback_fn(key)
