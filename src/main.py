@@ -43,9 +43,10 @@ from .translator_credits import get_translator_credits
 class CavalierApplication(Adw.Application):
     """The main application singleton class."""
 
-    def __init__(self):
+    def __init__(self, version):
         super().__init__(application_id='io.github.fsobolev.Cavalier',
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
+        self.version = version
         self.create_action('quit', self.on_quit_action, ['<primary>q'])
         self.create_action('about', self.on_about_action)
         self.create_action('preferences', self.on_preferences_action,
@@ -70,7 +71,7 @@ class CavalierApplication(Adw.Application):
                                 application_name='Cavalier',
                                 application_icon='io.github.fsobolev.Cavalier',
                                 developer_name=_('Fyodor Sobolev'),
-                                version='2022.12.18',
+                                version=self.version,
                                 developers=[_('Fyodor Sobolev')],
                                 copyright='© 2022 Fyodor Sobolev',
                                 website='https://github.com/fsobolev/cavalier',
@@ -123,5 +124,5 @@ class CavalierApplication(Adw.Application):
 
 def main(version):
     """The application's entry point."""
-    app = CavalierApplication()
+    app = CavalierApplication(version)
     return app.run(sys.argv)
