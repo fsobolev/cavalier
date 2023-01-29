@@ -110,9 +110,13 @@ def spine(sample, cr, width, height, colors, radius):
     set_source(cr, height, colors)
     ls = len(sample)
     step = width / ls
+    if height > width:
+        cr.translate(width, 0)
+        cr.rotate(math.pi / 2)
+        width, height = height, width
     for i in range(ls):
         draw_element(cr, step * i + step / 2 - sample[i] * step / 2, \
-            height / 2 - sample[i] * 25, step * sample[i], \
+            height / 2 - sample[i] * step / 2, step * sample[i], \
             step * sample[i], radius)
     cr.fill()
 
