@@ -142,7 +142,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_thickness.set_subtitle( \
             _('Thickness of lines in "line" mode (in pixels).'))
         self.pref_thickness_scale = Gtk.Scale.new_with_range( \
-            Gtk.Orientation.HORIZONTAL, 1.0, 30.0, 1.0)
+            Gtk.Orientation.HORIZONTAL, 1.0, 40.0, 1.0)
         self.pref_thickness_scale.set_size_request(180, -1)
         self.pref_thickness_scale.set_draw_value(True)
         self.pref_thickness_scale.set_value_pos(Gtk.PositionType.LEFT)
