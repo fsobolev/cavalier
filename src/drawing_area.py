@@ -64,6 +64,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
 
     def on_settings_changed(self, key):
         self.draw_mode = self.settings['mode']
+        self.circle = self.settings['circle']
         self.set_margin_top(self.settings['margin'])
         self.set_margin_bottom(self.settings['margin'])
         self.set_margin_start(self.settings['margin'])

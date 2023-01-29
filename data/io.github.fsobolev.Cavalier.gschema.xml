@@ -37,6 +37,11 @@
 			</choices>
 			<default>"wave"</default>
 		</key>
+		<key name="circle" type="b">
+			<summary>Circle</summary>
+			<description>Whether to modify drawing modes to draw in circle</description>
+			<default>false</default>
+		</key>
 		<key name="margin" type="i">
 			<summary>Drawing area margin</summary>
 			<description>Size of gaps around drawing area (in pixels).</description>
