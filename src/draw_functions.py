@@ -106,21 +106,26 @@ def particles(sample, cr, width, height, colors, offset, radius):
             height / 10 - offset_px * 2, radius)
     cr.fill()
 
-def spine(sample, cr, width, height, colors, radius):
+def spine(sample, cr, width, height, colors, offset, radius):
     set_source(cr, height, colors)
     ls = len(sample)
     if height > width:
         step = height / ls
+        offset_px = step * offset / 100
         for i in range(ls):
-            draw_element(cr, width / 2 - sample[i] * step / 2, \
-                step * i + step / 2 - sample[i] * step / 2, \
-                step * sample[i], step * sample[i], radius)
+            draw_element(cr, width / 2 - sample[i] * step / 2 + offset_px, \
+                step * i + step / 2 - sample[i] * step / 2 + offset_px, \
+                step * sample[i] - offset_px * 2, \
+                step * sample[i] - offset_px * 2, radius)
     else:
         step = width / ls
+        offset_px = step * offset / 100
         for i in range(ls):
-            draw_element(cr, step * i + step / 2 - sample[i] * step / 2, \
-                height / 2 - sample[i] * step / 2, step * sample[i], \
-                step * sample[i], radius)
+            draw_element(cr, \
+                step * i + step / 2 - sample[i] * step / 2 + offset_px, \
+                height / 2 - sample[i] * step / 2 + offset_px, \
+                step * sample[i] - offset_px * 2, \
+                step * sample[i] - offset_px * 2, radius)
     cr.fill()
 
 def bars(sample, cr, width, height, colors, offset):

@@ -109,7 +109,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
                     self.offset, self.roundness)
             elif self.draw_mode == 'spine':
                 spine(self.cava_sample, cr, width, height, self.colors, \
-                    self.roundness)
+                    self.offset, self.roundness)
             elif self.draw_mode == 'bars':
                 bars(self.cava_sample, cr, width, height, self.colors, \
                     self.offset)
