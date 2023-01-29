@@ -111,16 +111,16 @@ def spine(sample, cr, width, height, colors, offset, radius):
     ls = len(sample)
     if height > width:
         step = height / ls
-        offset_px = step * offset / 100
         for i in range(ls):
+            offset_px = step * offset / 100 * sample[i]
             draw_element(cr, width / 2 - sample[i] * step / 2 + offset_px, \
                 step * i + step / 2 - sample[i] * step / 2 + offset_px, \
                 step * sample[i] - offset_px * 2, \
                 step * sample[i] - offset_px * 2, radius)
     else:
         step = width / ls
-        offset_px = step * offset / 100
         for i in range(ls):
+            offset_px = step * offset / 100 * sample[i]
             draw_element(cr, \
                 step * i + step / 2 - sample[i] * step / 2 + offset_px, \
                 height / 2 - sample[i] * step / 2 + offset_px, \
