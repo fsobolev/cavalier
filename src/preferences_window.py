@@ -616,7 +616,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.profile_add_entry.set_text('')
         self.profile_new_label.set_text('')
         self.settings['color-profiles'] = profiles
-        self.settings['active-color-profile'] = len(profiles) - 2
+        self.settings['active-color-profile'] = len(profiles) - 1
 
     def remove_color_profile(self, obj):
         active_profile = self.settings['active-color-profile']
