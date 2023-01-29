@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-29 12:46+0300\n"
-"PO-Revision-Date: 2022-12-09 20:28+0100\n"
+"PO-Revision-Date: 2023-01-29 13:35+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/io.github.fsobolev.Cavalier.desktop.in:3
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:6
@@ -39,9 +39,8 @@ msgstr ""
 "gebaseerd op CAVA."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:11
-#, fuzzy
 msgid "4 drawing modes!"
-msgstr "Weergavemodus"
+msgstr "4 weergavemodi!"
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:12
 msgid ""
@@ -60,11 +59,11 @@ msgstr "Fyodor Sobolev"
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:41
 msgid "Second release of Cavalier."
-msgstr ""
+msgstr "De tweede versie van Cavalier."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:43
 msgid "New drawing mode — Particles!"
-msgstr ""
+msgstr "Nieuwe weergavemodus: deeltjes!"
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:44
 msgid ""
@@ -73,67 +72,73 @@ msgid ""
 "application saves colors, and because of this your previous colors settings "
 "will be lost after installing this update."
 msgstr ""
+"Kleurenprofielen! Maak zo veel profielen als u wilt en wissel met één "
+"muisklik van profiel. Helaas moest hiervoor code worden aangepast, dus uw "
+"huidige kleurvoorkeuren worden door deze update gewist."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:45
 msgid "Added keyboard shortcuts to change most of the settings on the fly."
-msgstr ""
+msgstr "Nieuw: sneltoetsen om de meeste voorkeuren aan te passen."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:46
 msgid "Added option to show/hide window controls."
-msgstr ""
+msgstr "Nieuw: optie om de titelbalkknoppen te tonen/verbergen."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:47
 msgid "Added option to autohide headerbar when the main window is not focused."
 msgstr ""
+"Nieuw: optie om de kopbalk te verbergen als het hoofdvenster niet gefocust "
+"is."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:48
 msgid ""
 "Added option to change roundness of items in \"levels\" and \"particles\" "
 "modes."
 msgstr ""
+"Nieuw: optie om de rondheid van items aan te passen in de niveau- en "
+"deeltjesmodi."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:49
 msgid "Added option to reverse the order of bars."
-msgstr ""
+msgstr "Nieuw: optie om de volgorde van balken aan te passen."
 
 #: data/io.github.fsobolev.Cavalier.metainfo.xml.in:50
 msgid "Import/Export Settings"
-msgstr ""
+msgstr "Voorkeuren ex-/importeren"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:5
 msgid "Window size"
 msgstr "Vensterafmetingen"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:9
-#, fuzzy
 msgid "Window maximized state"
-msgstr "Vensterafmetingen"
+msgstr "Venstermaximalisatie"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:10
 msgid "Whether main window is maximized or not"
-msgstr ""
+msgstr "Of het venster gemaximaliseerd moet worden."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:14
 #: src/preferences_window.py:147
-#, fuzzy
 msgid "Window controls"
-msgstr "Vensterafmetingen"
+msgstr "Titelbalkknoppen"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:15
 #: src/preferences_window.py:149
-#, fuzzy
 msgid "Whether to show window control buttons."
-msgstr "Of het hoofdvenster scherpe hoeken dient te hebben."
+msgstr "Of de titelbalkknoppen getoond dienen te worden."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:19
 #: src/preferences_window.py:158
 msgid "Autohide headerbar"
-msgstr ""
+msgstr "Kopbalk automatisch verbergen"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:20
 #: src/preferences_window.py:160
 msgid "Whether to hide headerbar when main window is not focused."
 msgstr ""
+"Of de kopbalk automatisch moet worden verborgen als het hoofdvenster niet "
+"gefocust is."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:24
 msgid "Drawing mode"
@@ -158,20 +163,20 @@ msgstr "Verschuiving tussen items"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:42
 #: src/preferences_window.py:111
-#, fuzzy
 msgid ""
-"The size of spaces between elements in \"levels\", \"particles\" and \"bars"
-"\" modes (in percent)."
-msgstr "De ruimte tussen elementen in niveau- en balkmodi (in procenten)."
+"The size of spaces between elements in \"levels\", \"particles\" and "
+"\"bars\" modes (in percent)."
+msgstr ""
+"De ruimte tussen elementen in niveau-, balk- en deeltjesmodi (in procenten)."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:47
 #: src/preferences_window.py:121
 msgid "Roundness of items"
-msgstr ""
+msgstr "Rondheid van items"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:48
 msgid "This setting only affects \"levels\" and \"particles\" modes."
-msgstr ""
+msgstr "Deze voorkeur is alleen van toepassing op de niveau- en deeltjesmodi."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:53
 msgid "Number of bars"
@@ -236,7 +241,7 @@ msgstr ""
 #: data/io.github.fsobolev.Cavalier.gschema.xml:93
 #: src/preferences_window.py:255
 msgid "Reverse order"
-msgstr ""
+msgstr "Volgorde omdraaien"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:97
 #: src/preferences_window.py:272
@@ -259,13 +264,12 @@ msgid "Whether the main window corners should be sharp."
 msgstr "Of het hoofdvenster scherpe hoeken dient te hebben."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:111
-#, fuzzy
 msgid "Color Profiles"
-msgstr "Kleuren"
+msgstr "Kleurenprofielen"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:115
 msgid "Index of active color profile"
-msgstr ""
+msgstr "Index van actief profiel"
 
 #: src/preferences_window.py:59
 msgid "Drawing Mode"
@@ -281,7 +285,7 @@ msgstr "Niveaus"
 
 #: src/preferences_window.py:78
 msgid "Particles"
-msgstr ""
+msgstr "Deeltjes"
 
 #: src/preferences_window.py:86 src/preferences_window.py:193
 msgid "Bars"
@@ -292,14 +296,16 @@ msgid ""
 "This setting only affects \"levels\" and \"particles\" modes.\n"
 "0 - square, 1 - round"
 msgstr ""
+"Deze voorkeur is alleen van toepassing op de niveau- en deeltjesmodi.\n"
+"0 = vierkant; 1 = rond"
 
 #: src/preferences_window.py:173
 msgid "Import"
-msgstr ""
+msgstr "Importeren"
 
 #: src/preferences_window.py:178
 msgid "Export"
-msgstr ""
+msgstr "Exporteren"
 
 #: src/preferences_window.py:231
 msgid "Mono"
@@ -340,15 +346,15 @@ msgstr "Donker"
 
 #: src/preferences_window.py:291
 msgid "Profile:"
-msgstr ""
+msgstr "Profiel:"
 
 #: src/preferences_window.py:299
 msgid "Add new profile"
-msgstr ""
+msgstr "Profiel toevoegen"
 
 #: src/preferences_window.py:310
 msgid "Type a name for a new profile"
-msgstr ""
+msgstr "Geef het nieuwe profiel een naam"
 
 #: src/preferences_window.py:312 src/preferences_window.py:508
 #: src/preferences_window.py:547
@@ -357,20 +363,20 @@ msgstr "Toevoegen"
 
 #: src/preferences_window.py:322
 msgid "Remove profile"
-msgstr ""
+msgstr "Profiel verwijderen"
 
 #: src/preferences_window.py:329
 msgid "Are you sure you want to remove this profile?"
-msgstr ""
+msgstr "Weet u zeker dat u dit profiel wilt verwijderen?"
 
 #: src/preferences_window.py:336
 msgid "Remove"
-msgstr ""
+msgstr "Verwijderen"
 
 #: src/preferences_window.py:343 src/preferences_window.py:695
 #: src/preferences_window.py:714
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: src/preferences_window.py:353
 msgid "<b>Foreground</b>"
@@ -383,43 +389,43 @@ msgstr "<b>Achtergrond</b>"
 #: src/preferences_window.py:489 src/preferences_window.py:512
 #: src/preferences_window.py:530 src/preferences_window.py:551
 msgid "Select color"
-msgstr ""
+msgstr "Kies een kleur"
 
 #: src/preferences_window.py:496 src/preferences_window.py:537
 msgid "Remove color"
-msgstr ""
+msgstr "Kleur verwijderen"
 
 #: src/preferences_window.py:517 src/preferences_window.py:556
 msgid "Add color"
-msgstr ""
+msgstr "Kleur toevoegen"
 
 #: src/preferences_window.py:584
 msgid "This name is already in use."
-msgstr ""
+msgstr "Deze naam is al in gebruik."
 
 #: src/preferences_window.py:694
 msgid "Import Settings"
-msgstr ""
+msgstr "Voorkeuren importeren"
 
 #: src/preferences_window.py:695
 msgid "Open"
-msgstr ""
+msgstr "Openen"
 
 #: src/preferences_window.py:698 src/preferences_window.py:717
 msgid "Cavalier Settings File (*.cavalier)"
-msgstr ""
+msgstr "Cavalier-voorkeurenbestand (*.cavalier)"
 
 #: src/preferences_window.py:702
 msgid "All Files"
-msgstr ""
+msgstr "Alle bestanden"
 
 #: src/preferences_window.py:713
 msgid "Export Settings"
-msgstr ""
+msgstr "Voorkeuren exporteren"
 
 #: src/preferences_window.py:714
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: src/window.py:109
 msgid "Preferences"
@@ -427,7 +433,7 @@ msgstr "Voorkeuren"
 
 #: src/window.py:110
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Sneltoetsen"
 
 #: src/window.py:111
 msgid "About"
@@ -438,61 +444,52 @@ msgid "Quit"
 msgstr "Afsluiten"
 
 #: src/shortcuts_dialog.ui:15
-#, fuzzy
 msgid "Change Drawing Mode"
-msgstr "Weergavemodus"
+msgstr "Weergavemodus aanpassen"
 
 #: src/shortcuts_dialog.ui:21
-#, fuzzy
 msgid "Change Drawing Area Margin"
-msgstr "Weergavemodusmarge"
+msgstr "Weergavemodusmarge aanpassen"
 
 #: src/shortcuts_dialog.ui:27
-#, fuzzy
 msgid "Change Offset Between Items"
-msgstr "Verschuiving tussen items"
+msgstr "Verschuiving tussen items aanpassen"
 
 #: src/shortcuts_dialog.ui:33
 msgid "Change Roundness of Items"
-msgstr ""
+msgstr "Rondheid van items aanpassen"
 
 #: src/shortcuts_dialog.ui:39
-#, fuzzy
 msgid "Toggle Sharp Corners"
-msgstr "Scherpe hoeken"
+msgstr "Scherpe hoeken aan/uit"
 
 #: src/shortcuts_dialog.ui:45
-#, fuzzy
 msgid "Toggle Window Controls"
-msgstr "Vensterafmetingen"
+msgstr "Titelbalkknoppen tonen/verbergen"
 
 #: src/shortcuts_dialog.ui:51
 msgid "Toggle Autohide Headerbar"
-msgstr ""
+msgstr "Kopbalk automatisch verbergen aan/uit"
 
 #: src/shortcuts_dialog.ui:62
-#, fuzzy
 msgid "Change Number of Bars"
-msgstr "Aantal balken"
+msgstr "Aantal balken aanpassen"
 
 #: src/shortcuts_dialog.ui:68
-#, fuzzy
 msgid "Toggle Channels"
-msgstr "Kanalen"
+msgstr "Aantal kanalen aanpassen"
 
 #: src/shortcuts_dialog.ui:74
 msgid "Toggle Reverse Order"
-msgstr ""
+msgstr "Volgorde omdraaien aan/uit"
 
 #: src/shortcuts_dialog.ui:85
-#, fuzzy
 msgid "Change Colors Profile"
-msgstr "Kleuren"
+msgstr "Ander kleurenprofiel kiezen"
 
 #: src/shortcuts_dialog.ui:91
-#, fuzzy
 msgid "Toggle Widgets Style"
-msgstr "Itemstijl"
+msgstr "Itemstijl aanpassen"
 
 #~ msgid ""
 #~ "3 drawing modes: weird Wave, retro-ish Levels and classic CAVA look - "
