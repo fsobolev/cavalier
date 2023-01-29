@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-28 14:48+0100\n"
+"POT-Creation-Date: 2023-01-29 12:46+0300\n"
 "PO-Revision-Date: 2023-01-28 12:44+0100\n"
 "Last-Translator: albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <LL@li.org>\n"
@@ -170,8 +170,8 @@ msgstr "Scostamento tra gli elementi"
 #: data/io.github.fsobolev.Cavalier.gschema.xml:42
 #: src/preferences_window.py:111
 msgid ""
-"The size of spaces between elements in \"levels\", \"particles\" and "
-"\"bars\" modes (in percent)."
+"The size of spaces between elements in \"levels\", \"particles\" and \"bars"
+"\" modes (in percent)."
 msgstr ""
 "La dimensione degli spazi tra gli elementi nelle modalità \"livelli\","
 "\"particelle\" e \"barre\" (in percentuale)."
@@ -182,7 +182,7 @@ msgid "Roundness of items"
 msgstr "Rotondità degli oggetti"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:48
-msgid "This setting only affect \"levels\" and \"particles\" modes."
+msgid "This setting only affects \"levels\" and \"particles\" modes."
 msgstr ""
 "Questa impostazione riguarda solo le modalità \"livelli\" e \"particelle\"."
 
@@ -299,7 +299,7 @@ msgstr "Barre"
 
 #: src/preferences_window.py:123
 msgid ""
-"This setting only affect \"levels\" and \"particles\" modes.\n"
+"This setting only affects \"levels\" and \"particles\" modes.\n"
 "0 - square, 1 - round"
 msgstr ""
 "Questa impostazione riguarda solo le modalità \"livelli\" e \"particelle\".\n"

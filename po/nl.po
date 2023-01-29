@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-28 14:48+0100\n"
+"POT-Creation-Date: 2023-01-29 12:46+0300\n"
 "PO-Revision-Date: 2022-12-09 20:28+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch\n"
@@ -160,8 +160,8 @@ msgstr "Verschuiving tussen items"
 #: src/preferences_window.py:111
 #, fuzzy
 msgid ""
-"The size of spaces between elements in \"levels\", \"particles\" and "
-"\"bars\" modes (in percent)."
+"The size of spaces between elements in \"levels\", \"particles\" and \"bars"
+"\" modes (in percent)."
 msgstr "De ruimte tussen elementen in niveau- en balkmodi (in procenten)."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:47
@@ -170,7 +170,7 @@ msgid "Roundness of items"
 msgstr ""
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:48
-msgid "This setting only affect \"levels\" and \"particles\" modes."
+msgid "This setting only affects \"levels\" and \"particles\" modes."
 msgstr ""
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:53
@@ -289,7 +289,7 @@ msgstr "Balken"
 
 #: src/preferences_window.py:123
 msgid ""
-"This setting only affect \"levels\" and \"particles\" modes.\n"
+"This setting only affects \"levels\" and \"particles\" modes.\n"
 "0 - square, 1 - round"
 msgstr ""
 

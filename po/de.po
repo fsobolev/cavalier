@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-28 14:48+0100\n"
+"POT-Creation-Date: 2023-01-29 12:46+0300\n"
 "PO-Revision-Date: 2023-01-28 13:37+0100\n"
 "Last-Translator: gregorni <gregorniehl@web.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -163,8 +163,8 @@ msgstr "Abstand zwischen Elementen"
 #: data/io.github.fsobolev.Cavalier.gschema.xml:42
 #: src/preferences_window.py:111
 msgid ""
-"The size of spaces between elements in \"levels\", \"particles\" and "
-"\"bars\" modes (in percent)."
+"The size of spaces between elements in \"levels\", \"particles\" and \"bars"
+"\" modes (in percent)."
 msgstr ""
 "Der Abstand zwischen den Elementen im Säulen-, Partikel- und Stufenmodus (in "
 "Prozent)."
@@ -175,7 +175,7 @@ msgid "Roundness of items"
 msgstr "Rundung der Elemente"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:48
-msgid "This setting only affect \"levels\" and \"particles\" modes."
+msgid "This setting only affects \"levels\" and \"particles\" modes."
 msgstr "Diese Einstellung betrifft nur Partikel- und Stufenmodus."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:53
@@ -292,7 +292,7 @@ msgstr "Säulen"
 
 #: src/preferences_window.py:123
 msgid ""
-"This setting only affect \"levels\" and \"particles\" modes.\n"
+"This setting only affects \"levels\" and \"particles\" modes.\n"
 "0 - square, 1 - round"
 msgstr ""
 "Diese Einstellung betrifft nur Partikel- und Stufenmodus.\n"

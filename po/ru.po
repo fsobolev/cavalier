@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cavalier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-28 14:48+0100\n"
+"POT-Creation-Date: 2023-01-29 12:46+0300\n"
 "PO-Revision-Date: 2022-12-04 23:26+0300\n"
 "Last-Translator: Fyodor Sobolev\n"
 "Language: ru\n"
@@ -161,8 +161,8 @@ msgstr "Расстояние между элементами"
 #: data/io.github.fsobolev.Cavalier.gschema.xml:42
 #: src/preferences_window.py:111
 msgid ""
-"The size of spaces between elements in \"levels\", \"particles\" and "
-"\"bars\" modes (in percent)."
+"The size of spaces between elements in \"levels\", \"particles\" and \"bars"
+"\" modes (in percent)."
 msgstr ""
 "Размер пространства между элементами в режимах Уровни, Частицы и Шкалы (в "
 "процентах)."
@@ -173,7 +173,7 @@ msgid "Roundness of items"
 msgstr "Округлость элементов"
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:48
-msgid "This setting only affect \"levels\" and \"particles\" modes."
+msgid "This setting only affects \"levels\" and \"particles\" modes."
 msgstr "Эта настройка влияет только на режимы Уровни и Частицы."
 
 #: data/io.github.fsobolev.Cavalier.gschema.xml:53
@@ -290,7 +290,7 @@ msgstr "Шкалы"
 
 #: src/preferences_window.py:123
 msgid ""
-"This setting only affect \"levels\" and \"particles\" modes.\n"
+"This setting only affects \"levels\" and \"particles\" modes.\n"
 "0 - square, 1 - round"
 msgstr ""
 "Эта настройка влияет только на режимы Уровни и Частицы.\n"
