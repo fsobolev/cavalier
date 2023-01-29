@@ -90,6 +90,14 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.particles_row.set_activatable_widget(self.particles_check_btn)
         self.cavalier_mode_group.add(self.particles_row)
 
+        self.spine_row = Adw.ActionRow.new()
+        self.spine_row.set_title(_('Spine'))
+        self.spine_check_btn = Gtk.CheckButton.new()
+        self.spine_check_btn.set_group(self.wave_check_btn)
+        self.spine_row.add_prefix(self.spine_check_btn)
+        self.spine_row.set_activatable_widget(self.spine_check_btn)
+        self.cavalier_mode_group.add(self.spine_row)
+
         self.bars_row = Adw.ActionRow.new()
         self.bars_row.set_title(_('Bars'))
         self.bars_check_btn = Gtk.CheckButton.new()
@@ -385,7 +393,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
     def load_settings(self):
         (self.wave_check_btn, self.line_check_btn, self.levels_check_btn, \
-            self.particles_check_btn, self.bars_check_btn)[ \
+            self.particles_check_btn, self.spine_check_btn, self.bars_check_btn)[ \
             self.settings.get_range('mode')[1].index(self.settings['mode']) \
             ].set_active(True)
         self.pref_margin_scale.set_value(self.settings['margin'])
@@ -443,6 +451,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.levels_check_btn.connect('toggled', self.change_mode, 'levels')
         self.particles_check_btn.connect('toggled', self.change_mode, \
             'particles')
+        self.spine_check_btn.connect('toggled', self.change_mode, 'spine')
         self.bars_check_btn.connect('toggled', self.change_mode, 'bars')
         self.pref_margin_scale.connect('value-changed', self.save_setting, \
             'margin', self.pref_margin_scale.get_value)
@@ -481,7 +490,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.btn_stereo.connect('toggled', self.change_channels)
         self.smoothing_row.connect('notify::selected-item', \
             lambda *args: self.save_setting(self.smoothing_row, 'smoothing', \
-                ['off', 'monstercat'][self.smoothing_row.get_selected()]))
+            ['off', 'monstercat'][self.smoothing_row.get_selected()]))
         self.nr_scale.connect('value-changed', self.save_setting, \
             'noise-reduction', self.nr_scale.get_value)
         # `notify::state` signal returns additional parameter that

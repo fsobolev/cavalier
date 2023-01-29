@@ -31,7 +31,7 @@
 from gi.repository import Gtk, GObject
 from threading import Thread
 from cavalier.cava import Cava
-from cavalier.draw_functions import wave, line, levels, particles, bars
+from cavalier.draw_functions import wave, line, levels, particles, spine, bars
 from cavalier.settings import CavalierSettings
 
 class CavalierDrawingArea(Gtk.DrawingArea):
@@ -107,6 +107,9 @@ class CavalierDrawingArea(Gtk.DrawingArea):
             elif self.draw_mode == 'particles':
                 particles(self.cava_sample, cr, width, height, self.colors, \
                     self.offset, self.roundness)
+            elif self.draw_mode == 'spine':
+                spine(self.cava_sample, cr, width, height, self.colors, \
+                    self.roundness)
             elif self.draw_mode == 'bars':
                 bars(self.cava_sample, cr, width, height, self.colors, \
                     self.offset)
