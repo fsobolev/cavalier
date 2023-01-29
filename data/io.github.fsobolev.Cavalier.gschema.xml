@@ -45,7 +45,7 @@
 		</key>
 		<key name="items-roundness" type="i">
 			<summary>Roundness of items</summary>
-			<description>This setting only affect "levels" and "particles" modes.</description>
+			<description>This setting only affects "levels" and "particles" modes.</description>
 			<range min="0" max="50"/>
 			<default>10</default>
 		</key>
