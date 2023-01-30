@@ -99,7 +99,7 @@
 		</key>
 		<key name="reverse-order" type="b">
 			<summary>Reverse order</summary>
-			<default>false</default>
+			<default>true</default>
 		</key>
 		<key name="widgets-style" type="s">
 			<summary>Widgets style</summary>
