@@ -354,7 +354,7 @@ msgstr "Sombre"
 
 #: src/preferences_window.py:291
 msgid "Profile:"
-msgstr "Profil:"
+msgstr "Profil :"
 
 #: src/preferences_window.py:299
 msgid "Add new profile"
@@ -375,7 +375,7 @@ msgstr "Supprimer le profil"
 
 #: src/preferences_window.py:329
 msgid "Are you sure you want to remove this profile?"
-msgstr "Êtes-vous sûr de vouloir supprimer ce profil?"
+msgstr "Êtes-vous sûr de vouloir supprimer ce profil ?"
 
 #: src/preferences_window.py:336
 msgid "Remove"
