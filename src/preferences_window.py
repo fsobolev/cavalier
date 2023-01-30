@@ -52,7 +52,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
     def create_cavalier_page(self):
         self.cavalier_page = Adw.PreferencesPage.new()
         self.cavalier_page.set_title('Cavalier')
-        self.cavalier_page.set_icon_name('image-x-generic-symbolic')
+        self.cavalier_page.set_icon_name('io.github.fsobolev.Cavalier-symbolic')
         self.add(self.cavalier_page)
 
         self.cavalier_mode_group = Adw.PreferencesGroup.new()
@@ -89,6 +89,14 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.particles_row.add_prefix(self.particles_check_btn)
         self.particles_row.set_activatable_widget(self.particles_check_btn)
         self.cavalier_mode_group.add(self.particles_row)
+
+        self.spine_row = Adw.ActionRow.new()
+        self.spine_row.set_title(_('Spine'))
+        self.spine_check_btn = Gtk.CheckButton.new()
+        self.spine_check_btn.set_group(self.wave_check_btn)
+        self.spine_row.add_prefix(self.spine_check_btn)
+        self.spine_row.set_activatable_widget(self.spine_check_btn)
+        self.cavalier_mode_group.add(self.spine_row)
 
         self.bars_row = Adw.ActionRow.new()
         self.bars_row.set_title(_('Bars'))
@@ -385,7 +393,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
     def load_settings(self):
         (self.wave_check_btn, self.line_check_btn, self.levels_check_btn, \
-            self.particles_check_btn, self.bars_check_btn)[ \
+            self.particles_check_btn, self.spine_check_btn, self.bars_check_btn)[ \
             self.settings.get_range('mode')[1].index(self.settings['mode']) \
             ].set_active(True)
         self.pref_margin_scale.set_value(self.settings['margin'])
@@ -443,6 +451,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.levels_check_btn.connect('toggled', self.change_mode, 'levels')
         self.particles_check_btn.connect('toggled', self.change_mode, \
             'particles')
+        self.spine_check_btn.connect('toggled', self.change_mode, 'spine')
         self.bars_check_btn.connect('toggled', self.change_mode, 'bars')
         self.pref_margin_scale.connect('value-changed', self.save_setting, \
             'margin', self.pref_margin_scale.get_value)

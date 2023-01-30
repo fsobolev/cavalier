@@ -28,6 +28,7 @@
 				<choice value="line"/>
 				<choice value="levels"/>
 				<choice value="particles"/>
+				<choice value="spine"/>
 				<choice value="bars"/>
 			</choices>
 			<default>"wave"</default>

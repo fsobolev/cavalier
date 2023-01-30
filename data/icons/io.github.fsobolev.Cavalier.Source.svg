@@ -9,7 +9,7 @@
    height="152"
    id="svg11300"
    sodipodi:version="0.32"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="io.github.fsobolev.Cavalier.Source.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    version="1.0"
@@ -628,10 +628,10 @@
      borderopacity="0.25490196"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="97.227183"
-     inkscape:cy="92.630989"
-     inkscape:current-layer="layer5"
+     inkscape:zoom="32"
+     inkscape:cx="173.5625"
+     inkscape:cy="23.09375"
+     inkscape:current-layer="g6252-2"
      showgrid="false"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
@@ -3178,19 +3178,17 @@
          id="rect24874-7-8-7-0"
          style="color:#bebebe;display:inline;overflow:visible;visibility:visible;fill:none;stroke:none;stroke-width:2;marker:none;enable-background:accumulate" />
       <circle
-         r="2.4306796"
-         cy="174.17094"
-         cx="345.99619"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:none;stroke:#241f31;stroke-width:1.94455;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:new"
+         cy="393.51996"
+         cx="585.80798"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#241f31;fill-opacity:1;stroke:none;stroke-width:2.56001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:new"
          id="path6170-23"
-         transform="matrix(1.0285185,0,0,1.028518,229.63673,214.36204)" />
+         r="3.2" />
       <circle
-         r="2.4306796"
-         cy="174.17094"
-         cx="345.99619"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:none;stroke:#241f31;stroke-width:1.94455;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:new"
-         id="path6170-5-7"
-         transform="matrix(1.0285185,0,0,1.028518,237.63673,214.36204)" />
+         cy="393.51996"
+         cx="593.79688"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#241f31;fill-opacity:1;stroke:none;stroke-width:2.56001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:new"
+         id="path6170-23-3"
+         r="3.2" />
       <rect
          style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#241f31;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.50794;marker:none;enable-background:new"
          id="rect6190-5"

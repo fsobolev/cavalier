@@ -32,9 +32,10 @@ import os
 import cairo
 import math
 
-def set_source(cr, height, colors):
+def set_source(cr, height, colors, offset=0):
     if len(colors) > 1:
-        pat = cairo.LinearGradient(0.0, 0.0, 0.0, height)
+        pat = cairo.LinearGradient(0.0, height * offset, 0.0, \
+            height + height * offset)
         for i in range(len(colors)):
             (red, green, blue, alpha) = colors[i]
             pat.add_color_stop_rgba(1 / (len(colors) - 1) * i, \
@@ -105,6 +106,30 @@ def particles(sample, cr, width, height, colors, offset, radius):
             height * 0.9 - height * 0.9 * sample[i] + offset_px, step - offset_px * 2, \
             height / 10 - offset_px * 2, radius)
     cr.fill()
+
+def spine(sample, cr, width, height, colors, offset, radius):
+    ls = len(sample)
+    if height > width:
+        step = height / ls
+        for i in range(ls):
+            set_source(cr, height, colors, sample[i] - (0.95 - i / ls))
+            offset_px = step * offset / 100 * sample[i]
+            draw_element(cr, width / 2 - sample[i] * step / 2 + offset_px, \
+                step * i + step / 2 - sample[i] * step / 2 + offset_px, \
+                step * sample[i] - offset_px * 2, \
+                step * sample[i] - offset_px * 2, radius)
+            cr.fill()
+    else:
+        step = width / ls
+        for i in range(ls):
+            set_source(cr, height, colors, sample[i] - 0.45)
+            offset_px = step * offset / 100 * sample[i]
+            draw_element(cr, \
+                step * i + step / 2 - sample[i] * step / 2 + offset_px, \
+                height / 2 - sample[i] * step / 2 + offset_px, \
+                step * sample[i] - offset_px * 2, \
+                step * sample[i] - offset_px * 2, radius)
+            cr.fill()
 
 def bars(sample, cr, width, height, colors, offset):
     set_source(cr, height, colors)
