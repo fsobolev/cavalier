@@ -47,7 +47,7 @@ def import_settings(window, path):
         print(e)
         toast_msg = _('Failed to import settings')
 
-    window.add_toast(window, Adw.Toast.new(toast_msg))
+    window.add_toast(Adw.Toast.new(toast_msg))
 
 
 def export_settings(window, path):
@@ -65,4 +65,4 @@ def export_settings(window, path):
         print(e)
         toast_msg = _('Failed to save file')
 
-    window.add_toast(window, Adw.Toast.new(toast_msg))
+    window.add_toast(Adw.Toast.new(toast_msg))
