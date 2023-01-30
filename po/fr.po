@@ -1,7 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
+# French translation for the cavalier's package.
 # Copyright (C) 2022 Fyodor Sobolev
 # This file is distributed under the same license as the cavalier package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Irénée Thirion <irenee.thirion@e.email>, 2023.
 #
 msgid ""
 msgstr ""
