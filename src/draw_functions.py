@@ -87,13 +87,13 @@ def levels(sample, cr, width, height, colors, offset, radius):
     set_source(cr, height, colors)
     ls = len(sample)
     step = width / ls
-    offset_px = step * offset / 100
     for i in range(ls):
         q = int(round(sample[i], 1) * 10)
         for r in range(q):
-            draw_element(cr, step * i + offset_px, \
-                height - (height / 10 * (r + 1)) + offset_px, \
-                step - offset_px * 2, height / 10 - offset_px * 2, radius)
+            draw_element(cr, step * i + step * offset / 100, \
+                height - (height / 10 * (r + 1)) * (1 - offset / 400), \
+                max(step - step * offset / 100 * 2, 1), \
+                max(height / 10 * (1 - offset / 50), 1), radius)
     cr.fill()
 
 def particles(sample, cr, width, height, colors, offset, radius):
