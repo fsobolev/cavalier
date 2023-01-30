@@ -66,3 +66,4 @@ def export_settings(window, path):
         toast_msg = 'Failed to save file'
 
     Adw.PreferencesWindow.add_toast(window, Adw.Toast.new(toast_msg))
+    
