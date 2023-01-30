@@ -29,8 +29,9 @@
 # SPDX-License-Identifier: MIT
 
 import subprocess
+from gi.repository import Adw
 
-def import_settings(path):
+def import_settings(window, path):
     try:
         with open(path, 'r') as file:
             lines = file.readlines()
@@ -39,12 +40,17 @@ def import_settings(path):
                     subprocess.run(['gsettings', 'set', \
                         'io.github.fsobolev.Cavalier', line.split(' ')[0], \
                         line.replace(line.split(' ')[0], '').strip()])
+        toast_msg = 'Settings sucessfully imported'
+
     except Exception as e:
         print('Can\'t import settings from file: ' + path)
         print(e)
+        toast_msg = 'Failed to import settings'
+
+    Adw.PreferencesWindow.add_toast(window, Adw.Toast.new(toast_msg))
 
 
-def export_settings(path):
+def export_settings(window, path):
     gsettings_list = subprocess.run( \
         ['gsettings', 'list-recursively', 'io.github.fsobolev.Cavalier'], \
         stdout=subprocess.PIPE).stdout.decode('utf-8')
@@ -52,6 +58,11 @@ def export_settings(path):
         with open(path, 'w') as file:
             for line in gsettings_list.split('\n'):
                 file.write(' '.join(line.split(' ')[1::]) + '\n')
+        toast_msg = 'File successfully saved'
+
     except Exception as e:
         print('Can\'t export settings to file: ' + path)
         print(e)
+        toast_msg = 'Failed to save file'
+
+    Adw.PreferencesWindow.add_toast(window, Adw.Toast.new(toast_msg))
