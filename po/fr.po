@@ -354,7 +354,7 @@ msgstr "Sombre"
 
 #: src/preferences_window.py:291
 msgid "Profile:"
-msgstr "Profil :"
+msgstr "Profil:"
 
 #: src/preferences_window.py:299
 msgid "Add new profile"
