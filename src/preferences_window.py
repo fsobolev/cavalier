@@ -708,7 +708,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
     def import_settings_from_file(self, obj):
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
-                import_settings(dialog.get_file().get_path())
+                import_settings(self, dialog.get_file().get_path())
                 self.load_settings()
 
         file_chooser = Gtk.FileChooserNative.new(_('Import Settings'), \
@@ -728,7 +728,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
     def export_settings_to_file(self, obj):
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
-                export_settings(dialog.get_file().get_path())
+                export_settings(self, dialog.get_file().get_path())
 
         file_chooser = Gtk.FileChooserNative.new(_('Export Settings'), \
             self, Gtk.FileChooserAction.SAVE, _('Save'), _('Cancel'))
