@@ -93,7 +93,7 @@ def levels(sample, cr, width, height, colors, offset, radius):
         for r in range(q):
             draw_element(cr, step * i + offset_px, \
                 height - (height / 10 * (r + 1)) + offset_px, \
-                step - offset_px * 2, height / 10 - height / 10 * offset / 100, radius)
+                step - offset_px * 2, height / 10 - offset_px * 2, radius)
     cr.fill()
 
 def particles(sample, cr, width, height, colors, offset, radius):
@@ -104,7 +104,7 @@ def particles(sample, cr, width, height, colors, offset, radius):
     for i in range(ls):
         draw_element(cr, step * i + offset_px, \
             height * 0.9 - height * 0.9 * sample[i] + offset_px, step - offset_px * 2, \
-            height / 10 - height / 10 * offset / 100, radius)
+            height / 10 - offset_px * 2, radius)
     cr.fill()
 
 def spine(sample, cr, width, height, colors, offset, radius):
