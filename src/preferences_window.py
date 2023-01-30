@@ -52,7 +52,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
     def create_cavalier_page(self):
         self.cavalier_page = Adw.PreferencesPage.new()
         self.cavalier_page.set_title('Cavalier')
-        self.cavalier_page.set_icon_name('image-x-generic-symbolic')
+        self.cavalier_page.set_icon_name('io.github.fsobolev.Cavalier-symbolic')
         self.add(self.cavalier_page)
 
         self.cavalier_mode_group = Adw.PreferencesGroup.new()
