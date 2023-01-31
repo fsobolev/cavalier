@@ -44,6 +44,18 @@ def set_source(cr, height, colors, offset=0):
         (red, green, blue, alpha) = colors[0]
         cr.set_source_rgba(red / 255, green / 255, blue / 255, alpha)
 
+def set_source_radial(cr, x, y, r0, r1, colors):
+    if len(colors) > 1:
+        pat = cairo.RadialGradient(x, y, r0, x, y, r1)
+        for i in range(len(colors)):
+            (red, green, blue, alpha) = colors[i]
+            pat.add_color_stop_rgba(1 / (i + 1), \
+                red / 255, green / 255, blue / 255, alpha)
+        cr.set_source(pat)
+    else:
+        (red, green, blue, alpha) = colors[0]
+        cr.set_source_rgba(red / 255, green / 255, blue / 255, alpha)
+
 def draw_element(cr, x, y, width, height, radius):
     degrees = math.pi / 180.0
     cr.new_sub_path()
