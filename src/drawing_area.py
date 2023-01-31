@@ -100,8 +100,12 @@ class CavalierDrawingArea(Gtk.DrawingArea):
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:
             if self.draw_mode == 'wave':
-                wave(self.cava_sample, cr, width, height, self.colors, \
-                    self.fill, self.thickness)
+                if self.circle:
+                    wave_circle(self.cava_sample, cr, width, height, \
+                        self.colors, self.radius, self.thickness)
+                else:
+                    wave(self.cava_sample, cr, width, height, self.colors, \
+                        self.fill, self.thickness)
             elif self.draw_mode == 'levels':
                 levels(self.cava_sample, cr, width, height, self.colors, \
                     self.offset, self.roundness, self.fill, self.thickness)
