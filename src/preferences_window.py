@@ -112,9 +112,16 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.circle_group = Adw.PreferencesGroup.new()
         self.mode_variant_stack.add_titled(self.circle_group, 'circle', \
             _('Circle'))
-        self.radius_row = Adw.ActionRow.new()
-        self.radius_row.set_title(_('Radius'))
-        self.circle_group.add(self.radius_row)
+        self.pref_radius = Adw.ActionRow.new()
+        self.pref_radius.set_title(_('Radius'))
+        self.pref_radius.set_subtitle(_('Radius of base circle (in percent)'))
+        self.pref_radius_scale = Gtk.Scale.new_with_range( \
+            Gtk.Orientation.HORIZONTAL, 0.0, 50.0, 1.0)
+        self.pref_radius_scale.set_size_request(180, -1)
+        self.pref_radius_scale.set_draw_value(True)
+        self.pref_radius_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.pref_radius.add_suffix(self.pref_radius_scale)
+        self.circle_group.add(self.pref_radius)
 
         self.circle_switcher = Gtk.StackSwitcher.new()
         self.circle_switcher.set_stack(self.mode_variant_stack)
@@ -434,6 +441,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             ].set_active(True)
         self.mode_variant_stack.set_visible_child_name( \
             'circle' if self.settings['circle'] else 'box')
+        self.pref_radius_scale.set_value(self.settings['radius'])
         self.pref_margin_scale.set_value(self.settings['margin'])
         self.pref_offset_scale.set_value(self.settings['items-offset'])
         self.pref_roundness_scale.set_value( \
@@ -498,6 +506,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.mode_variant_stack.connect('notify::visible-child', \
             lambda *args: self.save_setting(self.mode_variant_stack, 'circle', \
                 self.mode_variant_stack.get_visible_child_name() == 'circle'))
+        self.pref_radius_scale.connect('value-changed', self.save_setting, \
+            'radius', self.pref_radius_scale.get_value)
         self.pref_margin_scale.connect('value-changed', self.save_setting, \
             'margin', self.pref_margin_scale.get_value)
         self.pref_offset_scale.connect('value-changed', self.save_setting, \
