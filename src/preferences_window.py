@@ -623,7 +623,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         profiles.append((self.profile_add_entry.get_text(), \
             profiles[active_profile][1], profiles[active_profile][2]))
         self.profile_add_entry.set_text('')
-        self.profile_new_label.set_text('')
+        self.profile_new_label.set_text(_('The new profile will be a copy of the active profile.'))
         self.settings['color-profiles'] = profiles
         self.settings['active-color-profile'] = len(profiles) - 1
 
