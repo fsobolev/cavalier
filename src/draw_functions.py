@@ -92,10 +92,11 @@ def wave_circle(sample, cr, width, height, colors, radius, thickness, fill):
     min_radius = min(width, height) * radius / 200
     max_radius = min(width, height) / 2
     set_source_radial(cr, width / 2, height / 2, min_radius, \
-        max_radius + thickness, colors)
+        max_radius, colors)
     if not fill:
         cr.rectangle(0, 0, width, height)
-        cr.arc_negative(width / 2, height / 2, min_radius - thickness / 2, 2 * math.pi, 0)
+        cr.arc_negative(width / 2, height / 2, min_radius - thickness / 2, \
+            2 * math.pi, 0)
         cr.clip()
         cr.new_path()
         cr.move_to(width / 2 + min_radius, height / 2)
