@@ -216,6 +216,7 @@ def spine(sample, cr, width, height, colors, offset, radius, fill, thickness):
 
 def bars(sample, cr, width, height, colors, offset, fill, thickness):
     set_source(cr, height, colors)
+    cr.set_line_width(thickness)
     ls = len(sample)
     step = width / ls
     offset_px = step * offset / 100
@@ -230,11 +231,13 @@ def bars(sample, cr, width, height, colors, offset, fill, thickness):
             max(step - offset_px * 2 - thickness, 1), height * sample[i] - thickness)
     cr.fill() if fill else cr.stroke()
 
-def bars_circle(sample, cr, width, height, colors, offset, radius):
+def bars_circle(sample, cr, width, height, colors, offset, fill, thickness, \
+        radius):
     ls = len(sample)
     min_radius = min(width, height) * radius / 200
     max_radius = min(width, height) / 2
     set_source_radial(cr, width / 2, height / 2, min_radius, max_radius, colors)
+    cr.set_line_width(thickness)
     for i in range(ls):
         cr.move_to(width / 2 + math.cos(2 * math.pi / ls * \
             (i + offset / 100) - 0.5 * math.pi) * min_radius, \
@@ -252,18 +255,18 @@ def bars_circle(sample, cr, width, height, colors, offset, radius):
             height / 2 + math.sin(2 * math.pi / ls * \
             (i + 1 - offset / 100) - 0.5 * math.pi) * \
             (min_radius + sample[i] * (max_radius - min_radius)))
-        cr.move_to(width / 2 + math.cos(2 * math.pi / ls * \
-            (i + offset / 100) - 0.5 * math.pi) * min_radius, \
-            height / 2 + math.sin(2 * math.pi / ls * \
-            (i + offset / 100) - 0.5 * math.pi) * min_radius)
-        cr.line_to(width / 2 + math.cos(2 * math.pi / ls * \
-            (i + 1 - offset / 100) - 0.5 * math.pi) * min_radius, \
-            height / 2 + math.sin(2 * math.pi / ls * \
-            (i + 1 - offset / 100) - 0.5 * math.pi) * min_radius)
         cr.line_to(width / 2 + math.cos(2 * math.pi / ls * \
             (i + 1 - offset / 100) - 0.5 * math.pi) * \
             (min_radius + sample[i] * (max_radius - min_radius)), \
             height / 2 + math.sin(2 * math.pi / ls * \
             (i + 1 - offset / 100) - 0.5 * math.pi) * \
             (min_radius + sample[i] * (max_radius - min_radius)))
-    cr.fill()
+        cr.line_to(width / 2 + math.cos(2 * math.pi / ls * \
+            (i + 1 - offset / 100) - 0.5 * math.pi) * min_radius, \
+            height / 2 + math.sin(2 * math.pi / ls * \
+            (i + 1 - offset / 100) - 0.5 * math.pi) * min_radius)
+        cr.close_path()
+    if fill == "all":
+        cr.move_to(width / 2 + min_radius, height / 2)
+        cr.arc(width / 2, height / 2, min_radius, 0, 2 * math.pi)
+    cr.stroke() if fill == "outline" else cr.fill()

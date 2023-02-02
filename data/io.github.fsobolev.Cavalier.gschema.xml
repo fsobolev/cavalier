@@ -37,6 +37,16 @@
 			</choices>
 			<default>"wave"</default>
 		</key>
+		<key name="bars-fill" type="s">
+			<summary>Bars Filling</summary>
+			<description>Filling rule for Bars drawing mode</description>
+			<choices>
+				<choice value="outline"/>
+				<choice value="bars"/>
+				<choice value="all"/>
+			</choices>
+			<default>"bars"</default>
+		</key>
 		<key name="circle" type="b">
 			<summary>Circle</summary>
 			<description>Whether to modify drawing modes to draw in circle</description>
