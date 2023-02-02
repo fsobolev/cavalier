@@ -103,6 +103,7 @@ def wave_circle(sample, cr, width, height, colors, radius, thickness, fill):
         cr.arc(width / 2, height / 2, min_radius, 0, 2 * math.pi)
         cr.set_line_width(thickness)
         cr.stroke()
+    min_radius += thickness
     cr.move_to( \
         width / 2 + math.cos(2 * math.pi / ls * (ls - 0.5) - 0.5 * math.pi) * \
             (min_radius + sample[-1] * (max_radius - min_radius)), \
