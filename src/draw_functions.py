@@ -86,21 +86,22 @@ def wave(sample, cr, width, height, colors, fill, thickness):
         cr.set_line_width(thickness)
         cr.stroke()
 
-def wave_circle(sample, cr, width, height, colors, radius, thickness):
+def wave_circle(sample, cr, width, height, colors, radius, thickness, fill):
     ls = len(sample)
     cr.move_to(width / 2, height / 2)
     min_radius = min(width, height) * radius / 200
     max_radius = min(width, height) / 2
     set_source_radial(cr, width / 2, height / 2, min_radius, \
         max_radius + thickness, colors)
-    cr.rectangle(0, 0, width, height)
-    cr.arc_negative(width / 2, height / 2, min_radius - thickness / 2, 2 * math.pi, 0)
-    cr.clip()
-    cr.new_path()
-    cr.move_to(width / 2 + min_radius, height / 2)
-    cr.arc(width / 2, height / 2, min_radius, 0, 2 * math.pi)
-    cr.set_line_width(thickness)
-    cr.stroke()
+    if not fill:
+        cr.rectangle(0, 0, width, height)
+        cr.arc_negative(width / 2, height / 2, min_radius - thickness / 2, 2 * math.pi, 0)
+        cr.clip()
+        cr.new_path()
+        cr.move_to(width / 2 + min_radius, height / 2)
+        cr.arc(width / 2, height / 2, min_radius, 0, 2 * math.pi)
+        cr.set_line_width(thickness)
+        cr.stroke()
     cr.move_to( \
         width / 2 + math.cos(2 * math.pi / ls * (ls - 0.5) - 0.5 * math.pi) * \
             (min_radius + sample[-1] * (max_radius - min_radius)), \

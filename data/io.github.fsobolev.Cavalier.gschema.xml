@@ -42,6 +42,11 @@
 			<description>Whether to modify drawing modes to draw in circle</description>
 			<default>false</default>
 		</key>
+		<key name="wave-circle-fill" type="b">
+			<summary>Wave - Fill Circle</summary>
+			<description>Whether to fill the inner circle when using Wave mode Circle variant.</description>
+			<default>false</default>
+		</key>
 		<key name="radius" type="i">
 			<summary>Radius</summary>
 			<description>Radius of base circle (in percent)</description>
