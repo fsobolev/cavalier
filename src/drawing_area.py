@@ -118,8 +118,12 @@ class CavalierDrawingArea(Gtk.DrawingArea):
                 spine(self.cava_sample, cr, width, height, self.colors, \
                     self.offset, self.roundness, self.fill, self.thickness)
             elif self.draw_mode == 'bars':
-                bars(self.cava_sample, cr, width, height, self.colors, \
-                    self.offset, self.fill, self.thickness)
+                if self.circle:
+                    bars_circle(self.cava_sample, cr, width, height, \
+                        self.colors, self.offset, self.radius)
+                else:
+                    bars(self.cava_sample, cr, width, height, self.colors, \
+                        self.offset, self.fill, self.thickness)
 
     def redraw(self):
         self.queue_draw()
