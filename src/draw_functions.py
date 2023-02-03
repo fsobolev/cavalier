@@ -57,16 +57,21 @@ def set_source_radial(cr, x, y, r0, r1, colors):
         cr.set_source_rgba(red / 255, green / 255, blue / 255, alpha)
 
 def draw_element(cr, x, y, width, height, radius):
-    degrees = math.pi / 180.0
+    width /= 2
+    height /= 2
     cr.new_sub_path()
-    cr.arc(x + width * radius / 100, y + height * radius / 100, \
-        radius * min(width, height) / 100, -180 * degrees, -90 * degrees)
-    cr.arc(x + width - width * radius / 100, y + height * radius / 100, \
-        radius * min(width, height) / 100, -90 * degrees, 0)
-    cr.arc(x + width - width * radius / 100, y + height - height * radius / 100, \
-        radius * min(width, height) / 100, 0, 90 * degrees)
-    cr.arc(x + width * radius / 100, y + height - height * radius / 100, \
-        radius * min(width, height) / 100, 90 * degrees, -180 * degrees)
+    cr.arc(x + width - width * radius / 100, \
+        y + height - height * radius / 100, \
+        radius * min(width, height) / 100, 0, 0.5 * math.pi)
+    cr.arc(x - width + width * radius / 100, \
+        y + height - height * radius / 100, \
+        radius * min(width, height) / 100, 0.5 * math.pi, math.pi)
+    cr.arc(x - width + width * radius / 100, \
+        y - height + height * radius / 100, \
+        radius * min(width, height) / 100, math.pi, 1.5 * math.pi)
+    cr.arc(x + width - width * radius / 100, \
+        y - height + height * radius / 100, \
+        radius * min(width, height) / 100, 1.5 * math.pi, 0)
     cr.close_path()
 
 def wave(sample, cr, width, height, colors, fill, thickness):
@@ -176,8 +181,8 @@ def particles(sample, cr, width, height, colors, offset, radius, fill, thickness
             (height / 10) / 2)
         cr.set_line_width(thickness)
     for i in range(ls):
-        draw_element(cr, step * i + offset_px + thickness / 2, \
-            height * 0.9 - height * 0.9 * sample[i] + thickness / 2, \
+        draw_element(cr, step * (i + 0.5), \
+            height * 0.95 - (height * 0.9) * sample[i], \
             max(step - offset_px * 2 - thickness, 1), \
             max(height / 10 - thickness, 1), radius)
     cr.fill() if fill else cr.stroke()
@@ -196,8 +201,7 @@ def spine(sample, cr, width, height, colors, offset, radius, fill, thickness):
                 thickness = min(thickness, \
                     (step * sample[i] - offset_px * 2) / 2)
                 cr.set_line_width(thickness)
-            draw_element(cr, width / 2 - sample[i] * step / 2 + offset_px + thickness / 2, \
-                step * i + step / 2 - sample[i] * step / 2 + offset_px + thickness / 2, \
+            draw_element(cr, width / 2, step * (i + 0.5), \
                 step * sample[i] - offset_px * 2 - thickness, \
                 step * sample[i] - offset_px * 2 - thickness, radius)
         cr.fill() if fill else cr.stroke()
@@ -208,9 +212,7 @@ def spine(sample, cr, width, height, colors, offset, radius, fill, thickness):
             offset_px = step * offset / 100 * sample[i]
             if not fill:
                 offset_px += thickness / 2
-            draw_element(cr, \
-                step * i + step / 2 - sample[i] * step / 2 + offset_px, \
-                height / 2 - sample[i] * step / 2 + offset_px, \
+            draw_element(cr, step * (i + 0.5), height / 2,
                 step * sample[i] - offset_px * 2, \
                 step * sample[i] - offset_px * 2, radius)
         cr.fill() if fill else cr.stroke()

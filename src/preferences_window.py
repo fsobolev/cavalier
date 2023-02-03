@@ -170,7 +170,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_roundness.set_subtitle( \
             _('This setting affects "levels", "particles" and "spine" modes.\n0 - square, 1 - round'))
         self.pref_roundness_scale = Gtk.Scale.new_with_range( \
-            Gtk.Orientation.HORIZONTAL, 0.0, 1.0, 0.02)
+            Gtk.Orientation.HORIZONTAL, 0.0, 1.0, 0.01)
         self.pref_roundness_scale.set_size_request(190, -1)
         self.pref_roundness_scale.set_draw_value(True)
         self.pref_roundness_scale.set_value_pos(Gtk.PositionType.LEFT)
@@ -463,7 +463,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_margin_scale.set_value(self.settings['margin'])
         self.pref_offset_scale.set_value(self.settings['items-offset'])
         self.pref_roundness_scale.set_value( \
-            round(self.settings['items-roundness'] / 50.0, 2))
+            round(self.settings['items-roundness'] / 100.0, 2))
         self.pref_thickness_scale.set_value(self.settings['line-thickness'])
         self.pref_fill_switch.set_active(self.settings['fill'])
         self.pref_borderless_switch.set_active( \
@@ -538,7 +538,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             'items-offset', self.pref_offset_scale.get_value)
         self.pref_roundness_scale.connect('value-changed', self.save_setting, \
             'items-roundness', lambda *args : \
-            self.pref_roundness_scale.get_value() * 50.0)
+            self.pref_roundness_scale.get_value() * 100.0)
         self.pref_thickness_scale.connect('value-changed', self.save_setting, \
             'line-thickness', self.pref_thickness_scale.get_value)
         # `notify::state` signal returns additional parameter that

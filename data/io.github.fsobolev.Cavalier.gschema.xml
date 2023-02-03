@@ -78,8 +78,8 @@
 		<key name="items-roundness" type="i">
 			<summary>Roundness of items</summary>
 			<description>This setting affects "levels", "particles" and "spine" modes.</description>
-			<range min="0" max="50"/>
-			<default>10</default>
+			<range min="0" max="100"/>
+			<default>20</default>
 		</key>
 			<key name="line-thickness" type="i">
 			<summary>Thickness of lines</summary>
