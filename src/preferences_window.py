@@ -127,7 +127,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_radius.set_title(_('Radius'))
         self.pref_radius.set_subtitle(_('Radius of base circle (in percent)'))
         self.pref_radius_scale = Gtk.Scale.new_with_range( \
-            Gtk.Orientation.HORIZONTAL, 0.0, 50.0, 1.0)
+            Gtk.Orientation.HORIZONTAL, 0.0, 100.0, 1.0)
         self.pref_radius_scale.set_size_request(180, -1)
         self.pref_radius_scale.set_draw_value(True)
         self.pref_radius_scale.set_value_pos(Gtk.PositionType.LEFT)

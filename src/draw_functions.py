@@ -89,7 +89,7 @@ def wave(sample, cr, width, height, colors, fill, thickness):
 def wave_circle(sample, cr, width, height, colors, radius, thickness, fill):
     ls = len(sample)
     cr.move_to(width / 2, height / 2)
-    min_radius = min(width, height) * radius / 200
+    min_radius = min(width, height) * radius / 400
     max_radius = min(width, height) / 2
     set_source_radial(cr, width / 2, height / 2, min_radius, \
         max_radius, colors)
@@ -235,7 +235,7 @@ def bars(sample, cr, width, height, colors, offset, fill, thickness):
 def bars_circle(sample, cr, width, height, colors, offset, fill, thickness, \
         radius):
     ls = len(sample)
-    min_radius = min(width, height) * radius / 200
+    min_radius = min(width, height) * radius / 400
     max_radius = min(width, height) / 2
     set_source_radial(cr, width / 2, height / 2, min_radius, max_radius, colors)
     cr.set_line_width(thickness)
