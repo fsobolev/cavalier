@@ -25,7 +25,6 @@
 			<description>Defines what the visualizer looks like.</description>
 			<choices>
 				<choice value="wave"/>
-				<choice value="line"/>
 				<choice value="levels"/>
 				<choice value="particles"/>
 				<choice value="spine"/>
@@ -53,9 +52,14 @@
 		</key>
 			<key name="line-thickness" type="i">
 			<summary>Thickness of lines</summary>
-			<description>Thickness of lines in "line" mode (in pixels).</description>
+			<description>Thickness of lines non-filled modes (in pixels).</description>
 			<range min="1" max="40"/>
 			<default>15</default>
+		</key>
+		<key name="fill" type="b">
+			<summary>Fill elements</summary>
+			<description>Whether to fill elements in the various modes.</description>
+			<default>true</default>
 		</key>
 		<key name="bars" type="i">
 			<summary>Number of bars</summary>

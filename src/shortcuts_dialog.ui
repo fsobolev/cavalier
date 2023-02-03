@@ -36,6 +36,12 @@
                         </child>
                         <child>
                             <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Toggle Filled Elements</property>
+                                <property name='accelerator'>F</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
                                 <property name='title' translatable='yes'>Toggle Sharp Corners</property>
                                 <property name='accelerator'>S</property>
                             </object>

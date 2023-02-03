@@ -58,7 +58,7 @@ def draw_element(cr, x, y, width, height, radius):
         radius * min(width, height) / 100, 90 * degrees, -180 * degrees)
     cr.close_path()
 
-def wave(sample, cr, width, height, colors):
+def wave(sample, cr, width, height, colors, fill, thickness):
     set_source(cr, height, colors)
     ls = len(sample)
     cr.move_to(0, (1.0 - sample[0]) * height)
@@ -67,26 +67,19 @@ def wave(sample, cr, width, height, colors):
         cr.rel_curve_to(width / (ls - 1) * 0.5, 0.0, \
            width / (ls - 1) * 0.5, height_diff * height, \
            width / (ls - 1), height_diff * height)
-    cr.line_to(width, height)
-    cr.line_to(0, height)
-    cr.fill()
+    if fill == False:
+        cr.set_line_width(thickness)
+        cr.stroke()
+    else:
+        cr.line_to(width, height)
+        cr.line_to(0, height)
+        cr.fill()
 
-def line(sample, cr, width, height, colors, thickness):
-    set_source(cr, height, colors)
-    ls = len(sample)
-    cr.move_to(0, (1.0 - sample[0]) * height)
-    cr.set_line_width(thickness)
-    for i in range(ls - 1):
-        height_diff = (sample[i] - sample[i+1])
-        cr.rel_curve_to(width / (ls - 1) * 0.5, 0.0, \
-           width / (ls - 1) * 0.5, height_diff * height, \
-           width / (ls - 1), height_diff * height)
-    cr.stroke()
-
-def levels(sample, cr, width, height, colors, offset, radius):
+def levels(sample, cr, width, height, colors, offset, radius, fill, thickness):
     set_source(cr, height, colors)
     ls = len(sample)
     step = width / ls
+    cr.set_line_width(thickness)
     for i in range(ls):
         q = int(round(sample[i], 1) * 10)
         for r in range(q):
@@ -94,21 +87,23 @@ def levels(sample, cr, width, height, colors, offset, radius):
                 height - (height / 10 * (r + 1)) * (1 - offset / 400), \
                 max(step - step * offset / 100 * 2, 1), \
                 max(height / 10 * (1 - offset / 50), 1), radius)
-    cr.fill()
+    cr.stroke() if fill == False else cr.fill()
 
-def particles(sample, cr, width, height, colors, offset, radius):
+def particles(sample, cr, width, height, colors, offset, radius, fill, thickness):
     set_source(cr, height, colors)
     ls = len(sample)
     step = width / ls
+    cr.set_line_width(thickness)
     for i in range(ls):
         draw_element(cr, step * i + step * offset / 100, \
             height * 0.9 - height * 0.9 * sample[i], \
             max(step - step * offset / 100 * 2, 1), \
             max(height / 10, 1), radius)
-    cr.fill()
+    cr.stroke() if fill == False else cr.fill()
 
-def spine(sample, cr, width, height, colors, offset, radius):
+def spine(sample, cr, width, height, colors, offset, radius, fill, thickness):
     ls = len(sample)
+    cr.set_line_width(thickness)
     if height > width:
         step = height / ls
         for i in range(ls):
@@ -118,7 +113,7 @@ def spine(sample, cr, width, height, colors, offset, radius):
                 step * i + step / 2 - sample[i] * step / 2 + offset_px, \
                 step * sample[i] - offset_px * 2, \
                 step * sample[i] - offset_px * 2, radius)
-            cr.fill()
+            cr.stroke() if fill == False else cr.fill()
     else:
         step = width / ls
         for i in range(ls):
@@ -129,14 +124,15 @@ def spine(sample, cr, width, height, colors, offset, radius):
                 height / 2 - sample[i] * step / 2 + offset_px, \
                 step * sample[i] - offset_px * 2, \
                 step * sample[i] - offset_px * 2, radius)
-            cr.fill()
+            cr.stroke() if fill == False else cr.fill()
 
-def bars(sample, cr, width, height, colors, offset):
+def bars(sample, cr, width, height, colors, offset, fill, thickness):
     set_source(cr, height, colors)
     ls = len(sample)
     step = width / ls
+    cr.set_line_width(thickness)
     offset_px = step * offset / 100
     for i in range(ls):
         cr.rectangle(step * i + offset_px, height - height * sample[i], \
             step - offset_px * 2, height)
-    cr.fill()
+    cr.stroke() if fill == False else cr.fill()
