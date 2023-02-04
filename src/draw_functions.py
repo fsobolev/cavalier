@@ -153,17 +153,13 @@ def bars(sample, cr, width, height, colors, offset, fill, thickness):
     ls = len(sample)
     step = width / ls
     offset_px = step * offset / 100
-    if not fill:
-        thickness = thickness * (100 - offset) / 100 * step / 200
-        offset_px += thickness / 2
-        cr.set_line_width(thickness)
     if fill:
         thickness = 0
     else:
         thickness = min(thickness, (step - offset_px * 2) / 2)
         cr.set_line_width(thickness)
     for i in range(ls):
-        cr.rectangle(step * i + offset_px, \
+        cr.rectangle(step * i + offset_px + thickness / 2, \
             height - height * sample[i] + thickness / 2, \
-            step - offset_px * 2, height * sample[i] - thickness)
+            max(step - offset_px * 2 - thickness, 1), height * sample[i] - thickness)
     cr.fill() if fill else cr.stroke()
