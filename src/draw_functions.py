@@ -101,10 +101,16 @@ def particles(sample, cr, width, height, colors, offset, radius, fill, thickness
         offset_px += thickness / 2
     cr.set_line_width(thickness)
     for i in range(ls):
-        draw_element(cr, step * i + offset_px, \
-            height * 0.9 - height * 0.9 * sample[i], \
-            max(step - offset_px * 2, 1), \
-            max(height / 10, 1), radius)
+        if fill:
+            draw_element(cr, step * i + offset_px, \
+                height * 0.9 - height * 0.9 * sample[i], \
+                max(step - offset_px * 2, 1), \
+                max(height / 10, 1), radius)
+        else:
+            draw_element(cr, step * i + offset_px, \
+                height * 0.9 - height * 0.9 * sample[i] + thickness / 2, \
+                max(step - offset_px * 2, 1), \
+                max(height / 10 - thickness, 1), radius)
     cr.fill() if fill else cr.stroke()
 
 def spine(sample, cr, width, height, colors, offset, radius, fill, thickness):
