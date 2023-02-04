@@ -86,10 +86,16 @@ def levels(sample, cr, width, height, colors, offset, radius, fill, thickness):
     for i in range(ls):
         q = int(round(sample[i], 1) * 10)
         for r in range(q):
-            draw_element(cr, step * i + offset_px, \
-                height - (height / 10 * (r + 1)) + offset_px / 2, \
-                max(step - offset_px * 2, 1), \
-                max(height / 10 - offset_px, 1), radius)
+            if fill:
+                draw_element(cr, step * i + offset_px, \
+                    height - (height / 10 * (r + 1)) + offset_px / 2, \
+                    max(step - offset_px * 2, 1), \
+                    max(height / 10 - offset_px, 1), radius)
+            else:
+                draw_element(cr, step * i + offset_px, \
+                    height - (height / 10 * (r + 1)) + offset_px / 2 + thickness / 4, \
+                    max(step - offset_px * 2, 1), \
+                    max(height / 10 - offset_px - thickness / 2, 1), radius)
     cr.fill() if fill else cr.stroke()
 
 def particles(sample, cr, width, height, colors, offset, radius, fill, thickness):
