@@ -57,8 +57,8 @@
 			<default>15</default>
 		</key>
 		<key name="fill" type="b">
-			<summary>Fill elements</summary>
-			<description>Whether to fill elements in the various modes.</description>
+			<summary>Filling</summary>
+			<description>Whether shapes should be filled or outlined.</description>
 			<default>true</default>
 		</key>
 		<key name="bars" type="i">

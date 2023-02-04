@@ -150,9 +150,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.cavalier_group.add(self.pref_thickness)
 
         self.pref_fill = Adw.ActionRow.new()
-        self.pref_fill.set_title(_('Fill elements'))
+        self.pref_fill.set_title(_('Filling'))
         self.pref_fill.set_subtitle( \
-            _('Whether to fill elements in the various modes.'))
+            _('Whether shapes should be filled or outlined.'))
         self.pref_fill_switch = Gtk.Switch.new()
         self.pref_fill_switch.set_valign(Gtk.Align.CENTER)
         self.pref_fill.add_suffix(self.pref_fill_switch)
