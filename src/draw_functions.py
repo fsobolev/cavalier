@@ -81,8 +81,9 @@ def levels(sample, cr, width, height, colors, offset, radius, fill, thickness):
     step = width / ls
     offset_px = step * offset / 100
     if not fill:
+        thickness = thickness * (100 - offset) / 100
         offset_px += thickness / 2
-    cr.set_line_width(thickness)
+        cr.set_line_width(thickness)
     for i in range(ls):
         q = int(round(sample[i], 1) * 10)
         for r in range(q):
@@ -104,8 +105,9 @@ def particles(sample, cr, width, height, colors, offset, radius, fill, thickness
     step = width / ls
     offset_px = step * offset / 100
     if not fill:
+        thickness = thickness * (100 - max(offset, 12)) / 100
         offset_px += thickness / 2
-    cr.set_line_width(thickness)
+        cr.set_line_width(thickness)
     for i in range(ls):
         if fill:
             draw_element(cr, step * i + offset_px, \
@@ -152,10 +154,11 @@ def bars(sample, cr, width, height, colors, offset, fill, thickness):
     set_source(cr, height, colors)
     ls = len(sample)
     step = width / ls
-    cr.set_line_width(thickness)
     offset_px = step * offset / 100
     if not fill:
+        thickness = thickness * (100 - offset) / 100
         offset_px += thickness / 2
+        cr.set_line_width(thickness)
     for i in range(ls):
         if fill:
             cr.rectangle(step * i + offset_px, \
