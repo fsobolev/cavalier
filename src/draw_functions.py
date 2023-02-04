@@ -80,19 +80,20 @@ def levels(sample, cr, width, height, colors, offset, radius, fill, thickness):
     ls = len(sample)
     step = width / ls
     offset_px = step * offset / 100
-    if not fill:
-        thickness = thickness * (100 - offset) / 100 * step / 200
-        offset_px += thickness / 2
+    if fill:
+        thickness = 0
+    else:
+        thickness = min(thickness, \
+            (step - offset_px * 2) / 2,
+            (height / 10 - offset_px) / 2)
         cr.set_line_width(thickness)
     for i in range(ls):
         q = int(round(sample[i], 1) * 10)
         for r in range(q):
-            if fill:
-                thickness = 0
-            draw_element(cr, step * i + offset_px, \
-                height - (height / 10 * (r + 1)) + offset_px / 2 + thickness / 4, \
-                max(step - offset_px * 2, 1), \
-                max(height / 10 - offset_px - thickness / 2, 1), radius)
+            draw_element(cr, step * i + offset_px + thickness / 2, \
+                height - (height / 10 * (r + 1)) + offset_px / 2 + thickness / 2, \
+                max(step - offset_px * 2 - thickness, 1), \
+                max(height / 10 - offset_px - thickness, 1), radius)
     cr.fill() if fill else cr.stroke()
 
 def particles(sample, cr, width, height, colors, offset, radius, fill, thickness):
@@ -122,12 +123,16 @@ def spine(sample, cr, width, height, colors, offset, radius, fill, thickness):
         for i in range(ls):
             set_source(cr, height, colors, sample[i] - (0.95 - i / ls))
             offset_px = step * offset / 100 * sample[i]
-            if not fill:
-                offset_px += thickness / 2
-            draw_element(cr, width / 2 - sample[i] * step / 2 + offset_px, \
-                step * i + step / 2 - sample[i] * step / 2 + offset_px, \
-                step * sample[i] - offset_px * 2, \
-                step * sample[i] - offset_px * 2, radius)
+            if fill:
+                thickness = 0
+            else:
+                thickness = min(thickness, \
+                    (step * sample[i] - offset_px * 2) / 2)
+                cr.set_line_width(thickness)
+            draw_element(cr, width / 2 - sample[i] * step / 2 + offset_px + thickness / 2, \
+                step * i + step / 2 - sample[i] * step / 2 + offset_px + thickness / 2, \
+                step * sample[i] - offset_px * 2 - thickness, \
+                step * sample[i] - offset_px * 2 - thickness, radius)
         cr.fill() if fill else cr.stroke()
     else:
         step = width / ls
@@ -152,9 +157,12 @@ def bars(sample, cr, width, height, colors, offset, fill, thickness):
         thickness = thickness * (100 - offset) / 100 * step / 200
         offset_px += thickness / 2
         cr.set_line_width(thickness)
+    if fill:
+        thickness = 0
+    else:
+        thickness = min(thickness, (step - offset_px * 2) / 2)
+        cr.set_line_width(thickness)
     for i in range(ls):
-        if fill:
-            thickness = 0
         cr.rectangle(step * i + offset_px, \
             height - height * sample[i] + thickness / 2, \
             step - offset_px * 2, height * sample[i] - thickness)
