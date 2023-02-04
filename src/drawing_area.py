@@ -64,7 +64,6 @@ class CavalierDrawingArea(Gtk.DrawingArea):
 
     def on_settings_changed(self, key):
         self.draw_mode = self.settings['mode']
-        self.bars_fill = self.settings['bars-fill']
         self.circle = self.settings['circle']
         self.wave_circle_fill = self.settings['wave-circle-fill']
         self.radius = self.settings['radius']
@@ -121,7 +120,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
             elif self.draw_mode == 'bars':
                 if self.circle:
                     bars_circle(self.cava_sample, cr, width, height, \
-                        self.colors, self.offset, self.bars_fill, \
+                        self.colors, self.offset, self.fill, \
                         self.thickness, self.radius)
                 else:
                     bars(self.cava_sample, cr, width, height, self.colors, \

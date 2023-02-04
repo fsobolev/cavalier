@@ -105,10 +105,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.bars_check_btn.set_group(self.wave_check_btn)
         self.bars_row.add_prefix(self.bars_check_btn)
         self.bars_row.set_activatable_widget(self.bars_check_btn)
-        self.bars_fill_dropdown = Gtk.DropDown.new_from_strings( \
-            [_('Outline'), _('Fill bars'), _('Fill bars and circle')])
-        self.bars_fill_dropdown.set_valign(Gtk.Align.CENTER)
-        self.bars_row.add_suffix(self.bars_fill_dropdown)
         self.cavalier_mode_group.add(self.bars_row)
 
         self.mode_variant_stack = Gtk.Stack.new()
@@ -451,9 +447,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.particles_check_btn, self.spine_check_btn, self.bars_check_btn)[ \
             self.settings.get_range('mode')[1].index(self.settings['mode']) \
             ].set_active(True)
-        self.bars_fill_dropdown.set_selected( \
-            self.settings.get_range('bars-fill')[1].index( \
-            self.settings['bars-fill']))
         self.mode_variant_stack.set_visible_child_name( \
             'circle' if self.settings['circle'] else 'box')
         self.wave_circle_fill_box.set_visible(self.settings['circle'])
@@ -521,10 +514,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             'particles')
         self.spine_check_btn.connect('toggled', self.change_mode, 'spine')
         self.bars_check_btn.connect('toggled', self.change_mode, 'bars')
-        self.bars_fill_dropdown.connect('notify::selected-item', \
-            lambda *args: self.save_setting(self.bars_fill_dropdown, \
-                'bars-fill', self.settings.get_range('bars-fill')[1][ \
-                self.bars_fill_dropdown.get_selected()]))
         # `notify::visible-child` signal returns additional parameter that
         # we don't need, that's why lambda is used.
         self.mode_variant_stack.connect('notify::visible-child', \

@@ -269,7 +269,4 @@ def bars_circle(sample, cr, width, height, colors, offset, fill, thickness, \
             height / 2 + math.sin(2 * math.pi / ls * \
             (i + 1 - offset / 100) - 0.5 * math.pi) * min_radius)
         cr.close_path()
-    if fill == "all":
-        cr.move_to(width / 2 + min_radius, height / 2)
-        cr.arc(width / 2, height / 2, min_radius, 0, 2 * math.pi)
-    cr.stroke() if fill == "outline" else cr.fill()
+    cr.fill() if fill else cr.stroke()
