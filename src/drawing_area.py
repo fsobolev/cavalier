@@ -31,7 +31,7 @@
 from gi.repository import Gtk, GObject
 from threading import Thread
 from cavalier.cava import Cava
-from cavalier.draw_functions import wave, line, levels, particles, spine, bars
+from cavalier.draw_functions import wave, levels, particles, spine, bars
 from cavalier.settings import CavalierSettings
 
 class CavalierDrawingArea(Gtk.DrawingArea):
@@ -71,6 +71,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
         self.offset = self.settings['items-offset']
         self.roundness = self.settings['items-roundness']
         self.thickness = self.settings['line-thickness']
+        self.fill = self.settings['fill']
         self.reverse_order = self.settings['reverse-order']
         self.channels = self.settings['channels']
         try:
@@ -97,22 +98,20 @@ class CavalierDrawingArea(Gtk.DrawingArea):
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:
             if self.draw_mode == 'wave':
-                wave(self.cava_sample, cr, width, height, self.colors)
-            elif self.draw_mode == 'line':
-                line(self.cava_sample, cr, width, height, self.colors, \
-                    self.thickness)
+                wave(self.cava_sample, cr, width, height, self.colors, \
+                    self.fill, self.thickness)
             elif self.draw_mode == 'levels':
                 levels(self.cava_sample, cr, width, height, self.colors, \
-                    self.offset, self.roundness)
+                    self.offset, self.roundness, self.fill, self.thickness)
             elif self.draw_mode == 'particles':
                 particles(self.cava_sample, cr, width, height, self.colors, \
-                    self.offset, self.roundness)
+                    self.offset, self.roundness, self.fill, self.thickness)
             elif self.draw_mode == 'spine':
                 spine(self.cava_sample, cr, width, height, self.colors, \
-                    self.offset, self.roundness)
+                    self.offset, self.roundness, self.fill, self.thickness)
             elif self.draw_mode == 'bars':
                 bars(self.cava_sample, cr, width, height, self.colors, \
-                    self.offset)
+                    self.offset, self.fill, self.thickness)
 
     def redraw(self):
         self.queue_draw()

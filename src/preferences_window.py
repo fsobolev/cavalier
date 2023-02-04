@@ -66,14 +66,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.wave_row.set_activatable_widget(self.wave_check_btn)
         self.cavalier_mode_group.add(self.wave_row)
 
-        self.line_row = Adw.ActionRow.new()
-        self.line_row.set_title(_('Line'))
-        self.line_check_btn = Gtk.CheckButton.new()
-        self.line_check_btn.set_group(self.wave_check_btn)
-        self.line_row.add_prefix(self.line_check_btn)
-        self.line_row.set_activatable_widget(self.line_check_btn)
-        self.cavalier_mode_group.add(self.line_row)
-
         self.levels_row = Adw.ActionRow.new()
         self.levels_row.set_title(_('Levels'))
         self.levels_check_btn = Gtk.CheckButton.new()
@@ -136,7 +128,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_roundness = Adw.ActionRow.new()
         self.pref_roundness.set_title(_('Roundness of items'))
         self.pref_roundness.set_subtitle( \
-            _('This setting only affects "levels" and "particles" modes.\n0 - square, 1 - round'))
+            _('This setting affects "levels", "particles" and "spine" modes.\n0 - square, 1 - round'))
         self.pref_roundness_scale = Gtk.Scale.new_with_range( \
             Gtk.Orientation.HORIZONTAL, 0.0, 1.0, 0.02)
         self.pref_roundness_scale.set_size_request(190, -1)
@@ -145,10 +137,21 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_roundness.add_suffix(self.pref_roundness_scale)
         self.cavalier_group.add(self.pref_roundness)
 
+        self.pref_fill = Adw.ActionRow.new()
+        self.pref_fill.set_title(_('Filling'))
+        self.pref_fill.set_subtitle( \
+            _('Whether shapes should be filled or outlined.'))
+        self.pref_fill_switch = Gtk.Switch.new()
+        self.pref_fill_switch.set_valign(Gtk.Align.CENTER)
+        self.pref_fill.add_suffix(self.pref_fill_switch)
+        self.pref_fill.set_activatable_widget( \
+            self.pref_fill_switch)
+        self.cavalier_group.add(self.pref_fill)
+
         self.pref_thickness = Adw.ActionRow.new()
         self.pref_thickness.set_title(_('Thickness of lines'))
         self.pref_thickness.set_subtitle( \
-            _('Thickness of lines in "line" mode (in pixels).'))
+            _('Thickness of lines when filling is off (in pixels).'))
         self.pref_thickness_scale = Gtk.Scale.new_with_range( \
             Gtk.Orientation.HORIZONTAL, 1.0, 40.0, 1.0)
         self.pref_thickness_scale.set_size_request(180, -1)
@@ -392,7 +395,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.bg_color_btns = []
 
     def load_settings(self):
-        (self.wave_check_btn, self.line_check_btn, self.levels_check_btn, \
+        (self.wave_check_btn, self.levels_check_btn, \
             self.particles_check_btn, self.spine_check_btn, self.bars_check_btn)[ \
             self.settings.get_range('mode')[1].index(self.settings['mode']) \
             ].set_active(True)
@@ -401,6 +404,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_roundness_scale.set_value( \
             round(self.settings['items-roundness'] / 50.0, 2))
         self.pref_thickness_scale.set_value(self.settings['line-thickness'])
+        self.pref_fill_switch.set_active(self.settings['fill'])
         self.pref_sharp_corners_switch.set_active( \
             self.settings['sharp-corners'])
         self.pref_show_controls_switch.set_active( \
@@ -447,7 +451,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
     def bind_settings(self):
         self.wave_check_btn.connect('toggled', self.change_mode, 'wave')
-        self.line_check_btn.connect('toggled', self.change_mode, 'line')
         self.levels_check_btn.connect('toggled', self.change_mode, 'levels')
         self.particles_check_btn.connect('toggled', self.change_mode, \
             'particles')
@@ -462,6 +465,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.pref_roundness_scale.get_value() * 50.0)
         self.pref_thickness_scale.connect('value-changed', self.save_setting, \
             'line-thickness', self.pref_thickness_scale.get_value)
+        # `notify::state` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
+        self.pref_fill_switch.connect('notify::state', \
+            lambda *args : self.save_setting(self.pref_fill_switch, \
+                'fill', self.pref_fill_switch.get_state()))
         # `notify::state` signal returns additional parameter that
         # we don't need, that's why lambda is used.
         self.pref_sharp_corners_switch.connect('notify::state', \
