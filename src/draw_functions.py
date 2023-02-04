@@ -67,13 +67,13 @@ def wave(sample, cr, width, height, colors, fill, thickness):
         cr.rel_curve_to(width / (ls - 1) * 0.5, 0.0, \
            width / (ls - 1) * 0.5, height_diff * height, \
            width / (ls - 1), height_diff * height)
-    if fill == False:
-        cr.set_line_width(thickness)
-        cr.stroke()
-    else:
+    if fill:
         cr.line_to(width, height)
         cr.line_to(0, height)
         cr.fill()
+    else:
+        cr.set_line_width(thickness)
+        cr.stroke()
 
 def levels(sample, cr, width, height, colors, offset, radius, fill, thickness):
     set_source(cr, height, colors)
@@ -87,7 +87,7 @@ def levels(sample, cr, width, height, colors, offset, radius, fill, thickness):
                 height - (height / 10 * (r + 1)) * (1 - offset / 400), \
                 max(step - step * offset / 100 * 2, 1), \
                 max(height / 10 * (1 - offset / 50), 1), radius)
-    cr.stroke() if fill == False else cr.fill()
+    cr.fill() if fill else cr.stroke()
 
 def particles(sample, cr, width, height, colors, offset, radius, fill, thickness):
     set_source(cr, height, colors)
@@ -99,7 +99,7 @@ def particles(sample, cr, width, height, colors, offset, radius, fill, thickness
             height * 0.9 - height * 0.9 * sample[i], \
             max(step - step * offset / 100 * 2, 1), \
             max(height / 10, 1), radius)
-    cr.stroke() if fill == False else cr.fill()
+    cr.fill() if fill else cr.stroke()
 
 def spine(sample, cr, width, height, colors, offset, radius, fill, thickness):
     ls = len(sample)
@@ -113,7 +113,7 @@ def spine(sample, cr, width, height, colors, offset, radius, fill, thickness):
                 step * i + step / 2 - sample[i] * step / 2 + offset_px, \
                 step * sample[i] - offset_px * 2, \
                 step * sample[i] - offset_px * 2, radius)
-            cr.stroke() if fill == False else cr.fill()
+            cr.fill() if fill else cr.stroke()
     else:
         step = width / ls
         for i in range(ls):
@@ -124,7 +124,7 @@ def spine(sample, cr, width, height, colors, offset, radius, fill, thickness):
                 height / 2 - sample[i] * step / 2 + offset_px, \
                 step * sample[i] - offset_px * 2, \
                 step * sample[i] - offset_px * 2, radius)
-            cr.stroke() if fill == False else cr.fill()
+            cr.fill() if fill else cr.stroke()
 
 def bars(sample, cr, width, height, colors, offset, fill, thickness):
     set_source(cr, height, colors)
@@ -135,4 +135,4 @@ def bars(sample, cr, width, height, colors, offset, fill, thickness):
     for i in range(ls):
         cr.rectangle(step * i + offset_px, height - height * sample[i], \
             step - offset_px * 2, height)
-    cr.stroke() if fill == False else cr.fill()
+    cr.fill() if fill else cr.stroke()
