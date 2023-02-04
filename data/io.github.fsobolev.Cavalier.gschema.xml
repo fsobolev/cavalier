@@ -52,7 +52,7 @@
 		</key>
 			<key name="line-thickness" type="i">
 			<summary>Thickness of lines</summary>
-			<description>Thickness of lines non-filled modes (in pixels).</description>
+			<description>Thickness of lines when filling is off (in pixels).</description>
 			<range min="1" max="40"/>
 			<default>15</default>
 		</key>

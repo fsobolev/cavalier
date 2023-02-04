@@ -137,18 +137,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_roundness.add_suffix(self.pref_roundness_scale)
         self.cavalier_group.add(self.pref_roundness)
 
-        self.pref_thickness = Adw.ActionRow.new()
-        self.pref_thickness.set_title(_('Thickness of lines'))
-        self.pref_thickness.set_subtitle( \
-            _('Thickness of lines non-filled modes (in pixels).'))
-        self.pref_thickness_scale = Gtk.Scale.new_with_range( \
-            Gtk.Orientation.HORIZONTAL, 1.0, 40.0, 1.0)
-        self.pref_thickness_scale.set_size_request(180, -1)
-        self.pref_thickness_scale.set_draw_value(True)
-        self.pref_thickness_scale.set_value_pos(Gtk.PositionType.LEFT)
-        self.pref_thickness.add_suffix(self.pref_thickness_scale)
-        self.cavalier_group.add(self.pref_thickness)
-
         self.pref_fill = Adw.ActionRow.new()
         self.pref_fill.set_title(_('Filling'))
         self.pref_fill.set_subtitle( \
@@ -159,6 +147,18 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_fill.set_activatable_widget( \
             self.pref_fill_switch)
         self.cavalier_group.add(self.pref_fill)
+
+        self.pref_thickness = Adw.ActionRow.new()
+        self.pref_thickness.set_title(_('Thickness of lines'))
+        self.pref_thickness.set_subtitle( \
+            _('Thickness of lines when filling is off (in pixels).'))
+        self.pref_thickness_scale = Gtk.Scale.new_with_range( \
+            Gtk.Orientation.HORIZONTAL, 1.0, 40.0, 1.0)
+        self.pref_thickness_scale.set_size_request(180, -1)
+        self.pref_thickness_scale.set_draw_value(True)
+        self.pref_thickness_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.pref_thickness.add_suffix(self.pref_thickness_scale)
+        self.cavalier_group.add(self.pref_thickness)
 
         self.window_group = Adw.PreferencesGroup.new()
         self.cavalier_page.add(self.window_group)
