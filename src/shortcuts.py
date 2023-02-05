@@ -110,6 +110,13 @@ def add_shortcuts(widget, settings):
         Gtk.ShortcutTrigger.parse_string("<Shift>T"), \
         Gtk.NamedAction.new("cavalier.decrease-thickness")))
 
+    act_toggle_inner_circle = Gio.SimpleAction.new("toggle-inner-circle", None)
+    act_toggle_inner_circle.connect('activate', toggle_setting, settings, 'wave-inner-circle')
+    action_map.add_action(act_toggle_inner_circle)
+    shortcut_controller.add_shortcut(Gtk.Shortcut.new( \
+        Gtk.ShortcutTrigger.parse_string("I"), \
+        Gtk.NamedAction.new("cavalier.toggle-inner-circle")))
+
     act_toggle_fill = Gio.SimpleAction.new("toggle-fill", None)
     act_toggle_fill.connect('activate', toggle_setting, settings, 'fill')
     action_map.add_action(act_toggle_fill)

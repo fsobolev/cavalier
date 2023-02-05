@@ -91,14 +91,14 @@ def wave(sample, cr, width, height, colors, fill, thickness):
         cr.set_line_width(thickness)
         cr.stroke()
 
-def wave_circle(sample, cr, width, height, colors, radius, fill, thickness, show_inner_circle):
+def wave_circle(sample, cr, width, height, colors, radius, fill, thickness, inner_circle):
     ls = len(sample)
     cr.move_to(width / 2, height / 2)
     min_radius = min(width, height) * radius / 400
     max_radius = min(width, height) / 2
     set_source_radial(cr, width / 2, height / 2, min_radius, \
         max_radius, colors)
-    if show_inner_circle:
+    if inner_circle:
         cr.rectangle(0, 0, width, height)
         cr.arc_negative(width / 2, height / 2, min_radius - thickness / 2, \
             2 * math.pi, 0)

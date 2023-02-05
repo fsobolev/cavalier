@@ -42,7 +42,7 @@
 			<description>Whether to modify drawing modes to draw in circle</description>
 			<default>false</default>
 		</key>
-		<key name="wave-circle-fill" type="b">
+		<key name="wave-inner-circle" type="b">
 			<summary>Wave - Show Inner Circle</summary>
 			<description>Whether to show the inner circle when using Wave mode Circle variant.</description>
 			<default>false</default>

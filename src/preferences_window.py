@@ -66,13 +66,13 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.wave_check_btn = Gtk.CheckButton.new()
         self.wave_row.add_prefix(self.wave_check_btn)
         self.wave_row.set_activatable_widget(self.wave_check_btn)
-        self.wave_circle_fill_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
-        self.wave_row.add_suffix(self.wave_circle_fill_box)
-        self.wave_circle_fill_label = Gtk.Label.new(_('Show inner circle'))
-        self.wave_circle_fill_box.append(self.wave_circle_fill_label)
-        self.wave_circle_fill_switch = Gtk.Switch.new()
-        self.wave_circle_fill_switch.set_valign(Gtk.Align.CENTER)
-        self.wave_circle_fill_box.append(self.wave_circle_fill_switch)
+        self.wave_inner_circle_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
+        self.wave_row.add_suffix(self.wave_inner_circle_box)
+        self.wave_inner_circle_label = Gtk.Label.new(_('Show inner circle'))
+        self.wave_inner_circle_box.append(self.wave_inner_circle_label)
+        self.wave_inner_circle_switch = Gtk.Switch.new()
+        self.wave_inner_circle_switch.set_valign(Gtk.Align.CENTER)
+        self.wave_inner_circle_box.append(self.wave_inner_circle_switch)
         self.cavalier_mode_group.add(self.wave_row)
 
         self.levels_row = Adw.ActionRow.new()
@@ -452,9 +452,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             'circle' if self.settings['circle'] else 'box')
         self.box_group.set_visible(not self.settings['circle'])
         self.circle_group.set_visible(self.settings['circle'])
-        self.wave_circle_fill_box.set_visible(self.settings['circle'])
-        self.wave_circle_fill_switch.set_active( \
-            self.settings['wave-circle-fill'])
+        self.wave_inner_circle_box.set_visible(self.settings['circle'])
+        self.wave_inner_circle_switch.set_active( \
+            self.settings['wave-inner-circle'])
         self.pref_radius_scale.set_value(self.settings['radius'])
         self.pref_margin_scale.set_value(self.settings['margin'])
         self.pref_offset_scale.set_value(self.settings['items-offset'])
@@ -509,9 +509,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
     def bind_settings(self):
         self.wave_check_btn.connect('toggled', self.change_mode, 'wave')
-        self.wave_circle_fill_switch.connect('notify::state', \
-            lambda *args : self.save_setting(self.wave_circle_fill_switch, \
-                'wave-circle-fill', self.wave_circle_fill_switch.get_state()))
+        self.wave_inner_circle_switch.connect('notify::state', \
+            lambda *args : self.save_setting(self.wave_inner_circle_switch, \
+                'wave-inner-circle', self.wave_inner_circle_switch.get_state()))
         self.levels_check_btn.connect('toggled', self.change_mode, 'levels')
         self.particles_check_btn.connect('toggled', self.change_mode, \
             'particles')
