@@ -14,9 +14,13 @@
     "gregorni": {
         "lang": "German",
         "url": "https://gitlab.com/gregorni"
-    }
+    },
     "Irénée Thirion": {
         "lang": "French",
         "url": "https://github.com/rene-coty"
+    },
+    "Santiago F.": {
+    	"lang": "Spanish",
+    	"email": "sf@santyf.com"
     }
 }
