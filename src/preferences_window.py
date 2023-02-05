@@ -113,8 +113,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
 
         self.box_group = Adw.PreferencesGroup.new()
         self.mode_variant_stack.add_titled(self.box_group, 'box', _('Box'))
-        self.mirror_row = Adw.ActionRow.new()
-        self.mirror_row.set_title(_('Mirror'))
+        self.pref_mirror = Adw.ActionRow.new()
+        self.pref_mirror.set_title(_('Mirror'))
+        self.box_group.add(self.pref_mirror)
 
         self.circle_group = Adw.PreferencesGroup.new()
         self.mode_variant_stack.add_titled(self.circle_group, 'circle', \
@@ -449,6 +450,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             ].set_active(True)
         self.mode_variant_stack.set_visible_child_name( \
             'circle' if self.settings['circle'] else 'box')
+        self.box_group.set_visible(not self.settings['circle'])
+        self.circle_group.set_visible(self.settings['circle'])
         self.wave_circle_fill_box.set_visible(self.settings['circle'])
         self.wave_circle_fill_switch.set_active( \
             self.settings['wave-circle-fill'])
