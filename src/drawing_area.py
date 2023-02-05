@@ -103,7 +103,7 @@ class CavalierDrawingArea(Gtk.DrawingArea):
             if self.draw_mode == 'wave':
                 if self.circle:
                     wave_circle(self.cava_sample, cr, width, height, \
-                        self.colors, self.radius, self.thickness, \
+                        self.colors, self.radius, self.fill, self.thickness, \
                         self.wave_circle_fill)
                 else:
                     wave(self.cava_sample, cr, width, height, self.colors, \
