@@ -240,33 +240,65 @@ def bars_circle(sample, cr, width, height, colors, offset, fill, thickness, \
     min_radius = min(width, height) * radius / 400
     max_radius = min(width, height) / 2
     set_source_radial(cr, width / 2, height / 2, min_radius, max_radius, colors)
-    cr.set_line_width(thickness)
+    if fill:
+        thickness = 0
+        thickness_inner_angle = 0
+    else:
+        thickness = min(thickness, \
+            min_radius * math.pi * 2 / ls * 0.25)
+        cr.set_line_width(thickness)
+        thickness_inner_angle = math.asin(math.sin(0.25 * math.pi) / \
+            math.sqrt(min_radius ** 2 + (thickness / 2) ** 2 - 2 * \
+            min_radius * thickness / 2 * math.cos(0.25 * math.pi)) * \
+            thickness / 2)
     for i in range(ls):
-        cr.move_to(width / 2 + math.cos(2 * math.pi / ls * \
-            (i + offset / 100) - 0.5 * math.pi) * min_radius, \
-            height / 2 + math.sin(2 * math.pi / ls * \
-            (i + offset / 100) - 0.5 * math.pi) * min_radius)
-        cr.line_to(width / 2 + math.cos(2 * math.pi / ls * \
-            (i + offset / 100) - 0.5 * math.pi) * \
-            (min_radius + sample[i] * (max_radius - min_radius)), \
-            height / 2 + math.sin(2 * math.pi / ls * \
-            (i + offset / 100) - 0.5 * math.pi) * \
-            (min_radius + sample[i] * (max_radius - min_radius)))
-        cr.line_to(width / 2 + math.cos(2 * math.pi / ls * \
-            (i + 1 - offset / 100) - 0.5 * math.pi) * \
-            (min_radius + sample[i] * (max_radius - min_radius)), \
-            height / 2 + math.sin(2 * math.pi / ls * \
-            (i + 1 - offset / 100) - 0.5 * math.pi) * \
-            (min_radius + sample[i] * (max_radius - min_radius)))
-        cr.line_to(width / 2 + math.cos(2 * math.pi / ls * \
-            (i + 1 - offset / 100) - 0.5 * math.pi) * \
-            (min_radius + sample[i] * (max_radius - min_radius)), \
-            height / 2 + math.sin(2 * math.pi / ls * \
-            (i + 1 - offset / 100) - 0.5 * math.pi) * \
-            (min_radius + sample[i] * (max_radius - min_radius)))
-        cr.line_to(width / 2 + math.cos(2 * math.pi / ls * \
-            (i + 1 - offset / 100) - 0.5 * math.pi) * min_radius, \
-            height / 2 + math.sin(2 * math.pi / ls * \
-            (i + 1 - offset / 100) - 0.5 * math.pi) * min_radius)
+        cr.move_to(width / 2 + math.cos( \
+            2 * math.pi / ls * (i + offset / 100) - 0.5 * math.pi + \
+            thickness_inner_angle) * (min_radius + thickness / 2),
+            height / 2 + math.sin( \
+            2 * math.pi / ls * (i + offset / 100) - 0.5 * math.pi + \
+            thickness_inner_angle) * (min_radius + thickness / 2))
+        cr.line_to(width / 2 + math.cos( \
+            2 * math.pi / ls * (i + offset / 100) - 0.5 * math.pi + \
+            math.asin(math.sin(0.25 * math.pi) / math.sqrt((min_radius + \
+            max(sample[i] * (max_radius - min_radius), thickness * 2)) ** 2 + \
+            (thickness / 2) ** 2 - 2 * (min_radius + sample[i] * \
+            (max_radius - min_radius)) * thickness / 2 * \
+            math.cos(0.25 * math.pi)) * thickness / 2)) * \
+            (min_radius + max(sample[i] * \
+            (max_radius - min_radius), thickness * 2) - thickness / 2), \
+            height / 2 + math.sin( \
+            2 * math.pi / ls * (i + offset / 100) - 0.5 * math.pi + \
+            math.asin(math.sin(0.25 * math.pi) / math.sqrt((min_radius + \
+            max(sample[i] * (max_radius - min_radius), thickness * 2)) ** 2 + \
+            (thickness / 2) ** 2 - 2 * (min_radius + sample[i] * \
+            (max_radius - min_radius)) * thickness / 2 * \
+            math.cos(0.25 * math.pi)) * thickness / 2)) * \
+            (min_radius + max(sample[i] * \
+            (max_radius - min_radius), thickness * 2) - thickness / 2))
+        cr.line_to(width / 2 + math.cos( \
+            2 * math.pi / ls * (i + 1 - offset / 100) - 0.5 * math.pi - \
+            math.asin(math.sin(0.25 * math.pi) / math.sqrt((min_radius + \
+            max(sample[i] * (max_radius - min_radius), thickness * 2)) ** 2 + \
+            (thickness / 2) ** 2 - 2 * (min_radius + max(sample[i] * \
+            (max_radius - min_radius), thickness * 2)) * thickness / 2 * \
+            math.cos(0.25 * math.pi)) * thickness / 2)) * \
+            (min_radius + max(sample[i] * \
+            (max_radius - min_radius), thickness * 2) - thickness / 2), \
+            height / 2 + math.sin( \
+            2 * math.pi / ls * (i + 1 - offset / 100) - 0.5 * math.pi - \
+            math.asin(math.sin(0.25 * math.pi) / math.sqrt((min_radius + \
+            max(sample[i] * (max_radius - min_radius), thickness * 2)) ** 2 + \
+            (thickness / 2) ** 2 - 2 * (min_radius + max(sample[i] * \
+            (max_radius - min_radius), thickness * 2)) * thickness / 2 * \
+            math.cos(0.25 * math.pi)) * thickness / 2)) * \
+            (min_radius + max(sample[i] * \
+            (max_radius - min_radius), thickness * 2) - thickness / 2))
+        cr.line_to(width / 2 + math.cos( \
+            2 * math.pi / ls * (i + 1 - offset / 100) - 0.5 * math.pi - \
+            thickness_inner_angle) * (min_radius + thickness / 2), \
+            height / 2 + math.sin( \
+            2 * math.pi / ls * (i + 1 - offset / 100) - 0.5 * math.pi - \
+            thickness_inner_angle) * (min_radius + thickness / 2))
         cr.close_path()
     cr.fill() if fill else cr.stroke()
