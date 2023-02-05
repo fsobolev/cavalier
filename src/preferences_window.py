@@ -68,7 +68,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.wave_row.set_activatable_widget(self.wave_check_btn)
         self.wave_circle_fill_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
         self.wave_row.add_suffix(self.wave_circle_fill_box)
-        self.wave_circle_fill_label = Gtk.Label.new(_('Fill completely'))
+        self.wave_circle_fill_label = Gtk.Label.new(_('Show inner circle'))
         self.wave_circle_fill_box.append(self.wave_circle_fill_label)
         self.wave_circle_fill_switch = Gtk.Switch.new()
         self.wave_circle_fill_switch.set_valign(Gtk.Align.CENTER)
