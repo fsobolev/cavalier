@@ -28,7 +28,8 @@
 #
 # SPDX-License-Identifier: MIT
 
-from gi.repository import Adw, Gtk, GObject, Gdk
+import os
+from gi.repository import Adw, Gtk, GObject, Gdk, Gio
 from cavalier.settings import CavalierSettings
 from cavalier.settings_import_export import import_settings, export_settings
 
@@ -40,6 +41,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         super().__init__(**kwargs)
         self.set_modal(False)
         self.settings = CavalierSettings.new(self.on_settings_changed)
+        self.flatpak = os.path.exists('/.flatpak-info')
 
         self.set_default_size(572, 518)
         self.create_cavalier_page()
@@ -718,9 +720,21 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             if response == Gtk.ResponseType.ACCEPT:
                 import_settings(self, dialog.get_file().get_path())
                 self.load_settings()
+            if not self.flatpak:
+                dialog.close()
 
-        file_chooser = Gtk.FileChooserNative.new(_('Import Settings'), \
-            self, Gtk.FileChooserAction.OPEN, _('Open'), _('Cancel'))
+        if self.flatpak:
+            file_chooser = Gtk.FileChooserNative.new(_('Import Settings'), \
+                self, Gtk.FileChooserAction.OPEN, _('Open'), _('Cancel'))
+        else:
+            file_chooser = Gtk.FileChooserDialog()
+            file_chooser.set_transient_for(self)
+            file_chooser.set_title(_('Import Settings'))
+            file_chooser.set_action(Gtk.FileChooserAction.OPEN)
+            file_chooser.add_buttons(_('Open'), Gtk.ResponseType.ACCEPT, \
+                _('Cancel'), Gtk.ResponseType.CANCEL)
+            file_chooser.set_current_folder( \
+                Gio.File.new_for_path(os.environ['HOME']))
         file_chooser.set_modal(True)
         file_filter = Gtk.FileFilter.new()
         file_filter.set_name(_('Cavalier Settings File (*.cavalier)'))
@@ -737,9 +751,21 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         def on_response(dialog, response):
             if response == Gtk.ResponseType.ACCEPT:
                 export_settings(self, dialog.get_file().get_path())
+            if not self.flatpak:
+                dialog.close()
 
-        file_chooser = Gtk.FileChooserNative.new(_('Export Settings'), \
-            self, Gtk.FileChooserAction.SAVE, _('Save'), _('Cancel'))
+        if self.flatpak:
+            file_chooser = Gtk.FileChooserNative.new(_('Export Settings'), \
+                self, Gtk.FileChooserAction.SAVE, _('Save'), _('Cancel'))
+        else:
+            file_chooser = Gtk.FileChooserDialog()
+            file_chooser.set_transient_for(self)
+            file_chooser.set_title(_('Export Settings'))
+            file_chooser.set_action(Gtk.FileChooserAction.SAVE)
+            file_chooser.add_buttons(_('Save'), Gtk.ResponseType.ACCEPT, \
+                _('Cancel'), Gtk.ResponseType.CANCEL)
+            file_chooser.set_current_folder( \
+                Gio.File.new_for_path(os.environ['HOME']))
         file_chooser.set_modal(True)
         file_filter = Gtk.FileFilter.new()
         file_filter.set_name(_('Cavalier Settings File (*.cavalier)'))
