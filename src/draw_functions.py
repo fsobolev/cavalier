@@ -1,4 +1,4 @@
-# draw.py
+# draw_functions.py
 #
 # Copyright 2022 Fyodor Sobolev
 #
