@@ -28,7 +28,6 @@
 #
 # SPDX-License-Identifier: MIT
 
-import os
 import cairo
 import math
 
