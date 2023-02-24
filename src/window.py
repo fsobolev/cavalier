@@ -32,6 +32,7 @@ from gi.repository import Adw, Gtk, Gio, GObject
 
 from cavalier.settings import CavalierSettings
 from cavalier.drawing_area import CavalierDrawingArea
+from cavalier.gl_area import CavalierGLArea
 from cavalier.shortcuts import add_shortcuts
 
 
@@ -97,6 +98,8 @@ class CavalierWindow(Adw.ApplicationWindow):
         self.bin_spinner.set_child(self.spinner)
 
         self.drawing_area = CavalierDrawingArea.new()
+        if self.settings['gpu-accel']:
+            self.drawing_area = CavalierGLArea.new()
         self.drawing_area.spinner = self.spinner
         self.drawing_area.run()
         self.overlay.set_child(self.drawing_area)

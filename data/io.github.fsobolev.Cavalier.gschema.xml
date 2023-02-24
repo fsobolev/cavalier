@@ -20,6 +20,11 @@
 			<description>Whether to hide headerbar when main window is not focused.</description>
 			<default>false</default>
 		</key>
+	  <key name="gpu-accel" type="b">
+			<summary>GPU acceleration (experimental)</summary>
+			<description>Whether to render the visualization using the GPU.</description>
+			<default>false</default>
+		</key>
 		<key name="mode" type="s">
 			<summary>Drawing mode</summary>
 			<description>Defines what the visualizer looks like.</description>

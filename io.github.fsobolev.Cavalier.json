@@ -25,7 +25,9 @@
     ],
     "modules" : [
     	"shared-modules/linux-audio/fftw3f.json",
-    	{
+    	"build-aux/python3-glcontext.json",
+    	"build-aux/python3-moderngl.json",
+        {
     	    "name" : "iniparser",
     	    "buildsystem" : "simple",
     	    "build-commands" :
