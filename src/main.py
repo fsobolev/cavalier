@@ -47,12 +47,15 @@ class CavalierApplication(Adw.Application):
         super().__init__(application_id='io.github.fsobolev.Cavalier',
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
         self.version = version
-        self.create_action('quit', self.on_quit_action, ['<primary>q'])
         self.create_action('about', self.on_about_action)
+        self.create_action('open-menu', self.on_menu_action, ['F10'])
+        self.create_action('toggle-fullscreen', self.on_fullscreen_action, ['F11'])
         self.create_action('preferences', self.on_preferences_action,
-            ['<primary>p'])
+            ['<primary>comma'])
         self.create_action('shortcuts', self.on_shortcuts_action, \
             ['<primary>question'])
+        self.create_action('close', self.on_close_action, ['<primary>w'])
+        self.create_action('quit', self.on_quit_action, ['<primary>q'])
 
     def do_activate(self):
         """Called when the application is activated.
@@ -105,6 +108,18 @@ class CavalierApplication(Adw.Application):
     def on_quit_action(self, widget, _):
         self.win.close()
         self.quit()
+
+    def on_close_action(self, widget, _):
+        win = self.props.active_window
+        win.close()
+        if type(win) == CavalierWindow:
+                self.quit()
+
+    def on_menu_action(self, widget, _):
+        self.win.menu_button.activate()
+
+    def on_fullscreen_action(self, widget, _):
+        self.win.unfullscreen() if self.win.is_fullscreen() else self.win.fullscreen()
 
     def create_action(self, name, callback, shortcuts=None):
         """Add an application action.
