@@ -138,7 +138,10 @@ class CavalierWindow(Adw.ApplicationWindow):
             self.css_data = b'''#cavalier-window {
                 background-color: rgba(%d, %d, %d, %f);
             }''' % colors[0]
-            self.css_provider.load_from_data(self.css_data)
+            if Gtk.get_minor_version() == 10:
+                self.css_provider.load_from_data(self.css_data, -1)
+            else:
+                self.css_provider.load_from_data(self.css_data)
             self.get_style_context().add_provider(self.css_provider, \
                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
         elif len(colors) > 1:
