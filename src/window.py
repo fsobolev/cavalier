@@ -148,7 +148,10 @@ class CavalierWindow(Adw.ApplicationWindow):
                 self.css_data += b'rgba(%d, %d, %d, %f), ' % c
             self.css_data = self.css_data[:-2]
             self.css_data += b');}'
-            self.css_provider.load_from_data(self.css_data)
+            if Gtk.get_minor_version() == 10:
+                self.css_provider.load_from_data(self.css_data, -1)
+            else:
+                self.css_provider.load_from_data(self.css_data)
             self.get_style_context().add_provider(self.css_provider, \
                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
