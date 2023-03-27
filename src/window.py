@@ -138,20 +138,35 @@ class CavalierWindow(Adw.ApplicationWindow):
         if len(colors) == 0:
             self.get_style_context().remove_provider(self.css_provider)
         elif len(colors) == 1:
-            self.css_data = b'''#cavalier-window {
-                background-color: rgba(%d, %d, %d, %f);
-            }''' % colors[0]
-            self.css_provider.load_from_data(self.css_data)
+            if Gtk.get_minor_version() == 10:
+                self.css_data = '''#cavalier-window {
+                    background-color: rgba(%d, %d, %d, %f);
+                }''' % colors[0]
+                self.css_provider.load_from_data(self.css_data, -1)
+            else:
+                self.css_data = b'''#cavalier-window {
+                    background-color: rgba(%d, %d, %d, %f);
+                }''' % colors[0]
+                self.css_provider.load_from_data(self.css_data)
             self.get_style_context().add_provider(self.css_provider, \
                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
         elif len(colors) > 1:
-            self.css_data = b'''#cavalier-window {
-                background: linear-gradient(to bottom, '''
-            for c in colors:
-                self.css_data += b'rgba(%d, %d, %d, %f), ' % c
-            self.css_data = self.css_data[:-2]
-            self.css_data += b');}'
-            self.css_provider.load_from_data(self.css_data)
+            if Gtk.get_minor_version() == 10:
+                self.css_data = '''#cavalier-window {
+                    background: linear-gradient(to bottom, '''
+                for c in colors:
+                    self.css_data += 'rgba(%d, %d, %d, %f), ' % c
+                self.css_data = self.css_data[:-2]
+                self.css_data += ');}'
+                self.css_provider.load_from_data(self.css_data, -1)
+            else:
+                self.css_data = b'''#cavalier-window {
+                    background: linear-gradient(to bottom, '''
+                for c in colors:
+                    self.css_data += b'rgba(%d, %d, %d, %f), ' % c
+                self.css_data = self.css_data[:-2]
+                self.css_data += b');}'
+                self.css_provider.load_from_data(self.css_data)
             self.get_style_context().add_provider(self.css_provider, \
                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
