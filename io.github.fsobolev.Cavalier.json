@@ -45,7 +45,6 @@
     	},
     	{
     	    "name" : "cava",
-    	    "buildsystem" : "autotools",
     	    "sources" : [
     	    	{
     	    	    "type" : "git",
