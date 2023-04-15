@@ -37,6 +37,16 @@
 			</choices>
 			<default>"wave"</default>
 		</key>
+		<key name="direction" type="s">
+			<summary>Drawing direction</summary>
+			<choices>
+				<choice value="bottom-top"/>
+				<choice value="top-bottom"/>
+				<choice value="left-right"/>
+				<choice value="right-left"/>
+			</choices>
+			<default>"bottom-top"</default>
+		</key>
 		<key name="margin" type="i">
 			<summary>Drawing area margin</summary>
 			<description>Size of gaps around drawing area (in pixels).</description>

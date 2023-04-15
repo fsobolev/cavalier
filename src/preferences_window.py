@@ -103,6 +103,13 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.cavalier_group = Adw.PreferencesGroup.new()
         self.cavalier_page.add(self.cavalier_group)
 
+        self.pref_direction_row = Adw.ComboRow.new()
+        self.pref_direction_row.set_title(_('Drawing direction'));
+        self.cavalier_group.add(self.pref_direction_row);
+        self.pref_direction_row.set_model(Gtk.StringList.new( \
+            [_('Bottom to Top'), _('Top to Bottom'), \
+            _('Left to Right'), _('Right to Left')]))
+
         self.pref_margin = Adw.ActionRow.new()
         self.pref_margin.set_title(_('Drawing area margin'))
         self.pref_margin.set_subtitle( \
@@ -279,7 +286,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.smoothing_row = Adw.ComboRow.new()
         self.smoothing_row.set_title(_('Smoothing'));
         self.cava_group.add(self.smoothing_row);
-        self.smoothing_row.set_model(Gtk.StringList.new([_('Off'), _('Monstercat')]))
+        self.smoothing_row.set_model( \
+            Gtk.StringList.new([_('Off'), _('Monstercat')]))
 
         self.nr_row = Adw.ActionRow.new()
         self.nr_row.set_title(_('Noise Reduction'))
@@ -412,6 +420,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.particles_check_btn, self.spine_check_btn, self.bars_check_btn)[ \
             self.settings.get_range('mode')[1].index(self.settings['mode']) \
             ].set_active(True)
+        self.pref_direction_row.set_selected( \
+            ['bottom-top', 'top-bottom', 'left-right', 'right-left'].index( \
+            self.settings['direction']))
         self.pref_margin_scale.set_value(self.settings['margin'])
         self.pref_offset_scale.set_value(self.settings['items-offset'])
         self.pref_roundness_scale.set_value( \
@@ -471,6 +482,10 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             'particles')
         self.spine_check_btn.connect('toggled', self.change_mode, 'spine')
         self.bars_check_btn.connect('toggled', self.change_mode, 'bars')
+        self.pref_direction_row.connect('notify::selected-item', \
+            lambda *args: self.save_setting(self.pref_direction_row, \
+                'direction', ['bottom-top', 'top-bottom', 'left-right', \
+                'right-left'][self.pref_direction_row.get_selected()]))
         self.pref_margin_scale.connect('value-changed', self.save_setting, \
             'margin', self.pref_margin_scale.get_value)
         self.pref_offset_scale.connect('value-changed', self.save_setting, \
