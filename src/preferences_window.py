@@ -339,6 +339,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.profile_new_box.add_css_class('linked')
         self.profile_add_box.append(self.profile_new_box)
         self.profile_add_entry = Gtk.Entry.new()
+        self.profile_add_entry.set_hexpand(True)
         self.profile_add_entry.set_placeholder_text( \
             _('Type a name for a new profile'))
         self.profile_new_box.append(self.profile_add_entry)
