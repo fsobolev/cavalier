@@ -29,7 +29,7 @@
 # SPDX-License-Identifier: MIT
 
 import os
-from gi.repository import Adw, Gtk, GObject, Gdk, Gio
+from gi.repository import Adw, Gtk, GObject, Gdk, Gio, GLib
 from cavalier.settings import CavalierSettings
 from cavalier.settings_import_export import import_settings, export_settings
 
@@ -530,11 +530,13 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             box.set_margin_bottom(6)
             color = Gdk.RGBA()
             Gdk.RGBA.parse(color, 'rgba(%d, %d, %d, %f)' % fg_color)
-            color_btn = Gtk.ColorButton.new_with_rgba(color)
+            color_dialog = Gtk.ColorDialog.new()
+            color_btn = Gtk.ColorDialogButton.new()
+            color_btn.set_rgba(color)
+            color_btn.set_dialog(color_dialog)
             color_btn.set_tooltip_text(_('Select color'))
-            color_btn.set_use_alpha(True)
             color_btn.set_size_request(98, -1)
-            color_btn.connect('color-set', self.color_changed, 0, counter)
+            color_btn.connect('notify::rgba', self.color_changed, (0, counter))
             box.append(color_btn)
             rm_btn = Gtk.Button.new_from_icon_name('edit-delete-symbolic')
             rm_btn.add_css_class('circular')
@@ -553,9 +555,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.fg_add_box.append(Gtk.Label.new(_('Add')))
             color = Gdk.RGBA()
             Gdk.RGBA.parse(color, '#000f')
-            self.fg_add_colorbtn = Gtk.ColorButton.new_with_rgba(color)
+            self.fg_add_colordialog = Gtk.ColorDialog.new()
+            self.fg_add_colorbtn = Gtk.ColorDialogButton.new()
+            self.fg_add_colorbtn.set_rgba(color)
+            self.fg_add_colorbtn.set_dialog(self.fg_add_colordialog)
             self.fg_add_colorbtn.set_tooltip_text(_('Select color'))
-            self.fg_add_colorbtn.set_use_alpha(True)
             self.fg_add_box.append(self.fg_add_colorbtn)
             self.fg_add_btn = Gtk.Button.new_from_icon_name('list-add-symbolic')
             self.fg_add_btn.add_css_class('circular')
@@ -571,11 +575,13 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             box.set_margin_bottom(6)
             color = Gdk.RGBA()
             Gdk.RGBA.parse(color, 'rgba(%d, %d, %d, %f)' % bg_color)
-            color_btn = Gtk.ColorButton.new_with_rgba(color)
+            color_dialog = Gtk.ColorDialog.new()
+            color_btn = Gtk.ColorDialogButton.new()
+            color_btn.set_rgba(color)
+            color_btn.set_dialog(color_dialog)
             color_btn.set_tooltip_text(_('Select color'))
-            color_btn.set_use_alpha(True)
             color_btn.set_size_request(98, -1)
-            color_btn.connect('color-set', self.color_changed, 1, counter)
+            color_btn.connect('notify::rgba', self.color_changed, (1, counter))
             box.append(color_btn)
             rm_btn = Gtk.Button.new_from_icon_name('edit-delete-symbolic')
             rm_btn.add_css_class('circular')
@@ -592,9 +598,11 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.bg_add_box.append(Gtk.Label.new(_('Add')))
             color = Gdk.RGBA()
             Gdk.RGBA.parse(color, '#000f')
-            self.bg_add_colorbtn = Gtk.ColorButton.new_with_rgba(color)
+            self.bg_add_colordialog = Gtk.ColorDialog.new()
+            self.bg_add_colorbtn = Gtk.ColorDialogButton.new()
+            self.bg_add_colorbtn.set_rgba(color)
+            self.bg_add_colorbtn.set_dialog(self.bg_add_colordialog)
             self.bg_add_colorbtn.set_tooltip_text(_('Select color'))
-            self.bg_add_colorbtn.set_use_alpha(True)
             self.bg_add_box.append(self.bg_add_colorbtn)
             self.bg_add_btn = Gtk.Button.new_from_icon_name('list-add-symbolic')
             self.bg_add_btn.add_css_class('circular')
@@ -644,12 +652,13 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         profiles.pop(active_profile)
         self.settings['color-profiles'] = profiles
 
-    def save_color_profiles(self):
+    def save_color_profiles(self, *args):
         profiles = self.settings['color-profiles']
         active_profile = self.settings['active-color-profile']
         profiles[active_profile] = (profiles[active_profile][0], \
             self.fg_colors, self.bg_colors)
         self.settings['color-profiles'] = profiles
+        return False
 
     def add_color(self, obj, color_type): # color_type 0 for fg, 1 for bg
         if color_type == 0:
@@ -669,7 +678,10 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.bg_colors.pop(index)
         self.save_color_profiles()
 
-    def color_changed(self, obj, color_type, index):
+    def color_changed(self, obj, pspec, args):
+        color_type, index = args
+        if pspec.name != 'rgba':
+            return
         if color_type == 0:
             self.fg_colors.pop(index)
             color = obj.get_rgba()
@@ -680,7 +692,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             color = obj.get_rgba()
             self.bg_colors.insert(index, (round(color.red * 255), \
                 round(color.green * 255), round(color.blue * 255), color.alpha))
-        self.save_color_profiles()
+        # Add delay to let Gtk.ColorDialog close itself
+        # before it will be removed
+        GLib.timeout_add(100, self.save_color_profiles, None)
 
     def apply_style(self, obj):
         if self.btn_light.get_active():
@@ -716,61 +730,47 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.load_settings()
 
     def import_settings_from_file(self, obj):
-        def on_response(dialog, response):
-            if response == Gtk.ResponseType.ACCEPT:
-                import_settings(self, dialog.get_file().get_path())
-                self.load_settings()
-            if not self.flatpak:
-                dialog.close()
+        def on_open(source, res, data):
+            try:
+                file = source.open_finish(res)
+            except:
+                return
+            import_settings(self, file.get_path())
 
-        if self.flatpak:
-            file_chooser = Gtk.FileChooserNative.new(_('Import Settings'), \
-                self, Gtk.FileChooserAction.OPEN, _('Open'), _('Cancel'))
-        else:
-            file_chooser = Gtk.FileChooserDialog()
-            file_chooser.set_transient_for(self)
-            file_chooser.set_title(_('Import Settings'))
-            file_chooser.set_action(Gtk.FileChooserAction.OPEN)
-            file_chooser.add_buttons(_('Open'), Gtk.ResponseType.ACCEPT, \
-                _('Cancel'), Gtk.ResponseType.CANCEL)
-            file_chooser.set_current_folder( \
-                Gio.File.new_for_path(os.environ['HOME']))
-        file_chooser.set_modal(True)
+        file_dialog = Gtk.FileDialog.new()
+        file_dialog.set_modal(True)
+        file_dialog.set_title(_('Import Settings'))
+        file_dialog.set_initial_folder( \
+            Gio.File.new_for_path(os.environ['HOME']))
         file_filter = Gtk.FileFilter.new()
         file_filter.set_name(_('Cavalier Settings File (*.cavalier)'))
         file_filter.add_pattern('*.cavalier')
-        file_chooser.add_filter(file_filter)
         file_filter_all = Gtk.FileFilter.new()
         file_filter_all.set_name(_('All Files'))
         file_filter_all.add_pattern('*')
-        file_chooser.add_filter(file_filter_all)
-        file_chooser.connect('response', on_response)
-        file_chooser.show()
+        file_filter_list = Gio.ListStore.new(Gtk.FileFilter);
+        file_filter_list.append(file_filter)
+        file_filter_list.append(file_filter_all)
+        file_dialog.set_filters(file_filter_list)
+        file_dialog.open(self, None, on_open, None)
 
     def export_settings_to_file(self, obj):
-        def on_response(dialog, response):
-            if response == Gtk.ResponseType.ACCEPT:
-                export_settings(self, dialog.get_file().get_path())
-            if not self.flatpak:
-                dialog.close()
+        def on_save(source, res, data):
+            try:
+                file = source.save_finish(res)
+            except:
+                return
+            export_settings(self, file.get_path())
 
-        if self.flatpak:
-            file_chooser = Gtk.FileChooserNative.new(_('Export Settings'), \
-                self, Gtk.FileChooserAction.SAVE, _('Save'), _('Cancel'))
-        else:
-            file_chooser = Gtk.FileChooserDialog()
-            file_chooser.set_transient_for(self)
-            file_chooser.set_title(_('Export Settings'))
-            file_chooser.set_action(Gtk.FileChooserAction.SAVE)
-            file_chooser.add_buttons(_('Save'), Gtk.ResponseType.ACCEPT, \
-                _('Cancel'), Gtk.ResponseType.CANCEL)
-            file_chooser.set_current_folder( \
-                Gio.File.new_for_path(os.environ['HOME']))
-        file_chooser.set_modal(True)
+        file_dialog = Gtk.FileDialog.new()
+        file_dialog.set_modal(True)
+        file_dialog.set_title(_('Export Settings'))
+        file_dialog.set_initial_folder( \
+            Gio.File.new_for_path(os.environ['HOME']))
         file_filter = Gtk.FileFilter.new()
         file_filter.set_name(_('Cavalier Settings File (*.cavalier)'))
         file_filter.add_pattern('*.cavalier')
-        file_chooser.add_filter(file_filter)
-        file_chooser.set_current_name('settings.cavalier')
-        file_chooser.connect('response', on_response)
-        file_chooser.show()
+        file_filter_list = Gio.ListStore.new(Gtk.FileFilter);
+        file_filter_list.append(file_filter)
+        file_dialog.set_filters(file_filter_list)
+        file_dialog.save(self, None, on_save, None)
