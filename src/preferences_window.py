@@ -165,6 +165,16 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.window_group = Adw.PreferencesGroup.new()
         self.cavalier_page.add(self.window_group)
 
+        self.pref_borderless = Adw.ActionRow.new()
+        self.pref_borderless.set_title(_('Borderless window'))
+        self.pref_borderless.set_subtitle( \
+            _('Whether to disable window shadow and borders.'))
+        self.pref_borderless_switch = Gtk.Switch.new()
+        self.pref_borderless_switch.set_valign(Gtk.Align.CENTER)
+        self.pref_borderless.add_suffix(self.pref_borderless_switch)
+        self.pref_borderless.set_activatable_widget(self.pref_borderless_switch)
+        self.window_group.add(self.pref_borderless)
+
         self.pref_sharp_corners = Adw.ActionRow.new()
         self.pref_sharp_corners.set_title(_('Sharp corners'))
         self.pref_sharp_corners.set_subtitle( \
@@ -408,6 +418,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             round(self.settings['items-roundness'] / 50.0, 2))
         self.pref_thickness_scale.set_value(self.settings['line-thickness'])
         self.pref_fill_switch.set_active(self.settings['fill'])
+        self.pref_borderless_switch.set_active( \
+            self.settings['borderless-window'])
         self.pref_sharp_corners_switch.set_active( \
             self.settings['sharp-corners'])
         self.pref_show_controls_switch.set_active( \
@@ -475,6 +487,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
                 'fill', self.pref_fill_switch.get_state()))
         # `notify::state` signal returns additional parameter that
         # we don't need, that's why lambda is used.
+        self.pref_borderless_switch.connect('notify::state', \
+            lambda *args : self.save_setting(self.pref_borderless_switch, \
+                'borderless-window', self.pref_borderless_switch.get_state()))
         self.pref_sharp_corners_switch.connect('notify::state', \
             lambda *args : self.save_setting(self.pref_sharp_corners_switch, \
                 'sharp-corners', self.pref_sharp_corners_switch.get_state()))

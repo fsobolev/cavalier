@@ -153,6 +153,10 @@ class CavalierWindow(Adw.ApplicationWindow):
                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
     def on_settings_changed(self):
+        if self.settings['borderless-window']:
+            self.add_css_class('borderless-window')
+        elif self.has_css_class('borderless-window'):
+            self.remove_css_class('borderless-window')
         self.header.set_show_start_title_buttons( \
             self.settings['window-controls'])
         self.header.set_show_end_title_buttons(self.settings['window-controls'])

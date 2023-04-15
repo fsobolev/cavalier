@@ -10,6 +10,11 @@
 			<description>Whether main window is maximized or not</description>
 			<default>false</default>
 		</key>
+		<key name="borderless-window" type="b">
+			<summary>Borderless window</summary>
+			<description>Whether to disable window shadow and borders.</description>
+			<default>false</default>
+		</key>
 		<key name="window-controls" type="b">
 			<summary>Window controls</summary>
 			<description>Whether to show window control buttons.</description>
