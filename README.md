@@ -1,3 +1,5 @@
+# Moved to https://github.com/NickvisionApps/Cavalier
+
 <p><img src="https://github.com/fsobolev/cavalier/raw/master/data/icons/hicolor/scalable/apps/io.github.fsobolev.Cavalier.svg" width=128px align="left"><h1>Cavalier</h1>
 
 Audio visualizer based on CAVA</p>
