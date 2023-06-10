@@ -36,6 +36,12 @@
                         </child>
                         <child>
                             <object class='GtkShortcutsShortcut'>
+                                <property name='title' translatable='yes'>Toggle Inner Circle</property>
+                                <property name='accelerator'>I</property>
+                            </object>
+                        </child>
+                        <child>
+                            <object class='GtkShortcutsShortcut'>
                                 <property name='title' translatable='yes'>Toggle Filling</property>
                                 <property name='accelerator'>F</property>
                             </object>

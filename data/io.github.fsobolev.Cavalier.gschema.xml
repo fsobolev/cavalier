@@ -37,6 +37,22 @@
 			</choices>
 			<default>"wave"</default>
 		</key>
+		<key name="circle" type="b">
+			<summary>Circle</summary>
+			<description>Whether to modify drawing modes to draw in circle</description>
+			<default>false</default>
+		</key>
+		<key name="wave-inner-circle" type="b">
+			<summary>Wave - Show Inner Circle</summary>
+			<description>Whether to show the inner circle when using Wave mode Circle variant.</description>
+			<default>false</default>
+		</key>
+		<key name="radius" type="i">
+			<summary>Radius</summary>
+			<description>Radius of base circle (in percent)</description>
+			<range min="0" max="100"/>
+			<default>40</default>
+		</key>
 		<key name="margin" type="i">
 			<summary>Drawing area margin</summary>
 			<description>Size of gaps around drawing area (in pixels).</description>
@@ -52,8 +68,8 @@
 		<key name="items-roundness" type="i">
 			<summary>Roundness of items</summary>
 			<description>This setting affects "levels", "particles" and "spine" modes.</description>
-			<range min="0" max="50"/>
-			<default>10</default>
+			<range min="0" max="100"/>
+			<default>20</default>
 		</key>
 			<key name="line-thickness" type="i">
 			<summary>Thickness of lines</summary>

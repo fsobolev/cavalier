@@ -31,7 +31,7 @@
 from gi.repository import Gtk, GObject
 from threading import Thread
 from cavalier.cava import Cava
-from cavalier.draw_functions import wave, levels, particles, spine, bars
+from cavalier.draw_functions import *
 from cavalier.settings import CavalierSettings
 
 class CavalierDrawingArea(Gtk.DrawingArea):
@@ -64,6 +64,9 @@ class CavalierDrawingArea(Gtk.DrawingArea):
 
     def on_settings_changed(self, key):
         self.draw_mode = self.settings['mode']
+        self.circle = self.settings['circle']
+        self.wave_inner_circle = self.settings['wave-inner-circle']
+        self.radius = self.settings['radius']
         self.set_margin_top(self.settings['margin'])
         self.set_margin_bottom(self.settings['margin'])
         self.set_margin_start(self.settings['margin'])
@@ -98,8 +101,13 @@ class CavalierDrawingArea(Gtk.DrawingArea):
     def draw_func(self, area, cr, width, height, data, n):
         if len(self.cava_sample) > 0:
             if self.draw_mode == 'wave':
-                wave(self.cava_sample, cr, width, height, self.colors, \
-                    self.fill, self.thickness)
+                if self.circle:
+                    wave_circle(self.cava_sample, cr, width, height, \
+                        self.colors, self.radius, self.fill, self.thickness, \
+                        self.wave_inner_circle)
+                else:
+                    wave(self.cava_sample, cr, width, height, self.colors, \
+                        self.fill, self.thickness)
             elif self.draw_mode == 'levels':
                 levels(self.cava_sample, cr, width, height, self.colors, \
                     self.offset, self.roundness, self.fill, self.thickness)
@@ -110,8 +118,13 @@ class CavalierDrawingArea(Gtk.DrawingArea):
                 spine(self.cava_sample, cr, width, height, self.colors, \
                     self.offset, self.roundness, self.fill, self.thickness)
             elif self.draw_mode == 'bars':
-                bars(self.cava_sample, cr, width, height, self.colors, \
-                    self.offset, self.fill, self.thickness)
+                if self.circle:
+                    bars_circle(self.cava_sample, cr, width, height, \
+                        self.colors, self.offset, self.fill, \
+                        self.thickness, self.radius)
+                else:
+                    bars(self.cava_sample, cr, width, height, self.colors, \
+                        self.offset, self.fill, self.thickness)
 
     def redraw(self):
         self.queue_draw()

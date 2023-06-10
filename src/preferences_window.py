@@ -48,7 +48,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.create_cava_page()
         self.create_colors_page()
         self.settings_bind = False
-        self.do_not_change_profile = False
+        self.do_not_update = False
         self.load_settings()
 
     def create_cavalier_page(self):
@@ -66,6 +66,13 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.wave_check_btn = Gtk.CheckButton.new()
         self.wave_row.add_prefix(self.wave_check_btn)
         self.wave_row.set_activatable_widget(self.wave_check_btn)
+        self.wave_inner_circle_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 10)
+        self.wave_row.add_suffix(self.wave_inner_circle_box)
+        self.wave_inner_circle_label = Gtk.Label.new(_('Show inner circle'))
+        self.wave_inner_circle_box.append(self.wave_inner_circle_label)
+        self.wave_inner_circle_switch = Gtk.Switch.new()
+        self.wave_inner_circle_switch.set_valign(Gtk.Align.CENTER)
+        self.wave_inner_circle_box.append(self.wave_inner_circle_switch)
         self.cavalier_mode_group.add(self.wave_row)
 
         self.levels_row = Adw.ActionRow.new()
@@ -100,6 +107,34 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.bars_row.set_activatable_widget(self.bars_check_btn)
         self.cavalier_mode_group.add(self.bars_row)
 
+        self.mode_variant_stack = Gtk.Stack.new()
+        self.mode_variant_stack.set_margin_top(24)
+        self.cavalier_mode_group.add(self.mode_variant_stack)
+
+        self.box_group = Adw.PreferencesGroup.new()
+        self.mode_variant_stack.add_titled(self.box_group, 'box', _('Box'))
+        self.pref_mirror = Adw.ActionRow.new()
+        self.pref_mirror.set_title(_('Mirror'))
+        self.box_group.add(self.pref_mirror)
+
+        self.circle_group = Adw.PreferencesGroup.new()
+        self.mode_variant_stack.add_titled(self.circle_group, 'circle', \
+            _('Circle'))
+        self.pref_radius = Adw.ActionRow.new()
+        self.pref_radius.set_title(_('Radius'))
+        self.pref_radius.set_subtitle(_('Radius of base circle (in percent)'))
+        self.pref_radius_scale = Gtk.Scale.new_with_range( \
+            Gtk.Orientation.HORIZONTAL, 0.0, 100.0, 1.0)
+        self.pref_radius_scale.set_size_request(180, -1)
+        self.pref_radius_scale.set_draw_value(True)
+        self.pref_radius_scale.set_value_pos(Gtk.PositionType.LEFT)
+        self.pref_radius.add_suffix(self.pref_radius_scale)
+        self.circle_group.add(self.pref_radius)
+
+        self.circle_switcher = Gtk.StackSwitcher.new()
+        self.circle_switcher.set_stack(self.mode_variant_stack)
+        self.cavalier_mode_group.set_header_suffix(self.circle_switcher)
+
         self.cavalier_group = Adw.PreferencesGroup.new()
         self.cavalier_page.add(self.cavalier_group)
 
@@ -132,7 +167,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_roundness.set_subtitle( \
             _('This setting affects "levels", "particles" and "spine" modes.\n0 - square, 1 - round'))
         self.pref_roundness_scale = Gtk.Scale.new_with_range( \
-            Gtk.Orientation.HORIZONTAL, 0.0, 1.0, 0.02)
+            Gtk.Orientation.HORIZONTAL, 0.0, 1.0, 0.01)
         self.pref_roundness_scale.set_size_request(190, -1)
         self.pref_roundness_scale.set_draw_value(True)
         self.pref_roundness_scale.set_value_pos(Gtk.PositionType.LEFT)
@@ -408,14 +443,23 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.bg_color_btns = []
 
     def load_settings(self):
+        self.do_not_update = True
         (self.wave_check_btn, self.levels_check_btn, \
             self.particles_check_btn, self.spine_check_btn, self.bars_check_btn)[ \
             self.settings.get_range('mode')[1].index(self.settings['mode']) \
             ].set_active(True)
+        self.mode_variant_stack.set_visible_child_name( \
+            'circle' if self.settings['circle'] else 'box')
+        self.box_group.set_visible(not self.settings['circle'])
+        self.circle_group.set_visible(self.settings['circle'])
+        self.wave_inner_circle_box.set_visible(self.settings['circle'])
+        self.wave_inner_circle_switch.set_active( \
+            self.settings['wave-inner-circle'])
+        self.pref_radius_scale.set_value(self.settings['radius'])
         self.pref_margin_scale.set_value(self.settings['margin'])
         self.pref_offset_scale.set_value(self.settings['items-offset'])
         self.pref_roundness_scale.set_value( \
-            round(self.settings['items-roundness'] / 50.0, 2))
+            round(self.settings['items-roundness'] / 100.0, 2))
         self.pref_thickness_scale.set_value(self.settings['line-thickness'])
         self.pref_fill_switch.set_active(self.settings['fill'])
         self.pref_borderless_switch.set_active( \
@@ -447,7 +491,6 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.bind_settings()
         profiles = self.settings['color-profiles']
         active_profile = self.settings['active-color-profile']
-        self.do_not_change_profile = True
         while self.profiles_list.get_n_items() > 0:
             self.profiles_list.remove(0)
         for p in profiles:
@@ -458,26 +501,36 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         except:
             self.settings['active-color-profile'] = 0
             return
-        self.do_not_change_profile = False
         self.profiles_dropdown.set_selected(active_profile)
         self.profile_remove_button.set_sensitive(active_profile != 0)
         self.clear_colors_grid()
         self.fill_colors_grid()
+        self.do_not_update = False
 
     def bind_settings(self):
         self.wave_check_btn.connect('toggled', self.change_mode, 'wave')
+        self.wave_inner_circle_switch.connect('notify::state', \
+            lambda *args : self.save_setting(self.wave_inner_circle_switch, \
+                'wave-inner-circle', self.wave_inner_circle_switch.get_state()))
         self.levels_check_btn.connect('toggled', self.change_mode, 'levels')
         self.particles_check_btn.connect('toggled', self.change_mode, \
             'particles')
         self.spine_check_btn.connect('toggled', self.change_mode, 'spine')
         self.bars_check_btn.connect('toggled', self.change_mode, 'bars')
+        # `notify::visible-child` signal returns additional parameter that
+        # we don't need, that's why lambda is used.
+        self.mode_variant_stack.connect('notify::visible-child', \
+            lambda *args: self.save_setting(self.mode_variant_stack, 'circle', \
+                self.mode_variant_stack.get_visible_child_name() == 'circle'))
+        self.pref_radius_scale.connect('value-changed', self.save_setting, \
+            'radius', self.pref_radius_scale.get_value)
         self.pref_margin_scale.connect('value-changed', self.save_setting, \
             'margin', self.pref_margin_scale.get_value)
         self.pref_offset_scale.connect('value-changed', self.save_setting, \
             'items-offset', self.pref_offset_scale.get_value)
         self.pref_roundness_scale.connect('value-changed', self.save_setting, \
             'items-roundness', lambda *args : \
-            self.pref_roundness_scale.get_value() * 50.0)
+            self.pref_roundness_scale.get_value() * 100.0)
         self.pref_thickness_scale.connect('value-changed', self.save_setting, \
             'line-thickness', self.pref_thickness_scale.get_value)
         # `notify::state` signal returns additional parameter that
@@ -636,7 +689,7 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
                 break
 
     def select_color_profile(self, obj, pos):
-        if self.do_not_change_profile:
+        if self.do_not_update:
             return
         if self.profiles_dropdown.get_selected() != \
                 self.settings['active-color-profile']:
