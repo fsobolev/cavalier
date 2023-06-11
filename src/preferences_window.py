@@ -208,6 +208,17 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.pref_autohide_header_switch)
         self.window_group.add(self.pref_autohide_header)
 
+        self.pref_gpu_accel = Adw.ActionRow.new()
+        self.pref_gpu_accel.set_title(_('GPU acceleration (experimental)'))
+        self.pref_gpu_accel.set_subtitle( \
+            _('Whether to render the visualization using the GPU.'))
+        self.pref_gpu_accel_switch = Gtk.Switch.new()
+        self.pref_gpu_accel_switch.set_valign(Gtk.Align.CENTER)
+        self.pref_gpu_accel.add_suffix(self.pref_gpu_accel_switch)
+        self.pref_gpu_accel.set_activatable_widget( \
+            self.pref_gpu_accel_switch)
+        self.window_group.add(self.pref_gpu_accel)
+
         self.box_import_export = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 12)
         self.box_import_export.set_halign(Gtk.Align.CENTER)
         self.box_import_export.set_margin_top(24)
@@ -426,6 +437,8 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
             self.settings['window-controls'])
         self.pref_autohide_header_switch.set_active( \
             self.settings['autohide-header'])
+        self.pref_gpu_accel_switch.set_active( \
+            self.settings['gpu-accel'])
 
         self.cava_bars_scale.set_value(self.settings['bars'])
         self.autosens_switch.set_active(self.settings['autosens'])
@@ -499,6 +512,9 @@ class CavalierPreferencesWindow(Adw.PreferencesWindow):
         self.pref_autohide_header_switch.connect('notify::state', \
             lambda *args : self.save_setting(self.pref_autohide_header_switch, \
                 'autohide-header', self.pref_autohide_header_switch.get_state()))
+        self.pref_gpu_accel_switch.connect('notify::state', \
+            lambda *args : self.save_setting(self.pref_gpu_accel_switch, \
+                'gpu-accel', self.pref_gpu_accel_switch.get_state()))
 
         self.cava_bars_scale.connect('value-changed', self.change_bars_count)
         # `notify::state` signal returns additional parameter that

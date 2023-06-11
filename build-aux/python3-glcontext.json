@@ -1,0 +1,14 @@
+{
+    "name": "python3-glcontext",
+    "buildsystem": "simple",
+    "build-commands": [
+        "pip3 install --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"glcontext==2.3.7\" --no-build-isolation"
+    ],
+    "sources": [
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/24/41/181a4354bf6373bc8a704f30a8fc059eed87bea7d77a1eb79fb57c8772b9/glcontext-2.3.7.tar.gz",
+            "sha256": "bb2d0503f45ad85ca7319bd37fd983e374b3f824c38a450b5f72cfc974114156"
+        }
+    ]
+}
